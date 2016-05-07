@@ -9,6 +9,7 @@
 #include <fcntl.h>
 #include <cassert>
 #include <pthread.h>
+#include <queue>
 #include <unistd.h>
 #include <chrono>
 #include <algorithm>
