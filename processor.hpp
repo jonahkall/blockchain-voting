@@ -14,6 +14,7 @@
 #include <pthread.h>
 #include <queue>
 #include <unistd.h>
+#include <list>
 #include <chrono>
 #include <algorithm>
 #include <thread>
@@ -30,14 +31,14 @@ struct transaction {
   size_t size;
   char* sender_public_key;
   char* vote; // Public key of person you are voting for.
-  double timestamp; // Is there a C++ date/time library? Chrono. 
+  double timestamp;
 };
 
 // Block (SHA: Block Number, Pointer to previous block, Magic String, Merkel Root,
 // List of transactions, Identity of verifying organization (public key?)
 class block {
   public:
-    int block_number;
+    unsigned block_number;
     char* prev_block_SHA1;
     char* magic_string;
     char* merkle_root;
@@ -58,20 +59,21 @@ class blockchain {
     block* get_head_block();
   
   private:
-  	std::vector<block> blocks_;
+  	std::list<block> blocks_;
   	int chain_length_; 
 };
 
-class transaction_queue {
+template <class T>
+class synchronized_queue {
   private:
-  	std::queue<transaction*> queue_;
+  	std::queue<T*> queue_;
   	pthread_mutex_t lock_;
   	pthread_cond_t cv_;
   
   public:
   	void init();
-  	void push(transaction* t);
-  	transaction* pop();
+  	void push(T* t);
+  	T* pop();
 };
 
 
