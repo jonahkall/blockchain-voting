@@ -62,20 +62,23 @@ block* blockchain::get_head_block(){
 	return NULL;
 }
 
-void transaction_queue::init() {
-	pthread_mutex_init(&lock_, NULL);
-	pthread_cond_init(&cv_, NULL);
+template <class T>
+void synchronized_queue<T>::init() {
+	// pthread_mutex_init(&lock_, NULL);
+	// pthread_cond_init(&cv_, NULL);
 }
 
-void transaction_queue::push(transaction* t) {
+template <class T>
+void synchronized_queue<T>::push(T* t) {
 	pthread_mutex_lock(&lock_);
 	queue_.push(t);
 	pthread_cond_signal(&cv_);
 	pthread_mutex_unlock(&lock_);
 }
 
-transaction* transaction_queue::pop() {
-	transaction* ret;
+template <class T>
+T* synchronized_queue<T>::pop() {
+	T* ret;
 	pthread_mutex_lock(&lock_);
 	while (queue_.size() == 0) {
 		pthread_cond_wait(&cv_, &lock_);

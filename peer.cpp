@@ -5,11 +5,11 @@
 using namespace std;
 
 struct comm_thread_args {
-	transaction_queue* q;
+	synchronized_queue<transaction>* q;
 };
 
 struct processing_thread_args {
-	transaction_queue* q;
+	synchronized_queue<transaction>* q;
 };
 
 void* comm_thread (void* arg) {
@@ -28,7 +28,7 @@ int main () {
 	pthread_t comm_t;
 	pthread_t processing_t;
 
-	transaction_queue tq = transaction_queue();
+	synchronized_queue<transaction> tq = synchronized_queue<transaction>();
 	tq.init();
 
 	comm_thread_args cta;
