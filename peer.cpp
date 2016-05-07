@@ -21,8 +21,8 @@ void* comm_thread (void* arg) {
 void* processing_thread(void* arg) {
 	processing_thread_args* ptap = (processing_thread_args *) arg;
 	cout << "Hello from processing thread\n";
-	std::unordered_set voters;
-	
+	//td::unordered_set voters;
+
 	while(true) {
 		// Check if the block_queue is empty. If not, add the block as necessary. 
 
