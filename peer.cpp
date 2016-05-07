@@ -5,11 +5,11 @@
 using namespace std;
 
 struct comm_thread_args {
-	synchronized_queue<transaction>* q;
+	synchronized_queue<transaction*>* q;
 };
 
 struct processing_thread_args {
-	synchronized_queue<transaction>* q;
+	synchronized_queue<transaction*>* q;
 };
 
 void* comm_thread (void* arg) {
@@ -21,7 +21,6 @@ void* comm_thread (void* arg) {
 void* processing_thread(void* arg) {
 	processing_thread_args* ptap = (processing_thread_args *) arg;
 	cout << "Hello from processing thread\n";
-	//td::unordered_set voters;
 
 	while(true) {
 		// Check if the block_queue is empty. If not, add the block as necessary. 
@@ -42,7 +41,7 @@ int main () {
 	pthread_t comm_t;
 	pthread_t processing_t;
 
-	synchronized_queue<transaction> tq = synchronized_queue<transaction>();
+	synchronized_queue<transaction*> tq = synchronized_queue<transaction*>();
 	tq.init();
 
 	comm_thread_args cta;

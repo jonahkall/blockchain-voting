@@ -89,3 +89,5 @@ T* synchronized_queue<T>::pop() {
 	return ret;
 }
 
+template class synchronized_queue<transaction*>;
+template class synchronized_queue<block*>;
