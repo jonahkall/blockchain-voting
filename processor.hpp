@@ -53,7 +53,7 @@ class block {
     char* verifier_public_key;
     char* finhash;
 
-  char* calculate_merkle_root();
+  unsigned char* calculate_merkle_root();
   char* verify_block_number();
   
 };

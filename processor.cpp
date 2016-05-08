@@ -5,13 +5,13 @@ using namespace std;
 using namespace std::chrono;
 
 
-char* block::calculate_merkle_root() {
+unsigned char* block::calculate_merkle_root() {
 	// Calculate and return the Merkle root. 
 
 	// For now, we can just implement this by calculating the 
 	// SHA1 of the first element.
 	// TODO: This probably needs to be heap allocated.
-	unsigned char hash[SHA_DIGEST_LENGTH]; // == 20
+	unsigned char* hash = new unsigned char[SHA_DIGEST_LENGTH]; // == 20
 	const unsigned char* data_to_hash = 
 	    (const unsigned char*) transaction_array[0]->sender_public_key.c_str();
  	SHA1(data_to_hash, sizeof(data_to_hash), hash);
