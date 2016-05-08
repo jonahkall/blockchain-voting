@@ -34,13 +34,13 @@ class Miner GRPC_FINAL {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    virtual ::grpc::Status BroadcastBlock(::grpc::ClientContext* context, const ::onvevote::Block& request, ::onvevote::Success* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::Success>> AsyncBroadcastBlock(::grpc::ClientContext* context, const ::onvevote::Block& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::Success>>(AsyncBroadcastBlockRaw(context, request, cq));
+    virtual ::grpc::Status BroadcastBlock(::grpc::ClientContext* context, const ::onvevote::Block& request, ::onvevote::Empty* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::Empty>> AsyncBroadcastBlock(::grpc::ClientContext* context, const ::onvevote::Block& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::Empty>>(AsyncBroadcastBlockRaw(context, request, cq));
     }
-    virtual ::grpc::Status BroadcastTransaction(::grpc::ClientContext* context, const ::onvevote::Transaction& request, ::onvevote::Success* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::Success>> AsyncBroadcastTransaction(::grpc::ClientContext* context, const ::onvevote::Transaction& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::Success>>(AsyncBroadcastTransactionRaw(context, request, cq));
+    virtual ::grpc::Status BroadcastTransaction(::grpc::ClientContext* context, const ::onvevote::Transaction& request, ::onvevote::Empty* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::Empty>> AsyncBroadcastTransaction(::grpc::ClientContext* context, const ::onvevote::Transaction& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::Empty>>(AsyncBroadcastTransactionRaw(context, request, cq));
     }
     virtual ::grpc::Status GetAddr(::grpc::ClientContext* context, const ::onvevote::AddrRequest& request, ::onvevote::AddrResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::AddrResponse>> AsyncGetAddr(::grpc::ClientContext* context, const ::onvevote::AddrRequest& request, ::grpc::CompletionQueue* cq) {
@@ -54,28 +54,28 @@ class Miner GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::Block>> AsyncGetBlock(::grpc::ClientContext* context, const ::onvevote::BlockRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::Block>>(AsyncGetBlockRaw(context, request, cq));
     }
-    virtual ::grpc::Status GetHeartbeat(::grpc::ClientContext* context, const ::onvevote::EmptyRequest& request, ::onvevote::Success* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::Success>> AsyncGetHeartbeat(::grpc::ClientContext* context, const ::onvevote::EmptyRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::Success>>(AsyncGetHeartbeatRaw(context, request, cq));
+    virtual ::grpc::Status GetHeartbeat(::grpc::ClientContext* context, const ::onvevote::Empty& request, ::onvevote::Empty* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::Empty>> AsyncGetHeartbeat(::grpc::ClientContext* context, const ::onvevote::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::Empty>>(AsyncGetHeartbeatRaw(context, request, cq));
     }
   private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::Success>* AsyncBroadcastBlockRaw(::grpc::ClientContext* context, const ::onvevote::Block& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::Success>* AsyncBroadcastTransactionRaw(::grpc::ClientContext* context, const ::onvevote::Transaction& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::Empty>* AsyncBroadcastBlockRaw(::grpc::ClientContext* context, const ::onvevote::Block& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::Empty>* AsyncBroadcastTransactionRaw(::grpc::ClientContext* context, const ::onvevote::Transaction& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::AddrResponse>* AsyncGetAddrRaw(::grpc::ClientContext* context, const ::onvevote::AddrRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::Transaction>* AsyncGetTransactionRaw(::grpc::ClientContext* context, const ::onvevote::TransactionRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::Block>* AsyncGetBlockRaw(::grpc::ClientContext* context, const ::onvevote::BlockRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::Success>* AsyncGetHeartbeatRaw(::grpc::ClientContext* context, const ::onvevote::EmptyRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::onvevote::Empty>* AsyncGetHeartbeatRaw(::grpc::ClientContext* context, const ::onvevote::Empty& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub GRPC_FINAL : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
-    ::grpc::Status BroadcastBlock(::grpc::ClientContext* context, const ::onvevote::Block& request, ::onvevote::Success* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::onvevote::Success>> AsyncBroadcastBlock(::grpc::ClientContext* context, const ::onvevote::Block& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::onvevote::Success>>(AsyncBroadcastBlockRaw(context, request, cq));
+    ::grpc::Status BroadcastBlock(::grpc::ClientContext* context, const ::onvevote::Block& request, ::onvevote::Empty* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::onvevote::Empty>> AsyncBroadcastBlock(::grpc::ClientContext* context, const ::onvevote::Block& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::onvevote::Empty>>(AsyncBroadcastBlockRaw(context, request, cq));
     }
-    ::grpc::Status BroadcastTransaction(::grpc::ClientContext* context, const ::onvevote::Transaction& request, ::onvevote::Success* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::onvevote::Success>> AsyncBroadcastTransaction(::grpc::ClientContext* context, const ::onvevote::Transaction& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::onvevote::Success>>(AsyncBroadcastTransactionRaw(context, request, cq));
+    ::grpc::Status BroadcastTransaction(::grpc::ClientContext* context, const ::onvevote::Transaction& request, ::onvevote::Empty* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::onvevote::Empty>> AsyncBroadcastTransaction(::grpc::ClientContext* context, const ::onvevote::Transaction& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::onvevote::Empty>>(AsyncBroadcastTransactionRaw(context, request, cq));
     }
     ::grpc::Status GetAddr(::grpc::ClientContext* context, const ::onvevote::AddrRequest& request, ::onvevote::AddrResponse* response) GRPC_OVERRIDE;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::onvevote::AddrResponse>> AsyncGetAddr(::grpc::ClientContext* context, const ::onvevote::AddrRequest& request, ::grpc::CompletionQueue* cq) {
@@ -89,19 +89,19 @@ class Miner GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::onvevote::Block>> AsyncGetBlock(::grpc::ClientContext* context, const ::onvevote::BlockRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::onvevote::Block>>(AsyncGetBlockRaw(context, request, cq));
     }
-    ::grpc::Status GetHeartbeat(::grpc::ClientContext* context, const ::onvevote::EmptyRequest& request, ::onvevote::Success* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::onvevote::Success>> AsyncGetHeartbeat(::grpc::ClientContext* context, const ::onvevote::EmptyRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::onvevote::Success>>(AsyncGetHeartbeatRaw(context, request, cq));
+    ::grpc::Status GetHeartbeat(::grpc::ClientContext* context, const ::onvevote::Empty& request, ::onvevote::Empty* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::onvevote::Empty>> AsyncGetHeartbeat(::grpc::ClientContext* context, const ::onvevote::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::onvevote::Empty>>(AsyncGetHeartbeatRaw(context, request, cq));
     }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    ::grpc::ClientAsyncResponseReader< ::onvevote::Success>* AsyncBroadcastBlockRaw(::grpc::ClientContext* context, const ::onvevote::Block& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncResponseReader< ::onvevote::Success>* AsyncBroadcastTransactionRaw(::grpc::ClientContext* context, const ::onvevote::Transaction& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::onvevote::Empty>* AsyncBroadcastBlockRaw(::grpc::ClientContext* context, const ::onvevote::Block& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::onvevote::Empty>* AsyncBroadcastTransactionRaw(::grpc::ClientContext* context, const ::onvevote::Transaction& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::onvevote::AddrResponse>* AsyncGetAddrRaw(::grpc::ClientContext* context, const ::onvevote::AddrRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::onvevote::Transaction>* AsyncGetTransactionRaw(::grpc::ClientContext* context, const ::onvevote::TransactionRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::onvevote::Block>* AsyncGetBlockRaw(::grpc::ClientContext* context, const ::onvevote::BlockRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncResponseReader< ::onvevote::Success>* AsyncGetHeartbeatRaw(::grpc::ClientContext* context, const ::onvevote::EmptyRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::onvevote::Empty>* AsyncGetHeartbeatRaw(::grpc::ClientContext* context, const ::onvevote::Empty& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     const ::grpc::RpcMethod rpcmethod_BroadcastBlock_;
     const ::grpc::RpcMethod rpcmethod_BroadcastTransaction_;
     const ::grpc::RpcMethod rpcmethod_GetAddr_;
@@ -115,12 +115,12 @@ class Miner GRPC_FINAL {
    public:
     Service();
     virtual ~Service();
-    virtual ::grpc::Status BroadcastBlock(::grpc::ServerContext* context, const ::onvevote::Block* request, ::onvevote::Success* response);
-    virtual ::grpc::Status BroadcastTransaction(::grpc::ServerContext* context, const ::onvevote::Transaction* request, ::onvevote::Success* response);
+    virtual ::grpc::Status BroadcastBlock(::grpc::ServerContext* context, const ::onvevote::Block* request, ::onvevote::Empty* response);
+    virtual ::grpc::Status BroadcastTransaction(::grpc::ServerContext* context, const ::onvevote::Transaction* request, ::onvevote::Empty* response);
     virtual ::grpc::Status GetAddr(::grpc::ServerContext* context, const ::onvevote::AddrRequest* request, ::onvevote::AddrResponse* response);
     virtual ::grpc::Status GetTransaction(::grpc::ServerContext* context, const ::onvevote::TransactionRequest* request, ::onvevote::Transaction* response);
     virtual ::grpc::Status GetBlock(::grpc::ServerContext* context, const ::onvevote::BlockRequest* request, ::onvevote::Block* response);
-    virtual ::grpc::Status GetHeartbeat(::grpc::ServerContext* context, const ::onvevote::EmptyRequest* request, ::onvevote::Success* response);
+    virtual ::grpc::Status GetHeartbeat(::grpc::ServerContext* context, const ::onvevote::Empty* request, ::onvevote::Empty* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_BroadcastBlock : public BaseClass {
@@ -134,11 +134,11 @@ class Miner GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status BroadcastBlock(::grpc::ServerContext* context, const ::onvevote::Block* request, ::onvevote::Success* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status BroadcastBlock(::grpc::ServerContext* context, const ::onvevote::Block* request, ::onvevote::Empty* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestBroadcastBlock(::grpc::ServerContext* context, ::onvevote::Block* request, ::grpc::ServerAsyncResponseWriter< ::onvevote::Success>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestBroadcastBlock(::grpc::ServerContext* context, ::onvevote::Block* request, ::grpc::ServerAsyncResponseWriter< ::onvevote::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -154,11 +154,11 @@ class Miner GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status BroadcastTransaction(::grpc::ServerContext* context, const ::onvevote::Transaction* request, ::onvevote::Success* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status BroadcastTransaction(::grpc::ServerContext* context, const ::onvevote::Transaction* request, ::onvevote::Empty* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestBroadcastTransaction(::grpc::ServerContext* context, ::onvevote::Transaction* request, ::grpc::ServerAsyncResponseWriter< ::onvevote::Success>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestBroadcastTransaction(::grpc::ServerContext* context, ::onvevote::Transaction* request, ::grpc::ServerAsyncResponseWriter< ::onvevote::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -234,11 +234,11 @@ class Miner GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetHeartbeat(::grpc::ServerContext* context, const ::onvevote::EmptyRequest* request, ::onvevote::Success* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status GetHeartbeat(::grpc::ServerContext* context, const ::onvevote::Empty* request, ::onvevote::Empty* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestGetHeartbeat(::grpc::ServerContext* context, ::onvevote::EmptyRequest* request, ::grpc::ServerAsyncResponseWriter< ::onvevote::Success>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestGetHeartbeat(::grpc::ServerContext* context, ::onvevote::Empty* request, ::grpc::ServerAsyncResponseWriter< ::onvevote::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -255,7 +255,7 @@ class Miner GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status BroadcastBlock(::grpc::ServerContext* context, const ::onvevote::Block* request, ::onvevote::Success* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status BroadcastBlock(::grpc::ServerContext* context, const ::onvevote::Block* request, ::onvevote::Empty* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -272,7 +272,7 @@ class Miner GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status BroadcastTransaction(::grpc::ServerContext* context, const ::onvevote::Transaction* request, ::onvevote::Success* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status BroadcastTransaction(::grpc::ServerContext* context, const ::onvevote::Transaction* request, ::onvevote::Empty* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -340,7 +340,7 @@ class Miner GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetHeartbeat(::grpc::ServerContext* context, const ::onvevote::EmptyRequest* request, ::onvevote::Success* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status GetHeartbeat(::grpc::ServerContext* context, const ::onvevote::Empty* request, ::onvevote::Empty* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }

@@ -40,39 +40,38 @@ class AddrRequest;
 class AddrResponse;
 class Block;
 class BlockRequest;
-class EmptyRequest;
-class Success;
+class Empty;
 class Transaction;
 class TransactionRequest;
 
 // ===================================================================
 
-class EmptyRequest : public ::google::protobuf::Message {
+class Empty : public ::google::protobuf::Message {
  public:
-  EmptyRequest();
-  virtual ~EmptyRequest();
+  Empty();
+  virtual ~Empty();
 
-  EmptyRequest(const EmptyRequest& from);
+  Empty(const Empty& from);
 
-  inline EmptyRequest& operator=(const EmptyRequest& from) {
+  inline Empty& operator=(const Empty& from) {
     CopyFrom(from);
     return *this;
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const EmptyRequest& default_instance();
+  static const Empty& default_instance();
 
-  void Swap(EmptyRequest* other);
+  void Swap(Empty* other);
 
   // implements Message ----------------------------------------------
 
-  inline EmptyRequest* New() const { return New(NULL); }
+  inline Empty* New() const { return New(NULL); }
 
-  EmptyRequest* New(::google::protobuf::Arena* arena) const;
+  Empty* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const EmptyRequest& from);
-  void MergeFrom(const EmptyRequest& from);
+  void CopyFrom(const Empty& from);
+  void MergeFrom(const Empty& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -87,7 +86,7 @@ class EmptyRequest : public ::google::protobuf::Message {
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(EmptyRequest* other);
+  void InternalSwap(Empty* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -103,7 +102,7 @@ class EmptyRequest : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // @@protoc_insertion_point(class_scope:onvevote.EmptyRequest)
+  // @@protoc_insertion_point(class_scope:onvevote.Empty)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -114,97 +113,7 @@ class EmptyRequest : public ::google::protobuf::Message {
   friend void protobuf_ShutdownFile_node_2eproto();
 
   void InitAsDefaultInstance();
-  static EmptyRequest* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class Success : public ::google::protobuf::Message {
- public:
-  Success();
-  virtual ~Success();
-
-  Success(const Success& from);
-
-  inline Success& operator=(const Success& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const Success& default_instance();
-
-  void Swap(Success* other);
-
-  // implements Message ----------------------------------------------
-
-  inline Success* New() const { return New(NULL); }
-
-  Success* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const Success& from);
-  void MergeFrom(const Success& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(Success* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // optional bool success = 1;
-  void clear_success();
-  static const int kSuccessFieldNumber = 1;
-  bool success() const;
-  void set_success(bool value);
-
-  // optional string message = 2;
-  void clear_message();
-  static const int kMessageFieldNumber = 2;
-  const ::std::string& message() const;
-  void set_message(const ::std::string& value);
-  void set_message(const char* value);
-  void set_message(const char* value, size_t size);
-  ::std::string* mutable_message();
-  ::std::string* release_message();
-  void set_allocated_message(::std::string* message);
-
-  // @@protoc_insertion_point(class_scope:onvevote.Success)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  bool _is_default_instance_;
-  ::google::protobuf::internal::ArenaStringPtr message_;
-  bool success_;
-  mutable int _cached_size_;
-  friend void  protobuf_AddDesc_node_2eproto();
-  friend void protobuf_AssignDesc_node_2eproto();
-  friend void protobuf_ShutdownFile_node_2eproto();
-
-  void InitAsDefaultInstance();
-  static Success* default_instance_;
+  static Empty* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -794,68 +703,7 @@ class BlockRequest : public ::google::protobuf::Message {
 // ===================================================================
 
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
-// EmptyRequest
-
-// -------------------------------------------------------------------
-
-// Success
-
-// optional bool success = 1;
-inline void Success::clear_success() {
-  success_ = false;
-}
-inline bool Success::success() const {
-  // @@protoc_insertion_point(field_get:onvevote.Success.success)
-  return success_;
-}
-inline void Success::set_success(bool value) {
-  
-  success_ = value;
-  // @@protoc_insertion_point(field_set:onvevote.Success.success)
-}
-
-// optional string message = 2;
-inline void Success::clear_message() {
-  message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& Success::message() const {
-  // @@protoc_insertion_point(field_get:onvevote.Success.message)
-  return message_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void Success::set_message(const ::std::string& value) {
-  
-  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:onvevote.Success.message)
-}
-inline void Success::set_message(const char* value) {
-  
-  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:onvevote.Success.message)
-}
-inline void Success::set_message(const char* value, size_t size) {
-  
-  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:onvevote.Success.message)
-}
-inline ::std::string* Success::mutable_message() {
-  
-  // @@protoc_insertion_point(field_mutable:onvevote.Success.message)
-  return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* Success::release_message() {
-  
-  return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void Success::set_allocated_message(::std::string* message) {
-  if (message != NULL) {
-    
-  } else {
-    
-  }
-  message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
-  // @@protoc_insertion_point(field_set_allocated:onvevote.Success.message)
-}
+// Empty
 
 // -------------------------------------------------------------------
 
@@ -1351,8 +1199,6 @@ inline void BlockRequest::set_block_number(::google::protobuf::uint32 value) {
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

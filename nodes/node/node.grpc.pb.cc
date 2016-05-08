@@ -38,20 +38,20 @@ Miner::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   , rpcmethod_GetHeartbeat_(Miner_method_names[5], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::Status Miner::Stub::BroadcastBlock(::grpc::ClientContext* context, const ::onvevote::Block& request, ::onvevote::Success* response) {
+::grpc::Status Miner::Stub::BroadcastBlock(::grpc::ClientContext* context, const ::onvevote::Block& request, ::onvevote::Empty* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_BroadcastBlock_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::onvevote::Success>* Miner::Stub::AsyncBroadcastBlockRaw(::grpc::ClientContext* context, const ::onvevote::Block& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::onvevote::Success>(channel_.get(), cq, rpcmethod_BroadcastBlock_, context, request);
+::grpc::ClientAsyncResponseReader< ::onvevote::Empty>* Miner::Stub::AsyncBroadcastBlockRaw(::grpc::ClientContext* context, const ::onvevote::Block& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::onvevote::Empty>(channel_.get(), cq, rpcmethod_BroadcastBlock_, context, request);
 }
 
-::grpc::Status Miner::Stub::BroadcastTransaction(::grpc::ClientContext* context, const ::onvevote::Transaction& request, ::onvevote::Success* response) {
+::grpc::Status Miner::Stub::BroadcastTransaction(::grpc::ClientContext* context, const ::onvevote::Transaction& request, ::onvevote::Empty* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_BroadcastTransaction_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::onvevote::Success>* Miner::Stub::AsyncBroadcastTransactionRaw(::grpc::ClientContext* context, const ::onvevote::Transaction& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::onvevote::Success>(channel_.get(), cq, rpcmethod_BroadcastTransaction_, context, request);
+::grpc::ClientAsyncResponseReader< ::onvevote::Empty>* Miner::Stub::AsyncBroadcastTransactionRaw(::grpc::ClientContext* context, const ::onvevote::Transaction& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::onvevote::Empty>(channel_.get(), cq, rpcmethod_BroadcastTransaction_, context, request);
 }
 
 ::grpc::Status Miner::Stub::GetAddr(::grpc::ClientContext* context, const ::onvevote::AddrRequest& request, ::onvevote::AddrResponse* response) {
@@ -78,12 +78,12 @@ Miner::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   return new ::grpc::ClientAsyncResponseReader< ::onvevote::Block>(channel_.get(), cq, rpcmethod_GetBlock_, context, request);
 }
 
-::grpc::Status Miner::Stub::GetHeartbeat(::grpc::ClientContext* context, const ::onvevote::EmptyRequest& request, ::onvevote::Success* response) {
+::grpc::Status Miner::Stub::GetHeartbeat(::grpc::ClientContext* context, const ::onvevote::Empty& request, ::onvevote::Empty* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_GetHeartbeat_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::onvevote::Success>* Miner::Stub::AsyncGetHeartbeatRaw(::grpc::ClientContext* context, const ::onvevote::EmptyRequest& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::onvevote::Success>(channel_.get(), cq, rpcmethod_GetHeartbeat_, context, request);
+::grpc::ClientAsyncResponseReader< ::onvevote::Empty>* Miner::Stub::AsyncGetHeartbeatRaw(::grpc::ClientContext* context, const ::onvevote::Empty& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::onvevote::Empty>(channel_.get(), cq, rpcmethod_GetHeartbeat_, context, request);
 }
 
 Miner::Service::Service() {
@@ -91,12 +91,12 @@ Miner::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       Miner_method_names[0],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< Miner::Service, ::onvevote::Block, ::onvevote::Success>(
+      new ::grpc::RpcMethodHandler< Miner::Service, ::onvevote::Block, ::onvevote::Empty>(
           std::mem_fn(&Miner::Service::BroadcastBlock), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       Miner_method_names[1],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< Miner::Service, ::onvevote::Transaction, ::onvevote::Success>(
+      new ::grpc::RpcMethodHandler< Miner::Service, ::onvevote::Transaction, ::onvevote::Empty>(
           std::mem_fn(&Miner::Service::BroadcastTransaction), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       Miner_method_names[2],
@@ -116,21 +116,21 @@ Miner::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       Miner_method_names[5],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< Miner::Service, ::onvevote::EmptyRequest, ::onvevote::Success>(
+      new ::grpc::RpcMethodHandler< Miner::Service, ::onvevote::Empty, ::onvevote::Empty>(
           std::mem_fn(&Miner::Service::GetHeartbeat), this)));
 }
 
 Miner::Service::~Service() {
 }
 
-::grpc::Status Miner::Service::BroadcastBlock(::grpc::ServerContext* context, const ::onvevote::Block* request, ::onvevote::Success* response) {
+::grpc::Status Miner::Service::BroadcastBlock(::grpc::ServerContext* context, const ::onvevote::Block* request, ::onvevote::Empty* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status Miner::Service::BroadcastTransaction(::grpc::ServerContext* context, const ::onvevote::Transaction* request, ::onvevote::Success* response) {
+::grpc::Status Miner::Service::BroadcastTransaction(::grpc::ServerContext* context, const ::onvevote::Transaction* request, ::onvevote::Empty* response) {
   (void) context;
   (void) request;
   (void) response;
@@ -158,7 +158,7 @@ Miner::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status Miner::Service::GetHeartbeat(::grpc::ServerContext* context, const ::onvevote::EmptyRequest* request, ::onvevote::Success* response) {
+::grpc::Status Miner::Service::GetHeartbeat(::grpc::ServerContext* context, const ::onvevote::Empty* request, ::onvevote::Empty* response) {
   (void) context;
   (void) request;
   (void) response;

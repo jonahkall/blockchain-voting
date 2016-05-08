@@ -6,20 +6,15 @@ syntax = "proto3";
 package onvevote;
 
 service Miner {
-	rpc BroadcastBlock (Block) returns (Success) {}
-	rpc BroadcastTransaction (Transaction) returns (Success) {}
+	rpc BroadcastBlock (Block) returns (Empty) {}
+	rpc BroadcastTransaction (Transaction) returns (Empty) {}
 	rpc GetAddr (AddrRequest) returns (AddrResponse) {}
 	rpc GetTransaction (TransactionRequest) returns (Transaction) {}
 	rpc GetBlock (BlockRequest) returns (Block) {}
-	rpc GetHeartbeat (EmptyRequest) returns (Success) {}
+	rpc GetHeartbeat (Empty) returns (Empty) {}
 }
 
-message EmptyRequest {
-}
-
-message Success {
-	bool success = 1;
-	string message = 2;
+message Empty {
 }
 
 message Block {

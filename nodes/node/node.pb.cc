@@ -21,12 +21,9 @@ namespace onvevote {
 
 namespace {
 
-const ::google::protobuf::Descriptor* EmptyRequest_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* Empty_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  EmptyRequest_reflection_ = NULL;
-const ::google::protobuf::Descriptor* Success_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  Success_reflection_ = NULL;
+  Empty_reflection_ = NULL;
 const ::google::protobuf::Descriptor* Block_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Block_reflection_ = NULL;
@@ -55,37 +52,21 @@ void protobuf_AssignDesc_node_2eproto() {
     ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
       "node.proto");
   GOOGLE_CHECK(file != NULL);
-  EmptyRequest_descriptor_ = file->message_type(0);
-  static const int EmptyRequest_offsets_[1] = {
+  Empty_descriptor_ = file->message_type(0);
+  static const int Empty_offsets_[1] = {
   };
-  EmptyRequest_reflection_ =
+  Empty_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EmptyRequest_descriptor_,
-      EmptyRequest::default_instance_,
-      EmptyRequest_offsets_,
+      Empty_descriptor_,
+      Empty::default_instance_,
+      Empty_offsets_,
       -1,
       -1,
       -1,
-      sizeof(EmptyRequest),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EmptyRequest, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EmptyRequest, _is_default_instance_));
-  Success_descriptor_ = file->message_type(1);
-  static const int Success_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Success, success_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Success, message_),
-  };
-  Success_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      Success_descriptor_,
-      Success::default_instance_,
-      Success_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(Success),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Success, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Success, _is_default_instance_));
-  Block_descriptor_ = file->message_type(2);
+      sizeof(Empty),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Empty, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Empty, _is_default_instance_));
+  Block_descriptor_ = file->message_type(1);
   static const int Block_offsets_[8] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Block, block_number_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Block, prev_block_sha1_),
@@ -107,7 +88,7 @@ void protobuf_AssignDesc_node_2eproto() {
       sizeof(Block),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Block, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Block, _is_default_instance_));
-  Transaction_descriptor_ = file->message_type(3);
+  Transaction_descriptor_ = file->message_type(2);
   static const int Transaction_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Transaction, sender_public_key_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Transaction, vote_),
@@ -124,7 +105,7 @@ void protobuf_AssignDesc_node_2eproto() {
       sizeof(Transaction),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Transaction, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Transaction, _is_default_instance_));
-  AddrRequest_descriptor_ = file->message_type(4);
+  AddrRequest_descriptor_ = file->message_type(3);
   static const int AddrRequest_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AddrRequest, num_requested_),
   };
@@ -139,7 +120,7 @@ void protobuf_AssignDesc_node_2eproto() {
       sizeof(AddrRequest),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AddrRequest, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AddrRequest, _is_default_instance_));
-  AddrResponse_descriptor_ = file->message_type(5);
+  AddrResponse_descriptor_ = file->message_type(4);
   static const int AddrResponse_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AddrResponse, peer_),
   };
@@ -154,7 +135,7 @@ void protobuf_AssignDesc_node_2eproto() {
       sizeof(AddrResponse),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AddrResponse, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AddrResponse, _is_default_instance_));
-  TransactionRequest_descriptor_ = file->message_type(6);
+  TransactionRequest_descriptor_ = file->message_type(5);
   static const int TransactionRequest_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TransactionRequest, publickey_),
   };
@@ -169,7 +150,7 @@ void protobuf_AssignDesc_node_2eproto() {
       sizeof(TransactionRequest),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TransactionRequest, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TransactionRequest, _is_default_instance_));
-  BlockRequest_descriptor_ = file->message_type(7);
+  BlockRequest_descriptor_ = file->message_type(6);
   static const int BlockRequest_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BlockRequest, block_number_),
   };
@@ -197,9 +178,7 @@ inline void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EmptyRequest_descriptor_, &EmptyRequest::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      Success_descriptor_, &Success::default_instance());
+      Empty_descriptor_, &Empty::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       Block_descriptor_, &Block::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
@@ -217,10 +196,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
 }  // namespace
 
 void protobuf_ShutdownFile_node_2eproto() {
-  delete EmptyRequest::default_instance_;
-  delete EmptyRequest_reflection_;
-  delete Success::default_instance_;
-  delete Success_reflection_;
+  delete Empty::default_instance_;
+  delete Empty_reflection_;
   delete Block::default_instance_;
   delete Block_reflection_;
   delete Transaction::default_instance_;
@@ -242,41 +219,38 @@ void protobuf_AddDesc_node_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\nnode.proto\022\010onvevote\"\016\n\014EmptyRequest\"+"
-    "\n\007Success\022\017\n\007success\030\001 \001(\010\022\017\n\007message\030\002 "
-    "\001(\t\"\321\001\n\005Block\022\024\n\014block_number\030\010 \001(\r\022\027\n\017p"
-    "rev_block_SHA1\030\001 \001(\t\022\r\n\005magic\030\002 \001(\003\022\023\n\013m"
-    "erkle_root\030\003 \001(\t\022*\n\013transaction\030\004 \003(\0132\025."
-    "onvevote.Transaction\022\030\n\020num_transactions"
-    "\030\005 \001(\r\022\033\n\023verifier_public_key\030\006 \001(\t\022\022\n\nf"
-    "inal_hash\030\007 \001(\t\"I\n\013Transaction\022\031\n\021sender"
-    "_public_key\030\002 \001(\t\022\014\n\004vote\030\003 \001(\t\022\021\n\ttimes"
-    "tamp\030\004 \001(\001\"$\n\013AddrRequest\022\025\n\rnum_request"
-    "ed\030\001 \001(\r\"\034\n\014AddrResponse\022\014\n\004peer\030\001 \003(\t\"\'"
-    "\n\022TransactionRequest\022\021\n\tpublickey\030\001 \001(\t\""
-    "$\n\014BlockRequest\022\024\n\014block_number\030\001 \001(\r2\374\002"
-    "\n\005Miner\0226\n\016BroadcastBlock\022\017.onvevote.Blo"
-    "ck\032\021.onvevote.Success\"\000\022B\n\024BroadcastTran"
-    "saction\022\025.onvevote.Transaction\032\021.onvevot"
-    "e.Success\"\000\022:\n\007GetAddr\022\025.onvevote.AddrRe"
-    "quest\032\026.onvevote.AddrResponse\"\000\022G\n\016GetTr"
-    "ansaction\022\034.onvevote.TransactionRequest\032"
-    "\025.onvevote.Transaction\"\000\0225\n\010GetBlock\022\026.o"
-    "nvevote.BlockRequest\032\017.onvevote.Block\"\000\022"
-    ";\n\014GetHeartbeat\022\026.onvevote.EmptyRequest\032"
-    "\021.onvevote.Success\"\000b\006proto3", 908);
+    "\n\nnode.proto\022\010onvevote\"\007\n\005Empty\"\321\001\n\005Bloc"
+    "k\022\024\n\014block_number\030\010 \001(\r\022\027\n\017prev_block_SH"
+    "A1\030\001 \001(\t\022\r\n\005magic\030\002 \001(\003\022\023\n\013merkle_root\030\003"
+    " \001(\t\022*\n\013transaction\030\004 \003(\0132\025.onvevote.Tra"
+    "nsaction\022\030\n\020num_transactions\030\005 \001(\r\022\033\n\023ve"
+    "rifier_public_key\030\006 \001(\t\022\022\n\nfinal_hash\030\007 "
+    "\001(\t\"I\n\013Transaction\022\031\n\021sender_public_key\030"
+    "\002 \001(\t\022\014\n\004vote\030\003 \001(\t\022\021\n\ttimestamp\030\004 \001(\001\"$"
+    "\n\013AddrRequest\022\025\n\rnum_requested\030\001 \001(\r\"\034\n\014"
+    "AddrResponse\022\014\n\004peer\030\001 \003(\t\"\'\n\022Transactio"
+    "nRequest\022\021\n\tpublickey\030\001 \001(\t\"$\n\014BlockRequ"
+    "est\022\024\n\014block_number\030\001 \001(\r2\357\002\n\005Miner\0224\n\016B"
+    "roadcastBlock\022\017.onvevote.Block\032\017.onvevot"
+    "e.Empty\"\000\022@\n\024BroadcastTransaction\022\025.onve"
+    "vote.Transaction\032\017.onvevote.Empty\"\000\022:\n\007G"
+    "etAddr\022\025.onvevote.AddrRequest\032\026.onvevote"
+    ".AddrResponse\"\000\022G\n\016GetTransaction\022\034.onve"
+    "vote.TransactionRequest\032\025.onvevote.Trans"
+    "action\"\000\0225\n\010GetBlock\022\026.onvevote.BlockReq"
+    "uest\032\017.onvevote.Block\"\000\0222\n\014GetHeartbeat\022"
+    "\017.onvevote.Empty\032\017.onvevote.Empty\"\000b\006pro"
+    "to3", 843);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "node.proto", &protobuf_RegisterTypes);
-  EmptyRequest::default_instance_ = new EmptyRequest();
-  Success::default_instance_ = new Success();
+  Empty::default_instance_ = new Empty();
   Block::default_instance_ = new Block();
   Transaction::default_instance_ = new Transaction();
   AddrRequest::default_instance_ = new AddrRequest();
   AddrResponse::default_instance_ = new AddrResponse();
   TransactionRequest::default_instance_ = new TransactionRequest();
   BlockRequest::default_instance_ = new BlockRequest();
-  EmptyRequest::default_instance_->InitAsDefaultInstance();
-  Success::default_instance_->InitAsDefaultInstance();
+  Empty::default_instance_->InitAsDefaultInstance();
   Block::default_instance_->InitAsDefaultInstance();
   Transaction::default_instance_->InitAsDefaultInstance();
   AddrRequest::default_instance_->InitAsDefaultInstance();
@@ -308,72 +282,72 @@ static void MergeFromFail(int line) {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-EmptyRequest::EmptyRequest()
+Empty::Empty()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:onvevote.EmptyRequest)
+  // @@protoc_insertion_point(constructor:onvevote.Empty)
 }
 
-void EmptyRequest::InitAsDefaultInstance() {
+void Empty::InitAsDefaultInstance() {
   _is_default_instance_ = true;
 }
 
-EmptyRequest::EmptyRequest(const EmptyRequest& from)
+Empty::Empty(const Empty& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:onvevote.EmptyRequest)
+  // @@protoc_insertion_point(copy_constructor:onvevote.Empty)
 }
 
-void EmptyRequest::SharedCtor() {
+void Empty::SharedCtor() {
     _is_default_instance_ = false;
   _cached_size_ = 0;
 }
 
-EmptyRequest::~EmptyRequest() {
-  // @@protoc_insertion_point(destructor:onvevote.EmptyRequest)
+Empty::~Empty() {
+  // @@protoc_insertion_point(destructor:onvevote.Empty)
   SharedDtor();
 }
 
-void EmptyRequest::SharedDtor() {
+void Empty::SharedDtor() {
   if (this != default_instance_) {
   }
 }
 
-void EmptyRequest::SetCachedSize(int size) const {
+void Empty::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* EmptyRequest::descriptor() {
+const ::google::protobuf::Descriptor* Empty::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return EmptyRequest_descriptor_;
+  return Empty_descriptor_;
 }
 
-const EmptyRequest& EmptyRequest::default_instance() {
+const Empty& Empty::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_node_2eproto();
   return *default_instance_;
 }
 
-EmptyRequest* EmptyRequest::default_instance_ = NULL;
+Empty* Empty::default_instance_ = NULL;
 
-EmptyRequest* EmptyRequest::New(::google::protobuf::Arena* arena) const {
-  EmptyRequest* n = new EmptyRequest;
+Empty* Empty::New(::google::protobuf::Arena* arena) const {
+  Empty* n = new Empty;
   if (arena != NULL) {
     arena->Own(n);
   }
   return n;
 }
 
-void EmptyRequest::Clear() {
+void Empty::Clear() {
 }
 
-bool EmptyRequest::MergePartialFromCodedStream(
+bool Empty::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:onvevote.EmptyRequest)
+  // @@protoc_insertion_point(parse_start:onvevote.Empty)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -387,28 +361,28 @@ bool EmptyRequest::MergePartialFromCodedStream(
     DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
   }
 success:
-  // @@protoc_insertion_point(parse_success:onvevote.EmptyRequest)
+  // @@protoc_insertion_point(parse_success:onvevote.Empty)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:onvevote.EmptyRequest)
+  // @@protoc_insertion_point(parse_failure:onvevote.Empty)
   return false;
 #undef DO_
 }
 
-void EmptyRequest::SerializeWithCachedSizes(
+void Empty::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:onvevote.EmptyRequest)
-  // @@protoc_insertion_point(serialize_end:onvevote.EmptyRequest)
+  // @@protoc_insertion_point(serialize_start:onvevote.Empty)
+  // @@protoc_insertion_point(serialize_end:onvevote.Empty)
 }
 
-::google::protobuf::uint8* EmptyRequest::SerializeWithCachedSizesToArray(
+::google::protobuf::uint8* Empty::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:onvevote.EmptyRequest)
-  // @@protoc_insertion_point(serialize_to_array_end:onvevote.EmptyRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:onvevote.Empty)
+  // @@protoc_insertion_point(serialize_to_array_end:onvevote.Empty)
   return target;
 }
 
-int EmptyRequest::ByteSize() const {
+int Empty::ByteSize() const {
   int total_size = 0;
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -417,10 +391,10 @@ int EmptyRequest::ByteSize() const {
   return total_size;
 }
 
-void EmptyRequest::MergeFrom(const ::google::protobuf::Message& from) {
+void Empty::MergeFrom(const ::google::protobuf::Message& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const EmptyRequest* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const EmptyRequest>(
+  const Empty* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const Empty>(
           &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
@@ -429,368 +403,46 @@ void EmptyRequest::MergeFrom(const ::google::protobuf::Message& from) {
   }
 }
 
-void EmptyRequest::MergeFrom(const EmptyRequest& from) {
+void Empty::MergeFrom(const Empty& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
 }
 
-void EmptyRequest::CopyFrom(const ::google::protobuf::Message& from) {
+void Empty::CopyFrom(const ::google::protobuf::Message& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void EmptyRequest::CopyFrom(const EmptyRequest& from) {
+void Empty::CopyFrom(const Empty& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool EmptyRequest::IsInitialized() const {
+bool Empty::IsInitialized() const {
 
   return true;
 }
 
-void EmptyRequest::Swap(EmptyRequest* other) {
+void Empty::Swap(Empty* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void EmptyRequest::InternalSwap(EmptyRequest* other) {
+void Empty::InternalSwap(Empty* other) {
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata EmptyRequest::GetMetadata() const {
+::google::protobuf::Metadata Empty::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EmptyRequest_descriptor_;
-  metadata.reflection = EmptyRequest_reflection_;
+  metadata.descriptor = Empty_descriptor_;
+  metadata.reflection = Empty_reflection_;
   return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// EmptyRequest
-
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int Success::kSuccessFieldNumber;
-const int Success::kMessageFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-Success::Success()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:onvevote.Success)
-}
-
-void Success::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
-}
-
-Success::Success(const Success& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:onvevote.Success)
-}
-
-void Success::SharedCtor() {
-    _is_default_instance_ = false;
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
-  success_ = false;
-  message_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-Success::~Success() {
-  // @@protoc_insertion_point(destructor:onvevote.Success)
-  SharedDtor();
-}
-
-void Success::SharedDtor() {
-  message_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (this != default_instance_) {
-  }
-}
-
-void Success::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* Success::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return Success_descriptor_;
-}
-
-const Success& Success::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_node_2eproto();
-  return *default_instance_;
-}
-
-Success* Success::default_instance_ = NULL;
-
-Success* Success::New(::google::protobuf::Arena* arena) const {
-  Success* n = new Success;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void Success::Clear() {
-  success_ = false;
-  message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-bool Success::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:onvevote.Success)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional bool success = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
-                 input, &success_)));
-
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_message;
-        break;
-      }
-
-      // optional string message = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_message:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_message()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->message().data(), this->message().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "onvevote.Success.message"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:onvevote.Success)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:onvevote.Success)
-  return false;
-#undef DO_
-}
-
-void Success::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:onvevote.Success)
-  // optional bool success = 1;
-  if (this->success() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteBool(1, this->success(), output);
-  }
-
-  // optional string message = 2;
-  if (this->message().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->message().data(), this->message().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "onvevote.Success.message");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->message(), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:onvevote.Success)
-}
-
-::google::protobuf::uint8* Success::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:onvevote.Success)
-  // optional bool success = 1;
-  if (this->success() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(1, this->success(), target);
-  }
-
-  // optional string message = 2;
-  if (this->message().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->message().data(), this->message().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "onvevote.Success.message");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->message(), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:onvevote.Success)
-  return target;
-}
-
-int Success::ByteSize() const {
-  int total_size = 0;
-
-  // optional bool success = 1;
-  if (this->success() != 0) {
-    total_size += 1 + 1;
-  }
-
-  // optional string message = 2;
-  if (this->message().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->message());
-  }
-
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void Success::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const Success* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const Success>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
-}
-
-void Success::MergeFrom(const Success& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  if (from.success() != 0) {
-    set_success(from.success());
-  }
-  if (from.message().size() > 0) {
-
-    message_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.message_);
-  }
-}
-
-void Success::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void Success::CopyFrom(const Success& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool Success::IsInitialized() const {
-
-  return true;
-}
-
-void Success::Swap(Success* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void Success::InternalSwap(Success* other) {
-  std::swap(success_, other->success_);
-  message_.Swap(&other->message_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata Success::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = Success_descriptor_;
-  metadata.reflection = Success_reflection_;
-  return metadata;
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// Success
-
-// optional bool success = 1;
-void Success::clear_success() {
-  success_ = false;
-}
- bool Success::success() const {
-  // @@protoc_insertion_point(field_get:onvevote.Success.success)
-  return success_;
-}
- void Success::set_success(bool value) {
-  
-  success_ = value;
-  // @@protoc_insertion_point(field_set:onvevote.Success.success)
-}
-
-// optional string message = 2;
-void Success::clear_message() {
-  message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- const ::std::string& Success::message() const {
-  // @@protoc_insertion_point(field_get:onvevote.Success.message)
-  return message_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void Success::set_message(const ::std::string& value) {
-  
-  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:onvevote.Success.message)
-}
- void Success::set_message(const char* value) {
-  
-  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:onvevote.Success.message)
-}
- void Success::set_message(const char* value, size_t size) {
-  
-  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:onvevote.Success.message)
-}
- ::std::string* Success::mutable_message() {
-  
-  // @@protoc_insertion_point(field_mutable:onvevote.Success.message)
-  return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- ::std::string* Success::release_message() {
-  
-  return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void Success::set_allocated_message(::std::string* message) {
-  if (message != NULL) {
-    
-  } else {
-    
-  }
-  message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
-  // @@protoc_insertion_point(field_set_allocated:onvevote.Success.message)
-}
+// Empty
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
