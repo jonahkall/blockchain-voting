@@ -12,8 +12,8 @@ char* block::calculate_merkle_root() {
 	unsigned char hash[SHA_DIGEST_LENGTH]; // == 20
 	const unsigned char* data_to_hash = (const unsigned char*) transaction_array[0]->sender_public_key.c_str();
  	SHA1(data_to_hash, sizeof(data_to_hash), hash);
+ 	return hash
 
-	return NULL;
 }
   
 char* block::verify_block_number() {
@@ -54,9 +54,10 @@ bool blockchain::check_if_block_in_chain(block* b) {
 	return false
 }
 
-
 void blockchain::repair_blockchain(block* b) {
-	// Ask neighbor for 
+	// Repeatedly ask neighbor for a parent block until a we get one that is in this blockchain.
+		// Checking for being in our blockchain can be done by check_if_block_in_chain.
+
 }
 
 block_validity_code blockchain::check_block_validity(block* b) {
