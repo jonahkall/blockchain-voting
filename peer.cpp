@@ -34,16 +34,21 @@ void* processing_thread(void* arg) {
 	blockchain bc;
 	bc.chain_length = 0;
 
+	// This is an example of how code will be encrypted and decrypted. 
+
+	// Create a message to encrypt
 	char data[2048/8] = "This is the message to encrypt/decrypt. If you see this, it works!"; 
+	// Create buffers that will store the encrypted and decrypted results.
 	unsigned char encrypted[4098];
 	unsigned char decrypted[4098];
 
-
+	// Encrypt and store in "encrypted". Get the encrypted_length
 	int encrypted_length = private_encrypt((unsigned char *) data, strlen(data), "private.pem", encrypted);
+	// Decrypt and store in "decrypted"
 	public_decrypt(encrypted, encrypted_length, "public.pem", decrypted);
+	// print message to stdout. It should match what is in data above.
 	cout << decrypted << endl;
-	// RSA* private_key = createRSA(“PUBLIC_KEY_BUFFER”,1);
-	// RSA* public_key = createRSA(“PUBLIC_KEY_BUFFER”,1);
+
 
 	while(true) {
 		// Call pop_nonblocking. If not null, add the block to the blockchain, clear progress
