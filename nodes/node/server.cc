@@ -26,10 +26,7 @@ std::queue<std::string> peers;
 std::queue<Block> blocks;
 std::queue<Transaction> transactions;
 
-// Wish list: 
-// 	Blockchain function to get block #
-// 	Function to get transaction from Blockchain
-// 	Function to get peers in the main file
+
 
 // Logic and data behind the server's behavior.
 class MinerServiceImpl final : public Miner::Service {
