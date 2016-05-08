@@ -44,6 +44,21 @@ bool blockchain::verify_transactions() {
 	return true;
 }
 
+bool blockchain::check_if_block_in_chain(block* b) {
+	// Iterate over the blocks, and check if any have a matching final hash.
+	for(const auto& block: blocks_) {
+		if (strcmp(b->finhash, block->finhash) == 0) {
+			return true
+		}
+	}
+	return false
+}
+
+
+void blockchain::repair_blockchain(block* b) {
+	// Ask neighbor for 
+}
+
 block_validity_code blockchain::check_block_validity(block* b) {
   // Make sure none of the votes had previously been made.
 
