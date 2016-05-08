@@ -47,7 +47,9 @@ unsigned char* block::calculate_finhash() {
 blockchain::blockchain() {
 	block* b = new block;
 	b->block_number = 1;
-	b->finhash = "STARTINGBLOCK";
+	b->finhash = new char[15];
+	std::string s = std::string("STARTINGBLOCK");
+	s.copy(b->finhash, s.length(), 0);
 	chain_length = 1;
 	blocks_.push_front(b);
 }
