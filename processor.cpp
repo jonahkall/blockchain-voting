@@ -68,7 +68,9 @@ bool blockchain::add_block(block* b) {
 
 block* blockchain::get_head_block(){
 	// Get the head block. Don't remove it from the chain.
-	return NULL;
+	if (chain_length == 0)
+		return NULL;
+	return blocks_.back();
 }
 
 void blockchain::repair_blockchain(block* b) {
