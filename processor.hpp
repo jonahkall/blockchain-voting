@@ -26,6 +26,9 @@
 // checking for a new block or a new transaction
 #define NUM_MAGIC_TO_TRY 2048
 
+// This is the number of leading zeros in hex 
+#define NUM_LEADING_ZEROS 10
+
 struct transaction {
   size_t size;
   std::string sender_public_key;
@@ -45,7 +48,7 @@ class block {
   public:
     unsigned block_number;
     char* prev_block_SHA1;
-    unsigned long long magic_string;
+    unsigned long long magic;
     char* merkle_root;
     transaction* transaction_array[NUM_TRANSACTIONS_PER_BLOCK];
     int max_ind;
@@ -53,6 +56,7 @@ class block {
     char* finhash;
 
   char* calculate_merkle_root();
+  char* calculate_finhash();
   char* verify_block_number();
   
 };

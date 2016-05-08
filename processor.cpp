@@ -15,6 +15,10 @@ char* block::verify_block_number() {
   return NULL;
 }
 
+char* block::calculate_finhash() {
+	return NULL;
+}
+
 
 // Check if a new block is valid to be added to this blockchain.
 // Make sure that none of the transactions in this block

@@ -6,8 +6,6 @@
 #include <openssl/sha.h>
 #include <openssl/rsa.h>
 
-
-
 using namespace std;
 
 struct comm_thread_args {
@@ -20,6 +18,22 @@ struct processing_thread_args {
 	synchronized_queue<block*>* bq;
 };
 
+static int leading_zeros(unsigned char* buf, size_t n) {
+	int lz = 0;
+	for (int i = 0; i < n; i++) {
+		if (buf[i] == 0) {
+			lz += 2;
+		}
+		else if ((buf[i] >> 4) == 0) {
+			++lz;
+			break;
+		}
+		else {
+			break;
+		}
+	}
+	return lz;
+}
 
 void* comm_thread (void* arg) {
 	comm_thread_args* ctap = (comm_thread_args *) arg;
@@ -39,7 +53,6 @@ void* processing_thread(void* arg) {
 	// on that
 	bool quotafull = false;
 	block* new_block = new block;
-	int txns_in_current_block;
 
 	// This is an example of how code will be encrypted and decrypted. 
 
@@ -50,7 +63,8 @@ void* processing_thread(void* arg) {
 	unsigned char decrypted[4098];
 
 	// Encrypt and store in "encrypted". Get the encrypted_length
-	int encrypted_length = private_encrypt((unsigned char *) data, strlen(data), "private.pem", encrypted);
+	int encrypted_length = private_encrypt((unsigned char *) data,
+			strlen(data), "private.pem", encrypted);
 	// Decrypt and store in "decrypted"
 	public_decrypt(encrypted, encrypted_length, "public.pem", decrypted);
 	// print message to stdout. It should match what is in data above.
@@ -62,7 +76,6 @@ void* processing_thread(void* arg) {
 		block* b = ptap->bq->pop_nonblocking();
 		if (b) {
 			// TODO: clear progress somehow
-
 			switch(bc.check_block_validity(b)) {
 				case OK:
 					bc.add_block(b);
@@ -75,6 +88,7 @@ void* processing_thread(void* arg) {
 						// send requests for missing blocks, and align them to current
 						// blockchain
 						// O(n^2) algorithm for alignment
+						// maybe this should set maxind to 0
 						bc.repair_blockchain(b);
 					}
 					else {
@@ -85,24 +99,42 @@ void* processing_thread(void* arg) {
 					continue;
 					break;
 			}
-
-			//if ()
 		}
+
 		// Get a transaction from the transaction queue.
 		transaction* new_trans;
-		if (ptap->tq->empty() && txns_in_current_block < NUM_TRANSACTIONS_PER_BLOCK)
+		if (quotafull == false)
 			new_trans = ptap->tq->pop();
 		
 		// Check if already in the block chain (via the unordered set). If so, throw it out.
-		// if (bc.voted.find(new_) != bc.voted().end()) {
-		// 	continue;
-		// }
-		// add to set of things we are trying to turn into a block
-		new_block->transaction_array[new_block->max_ind] = new_trans;
-		++new_block->max_ind;
-		// try to create a block NUM_MAGIC_TO_TRY times.
-		for (int throwaway = 0; throwaway < NUM_MAGIC_TO_TRY; ++throwaway) {
+		if (quotafull == false &&
+				bc.voted.find(new_trans->sender_public_key) != bc.voted.end()) {
+			continue;
+		}
 
+		// add to set of things we are trying to turn into a block
+		if (new_block->max_ind == 64) {
+			quotafull = true;
+		}
+		else {
+			new_block->transaction_array[new_block->max_ind] = new_trans;
+			++new_block->max_ind;
+		}
+
+		// try to create a block NUM_MAGIC_TO_TRY times.
+		if (quotafull) {
+			for (int throwaway = 0; throwaway < NUM_MAGIC_TO_TRY; ++throwaway) {
+				// if successful, set quotafull back to false
+				// else do another iteration
+				++new_block->magic;
+				new_block->calculate_finhash();
+				if (leading_zeros((unsigned char *)new_block->finhash, 20) >= NUM_LEADING_ZEROS) {
+					quotafull = false;
+					new_block->max_ind = 0;
+					bc.add_block(new_block);
+					new_block = new block;
+				}
+			}
 		}
 
 	}
@@ -124,6 +156,15 @@ int main () {
 
 	pthread_t comm_t;
 	pthread_t processing_t;
+
+	unsigned char x[5];
+	x[0] = 1;
+	x[1] = 0;
+	x[2] = 249;
+	x[3] = 248;
+	x[4] = 0;
+
+	cout << "Leading zeros: " << leading_zeros(x, 5) << endl;
 
 	synchronized_queue<transaction*> tq = synchronized_queue<transaction*>();
 	tq.init();
