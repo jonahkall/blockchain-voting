@@ -89,17 +89,21 @@ void* processing_thread(void* arg) {
 			//if ()
 		}
 		// Get a transaction from the transaction queue.
+		transaction* new_trans;
 		if (ptap->tq->empty() && txns_in_current_block < NUM_TRANSACTIONS_PER_BLOCK)
-			transaction* new_trans = ptap->tq->pop();
+			new_trans = ptap->tq->pop();
 		
 		// Check if already in the block chain (via the unordered set). If so, throw it out.
-		// if (bc.voted.find() != bc.voted().end()) {
+		// if (bc.voted.find(new_) != bc.voted().end()) {
 		// 	continue;
 		// }
 		// add to set of things we are trying to turn into a block
+		new_block->transaction_array[new_block->max_ind] = new_trans;
+		++new_block->max_ind;
+		// try to create a block NUM_MAGIC_TO_TRY times.
+		for (int throwaway = 0; throwaway < NUM_MAGIC_TO_TRY; ++throwaway) {
 
-		// try to create a block x times.
-
+		}
 
 	}
 
