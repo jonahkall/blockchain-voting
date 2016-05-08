@@ -62,6 +62,11 @@ block* blockchain::get_head_block(){
 	return NULL;
 }
 
+void blockchain::repair_blockchain(block* b) {
+	
+}
+
+
 template <class T>
 void synchronized_queue<T>::init() {
 	pthread_mutex_init(&lock_, NULL);
@@ -101,6 +106,11 @@ T synchronized_queue<T>::pop_nonblocking() {
 	queue_.pop();
 	pthread_mutex_unlock(&lock_);
 	return ret;
+}
+
+template <class T>
+bool synchronized_queue<T>::empty() {
+	return queue_.size() == 0;
 }
 
 template class synchronized_queue<transaction*>;

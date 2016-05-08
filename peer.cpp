@@ -29,6 +29,13 @@ void* processing_thread(void* arg) {
 	blockchain bc;
 	bc.chain_length = 0;
 
+	// When this variable is true, we have a full set of
+	// transactions to try to make a block with, otherwise we do not, so we are waiting
+	// on that
+	bool quotafull = false;
+	block* new_block = new block;
+	int txns_in_current_block;
+
 	while(true) {
 		// Call pop_nonblocking. If not null, add the block to the blockchain, clear progress
 		// on new block, add everything from the block to the set
@@ -38,20 +45,37 @@ void* processing_thread(void* arg) {
 
 			switch(bc.check_block_validity(b)) {
 				case OK:
-					//bc.add();
+					bc.add_block(b);
 					break;
 				case PREV_BLOCK_NONMATCH:
+					// Check if this block number is higher than ours, in which
+					// case we need to accept that chain instead of ours
+					if (b->block_number > bc.get_head_block()->block_number) {
+						// Do important shit here
+						// send requests for missing blocks, and align them to current
+						// blockchain
+						// O(n^2) algorithm for alignment
+						bc.repair_blockchain(b);
+					}
+					else {
+						continue;
+					}
 					break;
 				case TRANSACTION_INVALID:
+					continue;
 					break;
 			}
 
 			//if ()
 		}
 		// Get a transaction from the transaction queue.
-
-			// Check if already in the block chain (via the unordered set). If so, throw it out.
-
+		if (ptap->tq->empty() && txns_in_current_block < NUM_TRANSACTIONS_PER_BLOCK)
+			transaction* new_trans = ptap->tq->pop();
+		
+		// Check if already in the block chain (via the unordered set). If so, throw it out.
+		// if (bc.voted.find() != bc.voted().end()) {
+		// 	continue;
+		// }
 		// add to set of things we are trying to turn into a block
 
 		// try to create a block x times.
@@ -64,14 +88,6 @@ void* processing_thread(void* arg) {
 }
 
 int main () {
-
-	// char buffer[20];
- //  string s = string("Some-Sample-Input");
- //  s.copy(buffer, 10, 0);
-
-	//char *m = sha1(buffer);
-
-	//printf("The SHA1 Value is: %s\n", m);
 
 	const char str[] = "Original String";
   unsigned char hash[SHA_DIGEST_LENGTH]; // == 20
