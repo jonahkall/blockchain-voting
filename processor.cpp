@@ -8,18 +8,20 @@ using namespace std::chrono;
 char* block::calculate_merkle_root() {
 	// Calculate and return the Merkle root. 
 
-	// For now, we can just implement this by calculating the SHA1 of the first element.
+	// For now, we can just implement this by calculating the 
+	// SHA1 of the first element.
 	// TODO: This probably needs to be heap allocated.
 	unsigned char hash[SHA_DIGEST_LENGTH]; // == 20
-	const unsigned char* data_to_hash = (const unsigned char*) transaction_array[0]->sender_public_key.c_str();
+	const unsigned char* data_to_hash = 
+	    (const unsigned char*) transaction_array[0]->sender_public_key.c_str();
  	SHA1(data_to_hash, sizeof(data_to_hash), hash);
  	return hash;
 
 }
   
 char* block::verify_block_number() {
- // Asks neighbors for the previous block, and checks to make sure its block_number is
-  // one less than this one's.
+ // Asks neighbors for the previous block, and checks to make sure its 
+ // block_number is one less than this one's.
   return NULL;
 }
 
@@ -30,7 +32,8 @@ bool blockchain::verify_transactions(block* b) {
 	// Iterate over all transactions in the block.
 	for (int i = 0; i < NUM_TRANSACTIONS_PER_BLOCK; ++i) {
 		// If you ever find one, return false.
-		if (voted.find(b->transaction_array[i]->sender_public_key) != voted.end()) {
+		if (voted.find(b->transaction_array[i]->sender_public_key) 
+			                                               != voted.end()) {
 			return false;
 		}
 	}
@@ -56,8 +59,10 @@ bool blockchain::check_if_block_in_chain(block* b) {
 }
 
 void blockchain::repair_blockchain(block* b) {
-	// Repeatedly ask neighbor for a parent block until a we get one that is in this blockchain.
-		// Checking for being in our blockchain can be done by check_if_block_in_chain.
+	// Repeatedly ask neighbor for a parent block until a we get one 
+	// that is in this blockchain.
+		// Checking for being in our blockchain can be done by 
+	    // check_if_block_in_chain.
 	block* current_block = b;
 
 }
