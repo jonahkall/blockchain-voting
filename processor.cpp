@@ -98,7 +98,9 @@ void blockchain::add_transactions_to_set(block* b) {
 // This should add all transactions in this block into the
 // thread safe queue.
 void blockchain::add_transactions_to_queue(block* b) {
-	return;
+	for (int i = 0; i < b->max_ind; ++i) {
+		q_ptr_->push(b->transaction_array[i]);
+	}
 }
 
 void blockchain::repair_blockchain(block* b) {

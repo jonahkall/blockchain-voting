@@ -97,7 +97,6 @@ void* processing_thread(void* arg) {
 						quotafull = false;
 						new_block->max_ind = 0;
 						// TODO: merkle tree
-						// finhash
 						for (int i = 0; i < new_block->max_ind; ++i) {
 							ptap->tq->push(new_block->transaction_array[i]);
 						}

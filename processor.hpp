@@ -83,6 +83,7 @@ class blockchain {
 
   private:
   	BlockList blocks_;
+  	synchronized_queue<transaction*>* q_ptr_;
 
   public:
   	// A set containing the public keys of 
