@@ -68,7 +68,7 @@ class blockchain {
     void repair_blockchain(block* b);
 
   private:
-  	std::list<block> blocks_;
+  	std::list<block*> blocks_;
 
   public:
   	// A set containing the public keys of 

@@ -60,6 +60,7 @@ bool blockchain::add_block(block* b) {
   if (block_validity_result == 1) {
     // Add block to the blockchain
     chain_length++;
+    blocks_.push_back(b);
     return true;
   }
   return false;
@@ -67,7 +68,9 @@ bool blockchain::add_block(block* b) {
 
 block* blockchain::get_head_block(){
 	// Get the head block. Don't remove it from the chain.
-	return NULL;
+	if (chain_length == 0)
+		return NULL;
+	return blocks_.back();
 }
 
 void blockchain::repair_blockchain(block* b) {
