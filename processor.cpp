@@ -17,7 +17,7 @@ char* block::calculate_merkle_root() {
 }
   
 char* block::verify_block_number() {
- 	// Asks neighbors for the previous block, and checks to make sure its block_number is
+ // Asks neighbors for the previous block, and checks to make sure its block_number is
   // one less than this one's.
   return NULL;
 }
