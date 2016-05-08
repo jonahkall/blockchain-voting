@@ -64,13 +64,15 @@ class blockchain {
     bool add_block(block* b);
     block* get_head_block();
     int chain_length;
+    void repair_blockchain(block* b);
 
   private:
   	std::list<block> blocks_;
 
+  public:
   	// A set containing the public keys of 
   	// O(1)
-  	std::unordered_set<std::string> voted_;
+  	std::unordered_set<std::string> voted;
 };
 
 template <class T>
@@ -85,6 +87,7 @@ class synchronized_queue {
   	void push(T t);
   	T pop();
   	T pop_nonblocking();
+  	bool empty();
 };
 
 
