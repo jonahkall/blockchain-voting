@@ -11,8 +11,7 @@ using grpc::ServerBuilder;
 using grpc::ServerContext;
 using grpc::Status;
 
-using onevote::EmptyRequest;
-using onevote::Success;
+using onevote::Empty;
 using onevote::BlockMsg;
 using onevote::TransactionMsg;
 using onevote::AddrRequest;
