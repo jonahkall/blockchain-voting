@@ -1,6 +1,9 @@
+// protoc --grpc_out=. --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` node.proto
+// protoc --cpp_out=. --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` node.proto
+
 syntax = "proto3";
 
-// package helloworld;
+package onvevote;
 
 service Miner {
 	rpc BroadcastBlock (Block) returns (Success) {}
@@ -20,15 +23,24 @@ message Success {
 }
 
 message Block {
-	bytes raw_data = 1;
+	uint32 block_number = 8;
+	string prev_block_SHA1 = 1;
+	int64 magic = 2;
+	string merkle_root = 3;
+	repeated Transaction transaction = 4;
+	uint32 num_transactions = 5;
+	string verifier_public_key = 6;
+	string final_hash = 7;
 }
 
 message Transaction {
-	bytes raw_data = 1;
+	string sender_public_key = 2;
+	string vote = 3;
+	double timestamp = 4;
 }
 
 message AddrRequest {
-	int32 num_requested = 1;
+	uint32 num_requested = 1;
 }
 
 message AddrResponse {
@@ -41,6 +53,6 @@ message TransactionRequest {
 
 message BlockRequest {
 	// if not sent, then the latest block is requested
-	int32 block_number = 1;
+	uint32 block_number = 1;
 }
 

@@ -29,6 +29,8 @@
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 
+namespace onvevote {
+
 // Internal implementation detail -- do not call these.
 void protobuf_AddDesc_node_2eproto();
 void protobuf_AssignDesc_node_2eproto();
@@ -101,7 +103,7 @@ class EmptyRequest : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // @@protoc_insertion_point(class_scope:EmptyRequest)
+  // @@protoc_insertion_point(class_scope:onvevote.EmptyRequest)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -189,7 +191,7 @@ class Success : public ::google::protobuf::Message {
   ::std::string* release_message();
   void set_allocated_message(::std::string* message);
 
-  // @@protoc_insertion_point(class_scope:Success)
+  // @@protoc_insertion_point(class_scope:onvevote.Success)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -296,16 +298,16 @@ class Block : public ::google::protobuf::Message {
   ::std::string* release_merkle_root();
   void set_allocated_merkle_root(::std::string* merkle_root);
 
-  // repeated .Transaction transaction = 4;
+  // repeated .onvevote.Transaction transaction = 4;
   int transaction_size() const;
   void clear_transaction();
   static const int kTransactionFieldNumber = 4;
-  const ::Transaction& transaction(int index) const;
-  ::Transaction* mutable_transaction(int index);
-  ::Transaction* add_transaction();
-  ::google::protobuf::RepeatedPtrField< ::Transaction >*
+  const ::onvevote::Transaction& transaction(int index) const;
+  ::onvevote::Transaction* mutable_transaction(int index);
+  ::onvevote::Transaction* add_transaction();
+  ::google::protobuf::RepeatedPtrField< ::onvevote::Transaction >*
       mutable_transaction();
-  const ::google::protobuf::RepeatedPtrField< ::Transaction >&
+  const ::google::protobuf::RepeatedPtrField< ::onvevote::Transaction >&
       transaction() const;
 
   // optional uint32 num_transactions = 5;
@@ -336,7 +338,7 @@ class Block : public ::google::protobuf::Message {
   ::std::string* release_final_hash();
   void set_allocated_final_hash(::std::string* final_hash);
 
-  // @@protoc_insertion_point(class_scope:Block)
+  // @@protoc_insertion_point(class_scope:onvevote.Block)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -346,7 +348,7 @@ class Block : public ::google::protobuf::Message {
   ::google::protobuf::uint32 block_number_;
   ::google::protobuf::uint32 num_transactions_;
   ::google::protobuf::internal::ArenaStringPtr merkle_root_;
-  ::google::protobuf::RepeatedPtrField< ::Transaction > transaction_;
+  ::google::protobuf::RepeatedPtrField< ::onvevote::Transaction > transaction_;
   ::google::protobuf::internal::ArenaStringPtr verifier_public_key_;
   ::google::protobuf::internal::ArenaStringPtr final_hash_;
   mutable int _cached_size_;
@@ -443,7 +445,7 @@ class Transaction : public ::google::protobuf::Message {
   double timestamp() const;
   void set_timestamp(double value);
 
-  // @@protoc_insertion_point(class_scope:Transaction)
+  // @@protoc_insertion_point(class_scope:onvevote.Transaction)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -523,7 +525,7 @@ class AddrRequest : public ::google::protobuf::Message {
   ::google::protobuf::uint32 num_requested() const;
   void set_num_requested(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:AddrRequest)
+  // @@protoc_insertion_point(class_scope:onvevote.AddrRequest)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -611,7 +613,7 @@ class AddrResponse : public ::google::protobuf::Message {
   const ::google::protobuf::RepeatedPtrField< ::std::string>& peer() const;
   ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_peer();
 
-  // @@protoc_insertion_point(class_scope:AddrResponse)
+  // @@protoc_insertion_point(class_scope:onvevote.AddrResponse)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -694,7 +696,7 @@ class TransactionRequest : public ::google::protobuf::Message {
   ::std::string* release_publickey();
   void set_allocated_publickey(::std::string* publickey);
 
-  // @@protoc_insertion_point(class_scope:TransactionRequest)
+  // @@protoc_insertion_point(class_scope:onvevote.TransactionRequest)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -772,7 +774,7 @@ class BlockRequest : public ::google::protobuf::Message {
   ::google::protobuf::uint32 block_number() const;
   void set_block_number(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:BlockRequest)
+  // @@protoc_insertion_point(class_scope:onvevote.BlockRequest)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -803,13 +805,13 @@ inline void Success::clear_success() {
   success_ = false;
 }
 inline bool Success::success() const {
-  // @@protoc_insertion_point(field_get:Success.success)
+  // @@protoc_insertion_point(field_get:onvevote.Success.success)
   return success_;
 }
 inline void Success::set_success(bool value) {
   
   success_ = value;
-  // @@protoc_insertion_point(field_set:Success.success)
+  // @@protoc_insertion_point(field_set:onvevote.Success.success)
 }
 
 // optional string message = 2;
@@ -817,28 +819,28 @@ inline void Success::clear_message() {
   message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& Success::message() const {
-  // @@protoc_insertion_point(field_get:Success.message)
+  // @@protoc_insertion_point(field_get:onvevote.Success.message)
   return message_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void Success::set_message(const ::std::string& value) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:Success.message)
+  // @@protoc_insertion_point(field_set:onvevote.Success.message)
 }
 inline void Success::set_message(const char* value) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:Success.message)
+  // @@protoc_insertion_point(field_set_char:onvevote.Success.message)
 }
 inline void Success::set_message(const char* value, size_t size) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:Success.message)
+  // @@protoc_insertion_point(field_set_pointer:onvevote.Success.message)
 }
 inline ::std::string* Success::mutable_message() {
   
-  // @@protoc_insertion_point(field_mutable:Success.message)
+  // @@protoc_insertion_point(field_mutable:onvevote.Success.message)
   return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Success::release_message() {
@@ -852,7 +854,7 @@ inline void Success::set_allocated_message(::std::string* message) {
     
   }
   message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
-  // @@protoc_insertion_point(field_set_allocated:Success.message)
+  // @@protoc_insertion_point(field_set_allocated:onvevote.Success.message)
 }
 
 // -------------------------------------------------------------------
@@ -864,13 +866,13 @@ inline void Block::clear_block_number() {
   block_number_ = 0u;
 }
 inline ::google::protobuf::uint32 Block::block_number() const {
-  // @@protoc_insertion_point(field_get:Block.block_number)
+  // @@protoc_insertion_point(field_get:onvevote.Block.block_number)
   return block_number_;
 }
 inline void Block::set_block_number(::google::protobuf::uint32 value) {
   
   block_number_ = value;
-  // @@protoc_insertion_point(field_set:Block.block_number)
+  // @@protoc_insertion_point(field_set:onvevote.Block.block_number)
 }
 
 // optional string prev_block_SHA1 = 1;
@@ -878,28 +880,28 @@ inline void Block::clear_prev_block_sha1() {
   prev_block_sha1_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& Block::prev_block_sha1() const {
-  // @@protoc_insertion_point(field_get:Block.prev_block_SHA1)
+  // @@protoc_insertion_point(field_get:onvevote.Block.prev_block_SHA1)
   return prev_block_sha1_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void Block::set_prev_block_sha1(const ::std::string& value) {
   
   prev_block_sha1_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:Block.prev_block_SHA1)
+  // @@protoc_insertion_point(field_set:onvevote.Block.prev_block_SHA1)
 }
 inline void Block::set_prev_block_sha1(const char* value) {
   
   prev_block_sha1_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:Block.prev_block_SHA1)
+  // @@protoc_insertion_point(field_set_char:onvevote.Block.prev_block_SHA1)
 }
 inline void Block::set_prev_block_sha1(const char* value, size_t size) {
   
   prev_block_sha1_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:Block.prev_block_SHA1)
+  // @@protoc_insertion_point(field_set_pointer:onvevote.Block.prev_block_SHA1)
 }
 inline ::std::string* Block::mutable_prev_block_sha1() {
   
-  // @@protoc_insertion_point(field_mutable:Block.prev_block_SHA1)
+  // @@protoc_insertion_point(field_mutable:onvevote.Block.prev_block_SHA1)
   return prev_block_sha1_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Block::release_prev_block_sha1() {
@@ -913,7 +915,7 @@ inline void Block::set_allocated_prev_block_sha1(::std::string* prev_block_sha1)
     
   }
   prev_block_sha1_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), prev_block_sha1);
-  // @@protoc_insertion_point(field_set_allocated:Block.prev_block_SHA1)
+  // @@protoc_insertion_point(field_set_allocated:onvevote.Block.prev_block_SHA1)
 }
 
 // optional int64 magic = 2;
@@ -921,13 +923,13 @@ inline void Block::clear_magic() {
   magic_ = GOOGLE_LONGLONG(0);
 }
 inline ::google::protobuf::int64 Block::magic() const {
-  // @@protoc_insertion_point(field_get:Block.magic)
+  // @@protoc_insertion_point(field_get:onvevote.Block.magic)
   return magic_;
 }
 inline void Block::set_magic(::google::protobuf::int64 value) {
   
   magic_ = value;
-  // @@protoc_insertion_point(field_set:Block.magic)
+  // @@protoc_insertion_point(field_set:onvevote.Block.magic)
 }
 
 // optional string merkle_root = 3;
@@ -935,28 +937,28 @@ inline void Block::clear_merkle_root() {
   merkle_root_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& Block::merkle_root() const {
-  // @@protoc_insertion_point(field_get:Block.merkle_root)
+  // @@protoc_insertion_point(field_get:onvevote.Block.merkle_root)
   return merkle_root_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void Block::set_merkle_root(const ::std::string& value) {
   
   merkle_root_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:Block.merkle_root)
+  // @@protoc_insertion_point(field_set:onvevote.Block.merkle_root)
 }
 inline void Block::set_merkle_root(const char* value) {
   
   merkle_root_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:Block.merkle_root)
+  // @@protoc_insertion_point(field_set_char:onvevote.Block.merkle_root)
 }
 inline void Block::set_merkle_root(const char* value, size_t size) {
   
   merkle_root_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:Block.merkle_root)
+  // @@protoc_insertion_point(field_set_pointer:onvevote.Block.merkle_root)
 }
 inline ::std::string* Block::mutable_merkle_root() {
   
-  // @@protoc_insertion_point(field_mutable:Block.merkle_root)
+  // @@protoc_insertion_point(field_mutable:onvevote.Block.merkle_root)
   return merkle_root_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Block::release_merkle_root() {
@@ -970,36 +972,36 @@ inline void Block::set_allocated_merkle_root(::std::string* merkle_root) {
     
   }
   merkle_root_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), merkle_root);
-  // @@protoc_insertion_point(field_set_allocated:Block.merkle_root)
+  // @@protoc_insertion_point(field_set_allocated:onvevote.Block.merkle_root)
 }
 
-// repeated .Transaction transaction = 4;
+// repeated .onvevote.Transaction transaction = 4;
 inline int Block::transaction_size() const {
   return transaction_.size();
 }
 inline void Block::clear_transaction() {
   transaction_.Clear();
 }
-inline const ::Transaction& Block::transaction(int index) const {
-  // @@protoc_insertion_point(field_get:Block.transaction)
+inline const ::onvevote::Transaction& Block::transaction(int index) const {
+  // @@protoc_insertion_point(field_get:onvevote.Block.transaction)
   return transaction_.Get(index);
 }
-inline ::Transaction* Block::mutable_transaction(int index) {
-  // @@protoc_insertion_point(field_mutable:Block.transaction)
+inline ::onvevote::Transaction* Block::mutable_transaction(int index) {
+  // @@protoc_insertion_point(field_mutable:onvevote.Block.transaction)
   return transaction_.Mutable(index);
 }
-inline ::Transaction* Block::add_transaction() {
-  // @@protoc_insertion_point(field_add:Block.transaction)
+inline ::onvevote::Transaction* Block::add_transaction() {
+  // @@protoc_insertion_point(field_add:onvevote.Block.transaction)
   return transaction_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::Transaction >*
+inline ::google::protobuf::RepeatedPtrField< ::onvevote::Transaction >*
 Block::mutable_transaction() {
-  // @@protoc_insertion_point(field_mutable_list:Block.transaction)
+  // @@protoc_insertion_point(field_mutable_list:onvevote.Block.transaction)
   return &transaction_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::Transaction >&
+inline const ::google::protobuf::RepeatedPtrField< ::onvevote::Transaction >&
 Block::transaction() const {
-  // @@protoc_insertion_point(field_list:Block.transaction)
+  // @@protoc_insertion_point(field_list:onvevote.Block.transaction)
   return transaction_;
 }
 
@@ -1008,13 +1010,13 @@ inline void Block::clear_num_transactions() {
   num_transactions_ = 0u;
 }
 inline ::google::protobuf::uint32 Block::num_transactions() const {
-  // @@protoc_insertion_point(field_get:Block.num_transactions)
+  // @@protoc_insertion_point(field_get:onvevote.Block.num_transactions)
   return num_transactions_;
 }
 inline void Block::set_num_transactions(::google::protobuf::uint32 value) {
   
   num_transactions_ = value;
-  // @@protoc_insertion_point(field_set:Block.num_transactions)
+  // @@protoc_insertion_point(field_set:onvevote.Block.num_transactions)
 }
 
 // optional string verifier_public_key = 6;
@@ -1022,28 +1024,28 @@ inline void Block::clear_verifier_public_key() {
   verifier_public_key_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& Block::verifier_public_key() const {
-  // @@protoc_insertion_point(field_get:Block.verifier_public_key)
+  // @@protoc_insertion_point(field_get:onvevote.Block.verifier_public_key)
   return verifier_public_key_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void Block::set_verifier_public_key(const ::std::string& value) {
   
   verifier_public_key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:Block.verifier_public_key)
+  // @@protoc_insertion_point(field_set:onvevote.Block.verifier_public_key)
 }
 inline void Block::set_verifier_public_key(const char* value) {
   
   verifier_public_key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:Block.verifier_public_key)
+  // @@protoc_insertion_point(field_set_char:onvevote.Block.verifier_public_key)
 }
 inline void Block::set_verifier_public_key(const char* value, size_t size) {
   
   verifier_public_key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:Block.verifier_public_key)
+  // @@protoc_insertion_point(field_set_pointer:onvevote.Block.verifier_public_key)
 }
 inline ::std::string* Block::mutable_verifier_public_key() {
   
-  // @@protoc_insertion_point(field_mutable:Block.verifier_public_key)
+  // @@protoc_insertion_point(field_mutable:onvevote.Block.verifier_public_key)
   return verifier_public_key_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Block::release_verifier_public_key() {
@@ -1057,7 +1059,7 @@ inline void Block::set_allocated_verifier_public_key(::std::string* verifier_pub
     
   }
   verifier_public_key_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), verifier_public_key);
-  // @@protoc_insertion_point(field_set_allocated:Block.verifier_public_key)
+  // @@protoc_insertion_point(field_set_allocated:onvevote.Block.verifier_public_key)
 }
 
 // optional string final_hash = 7;
@@ -1065,28 +1067,28 @@ inline void Block::clear_final_hash() {
   final_hash_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& Block::final_hash() const {
-  // @@protoc_insertion_point(field_get:Block.final_hash)
+  // @@protoc_insertion_point(field_get:onvevote.Block.final_hash)
   return final_hash_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void Block::set_final_hash(const ::std::string& value) {
   
   final_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:Block.final_hash)
+  // @@protoc_insertion_point(field_set:onvevote.Block.final_hash)
 }
 inline void Block::set_final_hash(const char* value) {
   
   final_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:Block.final_hash)
+  // @@protoc_insertion_point(field_set_char:onvevote.Block.final_hash)
 }
 inline void Block::set_final_hash(const char* value, size_t size) {
   
   final_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:Block.final_hash)
+  // @@protoc_insertion_point(field_set_pointer:onvevote.Block.final_hash)
 }
 inline ::std::string* Block::mutable_final_hash() {
   
-  // @@protoc_insertion_point(field_mutable:Block.final_hash)
+  // @@protoc_insertion_point(field_mutable:onvevote.Block.final_hash)
   return final_hash_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Block::release_final_hash() {
@@ -1100,7 +1102,7 @@ inline void Block::set_allocated_final_hash(::std::string* final_hash) {
     
   }
   final_hash_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), final_hash);
-  // @@protoc_insertion_point(field_set_allocated:Block.final_hash)
+  // @@protoc_insertion_point(field_set_allocated:onvevote.Block.final_hash)
 }
 
 // -------------------------------------------------------------------
@@ -1112,28 +1114,28 @@ inline void Transaction::clear_sender_public_key() {
   sender_public_key_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& Transaction::sender_public_key() const {
-  // @@protoc_insertion_point(field_get:Transaction.sender_public_key)
+  // @@protoc_insertion_point(field_get:onvevote.Transaction.sender_public_key)
   return sender_public_key_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void Transaction::set_sender_public_key(const ::std::string& value) {
   
   sender_public_key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:Transaction.sender_public_key)
+  // @@protoc_insertion_point(field_set:onvevote.Transaction.sender_public_key)
 }
 inline void Transaction::set_sender_public_key(const char* value) {
   
   sender_public_key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:Transaction.sender_public_key)
+  // @@protoc_insertion_point(field_set_char:onvevote.Transaction.sender_public_key)
 }
 inline void Transaction::set_sender_public_key(const char* value, size_t size) {
   
   sender_public_key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:Transaction.sender_public_key)
+  // @@protoc_insertion_point(field_set_pointer:onvevote.Transaction.sender_public_key)
 }
 inline ::std::string* Transaction::mutable_sender_public_key() {
   
-  // @@protoc_insertion_point(field_mutable:Transaction.sender_public_key)
+  // @@protoc_insertion_point(field_mutable:onvevote.Transaction.sender_public_key)
   return sender_public_key_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Transaction::release_sender_public_key() {
@@ -1147,7 +1149,7 @@ inline void Transaction::set_allocated_sender_public_key(::std::string* sender_p
     
   }
   sender_public_key_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sender_public_key);
-  // @@protoc_insertion_point(field_set_allocated:Transaction.sender_public_key)
+  // @@protoc_insertion_point(field_set_allocated:onvevote.Transaction.sender_public_key)
 }
 
 // optional string vote = 3;
@@ -1155,28 +1157,28 @@ inline void Transaction::clear_vote() {
   vote_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& Transaction::vote() const {
-  // @@protoc_insertion_point(field_get:Transaction.vote)
+  // @@protoc_insertion_point(field_get:onvevote.Transaction.vote)
   return vote_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void Transaction::set_vote(const ::std::string& value) {
   
   vote_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:Transaction.vote)
+  // @@protoc_insertion_point(field_set:onvevote.Transaction.vote)
 }
 inline void Transaction::set_vote(const char* value) {
   
   vote_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:Transaction.vote)
+  // @@protoc_insertion_point(field_set_char:onvevote.Transaction.vote)
 }
 inline void Transaction::set_vote(const char* value, size_t size) {
   
   vote_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:Transaction.vote)
+  // @@protoc_insertion_point(field_set_pointer:onvevote.Transaction.vote)
 }
 inline ::std::string* Transaction::mutable_vote() {
   
-  // @@protoc_insertion_point(field_mutable:Transaction.vote)
+  // @@protoc_insertion_point(field_mutable:onvevote.Transaction.vote)
   return vote_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Transaction::release_vote() {
@@ -1190,7 +1192,7 @@ inline void Transaction::set_allocated_vote(::std::string* vote) {
     
   }
   vote_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), vote);
-  // @@protoc_insertion_point(field_set_allocated:Transaction.vote)
+  // @@protoc_insertion_point(field_set_allocated:onvevote.Transaction.vote)
 }
 
 // optional double timestamp = 4;
@@ -1198,13 +1200,13 @@ inline void Transaction::clear_timestamp() {
   timestamp_ = 0;
 }
 inline double Transaction::timestamp() const {
-  // @@protoc_insertion_point(field_get:Transaction.timestamp)
+  // @@protoc_insertion_point(field_get:onvevote.Transaction.timestamp)
   return timestamp_;
 }
 inline void Transaction::set_timestamp(double value) {
   
   timestamp_ = value;
-  // @@protoc_insertion_point(field_set:Transaction.timestamp)
+  // @@protoc_insertion_point(field_set:onvevote.Transaction.timestamp)
 }
 
 // -------------------------------------------------------------------
@@ -1216,13 +1218,13 @@ inline void AddrRequest::clear_num_requested() {
   num_requested_ = 0u;
 }
 inline ::google::protobuf::uint32 AddrRequest::num_requested() const {
-  // @@protoc_insertion_point(field_get:AddrRequest.num_requested)
+  // @@protoc_insertion_point(field_get:onvevote.AddrRequest.num_requested)
   return num_requested_;
 }
 inline void AddrRequest::set_num_requested(::google::protobuf::uint32 value) {
   
   num_requested_ = value;
-  // @@protoc_insertion_point(field_set:AddrRequest.num_requested)
+  // @@protoc_insertion_point(field_set:onvevote.AddrRequest.num_requested)
 }
 
 // -------------------------------------------------------------------
@@ -1237,49 +1239,49 @@ inline void AddrResponse::clear_peer() {
   peer_.Clear();
 }
 inline const ::std::string& AddrResponse::peer(int index) const {
-  // @@protoc_insertion_point(field_get:AddrResponse.peer)
+  // @@protoc_insertion_point(field_get:onvevote.AddrResponse.peer)
   return peer_.Get(index);
 }
 inline ::std::string* AddrResponse::mutable_peer(int index) {
-  // @@protoc_insertion_point(field_mutable:AddrResponse.peer)
+  // @@protoc_insertion_point(field_mutable:onvevote.AddrResponse.peer)
   return peer_.Mutable(index);
 }
 inline void AddrResponse::set_peer(int index, const ::std::string& value) {
-  // @@protoc_insertion_point(field_set:AddrResponse.peer)
+  // @@protoc_insertion_point(field_set:onvevote.AddrResponse.peer)
   peer_.Mutable(index)->assign(value);
 }
 inline void AddrResponse::set_peer(int index, const char* value) {
   peer_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:AddrResponse.peer)
+  // @@protoc_insertion_point(field_set_char:onvevote.AddrResponse.peer)
 }
 inline void AddrResponse::set_peer(int index, const char* value, size_t size) {
   peer_.Mutable(index)->assign(
     reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:AddrResponse.peer)
+  // @@protoc_insertion_point(field_set_pointer:onvevote.AddrResponse.peer)
 }
 inline ::std::string* AddrResponse::add_peer() {
   return peer_.Add();
 }
 inline void AddrResponse::add_peer(const ::std::string& value) {
   peer_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:AddrResponse.peer)
+  // @@protoc_insertion_point(field_add:onvevote.AddrResponse.peer)
 }
 inline void AddrResponse::add_peer(const char* value) {
   peer_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:AddrResponse.peer)
+  // @@protoc_insertion_point(field_add_char:onvevote.AddrResponse.peer)
 }
 inline void AddrResponse::add_peer(const char* value, size_t size) {
   peer_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:AddrResponse.peer)
+  // @@protoc_insertion_point(field_add_pointer:onvevote.AddrResponse.peer)
 }
 inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
 AddrResponse::peer() const {
-  // @@protoc_insertion_point(field_list:AddrResponse.peer)
+  // @@protoc_insertion_point(field_list:onvevote.AddrResponse.peer)
   return peer_;
 }
 inline ::google::protobuf::RepeatedPtrField< ::std::string>*
 AddrResponse::mutable_peer() {
-  // @@protoc_insertion_point(field_mutable_list:AddrResponse.peer)
+  // @@protoc_insertion_point(field_mutable_list:onvevote.AddrResponse.peer)
   return &peer_;
 }
 
@@ -1292,28 +1294,28 @@ inline void TransactionRequest::clear_publickey() {
   publickey_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& TransactionRequest::publickey() const {
-  // @@protoc_insertion_point(field_get:TransactionRequest.publickey)
+  // @@protoc_insertion_point(field_get:onvevote.TransactionRequest.publickey)
   return publickey_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void TransactionRequest::set_publickey(const ::std::string& value) {
   
   publickey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:TransactionRequest.publickey)
+  // @@protoc_insertion_point(field_set:onvevote.TransactionRequest.publickey)
 }
 inline void TransactionRequest::set_publickey(const char* value) {
   
   publickey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:TransactionRequest.publickey)
+  // @@protoc_insertion_point(field_set_char:onvevote.TransactionRequest.publickey)
 }
 inline void TransactionRequest::set_publickey(const char* value, size_t size) {
   
   publickey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:TransactionRequest.publickey)
+  // @@protoc_insertion_point(field_set_pointer:onvevote.TransactionRequest.publickey)
 }
 inline ::std::string* TransactionRequest::mutable_publickey() {
   
-  // @@protoc_insertion_point(field_mutable:TransactionRequest.publickey)
+  // @@protoc_insertion_point(field_mutable:onvevote.TransactionRequest.publickey)
   return publickey_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* TransactionRequest::release_publickey() {
@@ -1327,7 +1329,7 @@ inline void TransactionRequest::set_allocated_publickey(::std::string* publickey
     
   }
   publickey_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), publickey);
-  // @@protoc_insertion_point(field_set_allocated:TransactionRequest.publickey)
+  // @@protoc_insertion_point(field_set_allocated:onvevote.TransactionRequest.publickey)
 }
 
 // -------------------------------------------------------------------
@@ -1339,13 +1341,13 @@ inline void BlockRequest::clear_block_number() {
   block_number_ = 0u;
 }
 inline ::google::protobuf::uint32 BlockRequest::block_number() const {
-  // @@protoc_insertion_point(field_get:BlockRequest.block_number)
+  // @@protoc_insertion_point(field_get:onvevote.BlockRequest.block_number)
   return block_number_;
 }
 inline void BlockRequest::set_block_number(::google::protobuf::uint32 value) {
   
   block_number_ = value;
-  // @@protoc_insertion_point(field_set:BlockRequest.block_number)
+  // @@protoc_insertion_point(field_set:onvevote.BlockRequest.block_number)
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -1365,6 +1367,8 @@ inline void BlockRequest::set_block_number(::google::protobuf::uint32 value) {
 
 
 // @@protoc_insertion_point(namespace_scope)
+
+}  // namespace onvevote
 
 // @@protoc_insertion_point(global_scope)
 
