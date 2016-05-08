@@ -1,11 +1,17 @@
 #include "processor.hpp"
 
+
 using namespace std;
 using namespace std::chrono;
 
 
 char* block::calculate_merkle_root() {
 	// Calculate and return the Merkle root. 
+
+	// For now, we can just implement this by calculating the SHA1 of the first element.
+	unsigned char hash[SHA_DIGEST_LENGTH]; // == 20
+ 	SHA1((const unsigned char*) *(transaction_array[0]), sizeof(*(transaction_array[0])), hash);
+
 	return NULL;
 }
   
@@ -14,7 +20,6 @@ char* block::verify_block_number() {
   // one less than this one's.
   return NULL;
 }
-
 
 // Check if a new block is valid to be added to this blockchain.
 // Make sure that none of the transactions in this block

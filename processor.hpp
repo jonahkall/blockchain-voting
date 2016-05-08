@@ -19,6 +19,7 @@
 #include <random>
 #include <cmath>
 #include <unordered_set>
+#include <openssl/sha.h>
 
 #define NUM_TRANSACTIONS_PER_BLOCK 64
 
