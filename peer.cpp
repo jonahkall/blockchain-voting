@@ -1,9 +1,12 @@
 #include "peer.hpp"
 #include "processor.hpp"
 #include "communication.hpp"
+#include "rsa.hpp"
 //#include "sha1.h"
 #include <openssl/sha.h>
 #include <openssl/rsa.h>
+
+
 
 using namespace std;
 
@@ -17,27 +20,6 @@ struct processing_thread_args {
 	synchronized_queue<block*>* bq;
 };
 
-RSA * createRSA(unsigned char * key,int public)
-{
-    RSA *rsa= NULL;
-    BIO *keybio ;
-    keybio = BIO_new_mem_buf(key, -1);
-    if (keybio==NULL)
-    {
-        printf( "Failed to create key BIO");
-        return 0;
-    }
-    if(public)
-    {
-        rsa = PEM_read_bio_RSA_PUBKEY(keybio, &rsa,NULL, NULL);
-    }
-    else
-    {
-        rsa = PEM_read_bio_RSAPrivateKey(keybio, &rsa,NULL, NULL);
-    }
- 
-    return rsa;
-}
 
 void* comm_thread (void* arg) {
 	comm_thread_args* ctap = (comm_thread_args *) arg;
@@ -52,6 +34,7 @@ void* processing_thread(void* arg) {
 	blockchain bc;
 	bc.chain_length = 0;
 
+	RSA* rsa_priv_object = createRSAWithFilename("private.pem", 1);
 	// RSA* private_key = createRSA(“PUBLIC_KEY_BUFFER”,1);
 	// RSA* public_key = createRSA(“PUBLIC_KEY_BUFFER”,1);
 
@@ -133,3 +116,7 @@ int main () {
 
 	return 0;
 }
+
+
+
+
