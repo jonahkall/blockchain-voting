@@ -75,6 +75,9 @@ class blockchain {
     int chain_length;
     void repair_blockchain(block* b);
     BlockList::iterator check_if_block_in_chain(block* b);
+    void remove_transactions_from_set(block* b);
+    void add_transactions_to_set(block* b);
+    void add_transactions_to_queue(block* b);
 
   private:
   	BlockList blocks_;
