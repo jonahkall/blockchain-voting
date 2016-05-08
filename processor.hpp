@@ -47,7 +47,8 @@ class block {
     char* prev_block_SHA1;
     unsigned long long magic_string;
     char* merkle_root;
-    transaction transaction_array[NUM_TRANSACTIONS_PER_BLOCK];
+    transaction* transaction_array[NUM_TRANSACTIONS_PER_BLOCK];
+    int max_ind;
     char* verifier_public_key;
     char* finhash;
 
