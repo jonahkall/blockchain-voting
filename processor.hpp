@@ -19,6 +19,7 @@
 #include <random>
 #include <cmath>
 #include <unordered_set>
+#include <openssl/sha.h>
 
 #define NUM_TRANSACTIONS_PER_BLOCK 64
 
@@ -55,8 +56,8 @@ class block {
     char* verifier_public_key;
     char* finhash;
 
-  char* calculate_merkle_root();
   char* calculate_finhash();
+  unsigned char* calculate_merkle_root();
   char* verify_block_number();
   
 };
@@ -70,6 +71,7 @@ class blockchain {
     block* get_head_block();
     int chain_length;
     void repair_blockchain(block* b);
+    bool check_if_block_in_chain(block* b);
 
   private:
   	std::list<block*> blocks_;

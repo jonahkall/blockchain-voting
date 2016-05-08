@@ -1,24 +1,33 @@
 #include "processor.hpp"
 
+
 using namespace std;
 using namespace std::chrono;
 
 
-char* block::calculate_merkle_root() {
+unsigned char* block::calculate_merkle_root() {
 	// Calculate and return the Merkle root. 
-	return NULL;
+
+	// For now, we can just implement this by calculating the 
+	// SHA1 of the first element.
+	// TODO: This probably needs to be heap allocated.
+	unsigned char* hash = new unsigned char[SHA_DIGEST_LENGTH]; // == 20
+	const unsigned char* data_to_hash = 
+	    (const unsigned char*) transaction_array[0]->sender_public_key.c_str();
+ 	SHA1(data_to_hash, sizeof(data_to_hash), hash);
+ 	return hash;
+
 }
   
 char* block::verify_block_number() {
- 	// Asks neighbors for the previous block, and checks to make sure its block_number is
-  // one less than this one's.
+ // Asks neighbors for the previous block, and checks to make sure its 
+ // block_number is one less than this one's.
   return NULL;
 }
 
 char* block::calculate_finhash() {
 	return NULL;
 }
-
 
 // Check if a new block is valid to be added to this blockchain.
 // Make sure that none of the transactions in this block
@@ -27,7 +36,8 @@ bool blockchain::verify_transactions(block* b) {
 	// Iterate over all transactions in the block.
 	for (int i = 0; i < NUM_TRANSACTIONS_PER_BLOCK; ++i) {
 		// If you ever find one, return false.
-		if (voted.find(b->transaction_array[i]->sender_public_key) != voted.end()) {
+		if (voted.find(b->transaction_array[i]->sender_public_key) 
+			                                               != voted.end()) {
 			return false;
 		}
 	}
@@ -40,6 +50,38 @@ bool blockchain::verify_transactions() {
   // Iterate over all of the blocks, and check that there are
   // not two transactions from the same person.
 	return true;
+}
+
+bool blockchain::check_if_block_in_chain(block* b) {
+	// Iterate over the blocks, and check if any have a matching final hash.
+	for(const auto& block: blocks_) {
+		if (strcmp(b->finhash, block->finhash) == 0) {
+			return true;
+		}
+	}
+	return false;
+}
+
+block* get_parent_block_from_neighbor(block* b) {
+	return NULL;
+}
+
+void blockchain::repair_blockchain(block* b) {
+	// This list will contain the blocks that need to be added to blockchain.
+	std:list<block*> blocks_needed;
+
+	// Get all of the blocks that need to be added to chain
+	block* current_block = b;
+	while(!check_if_block_in_chain(current_block)) {
+		blocks_needed.push_back(current_block);
+		block* current_block = get_parent_block_from_neighbor(current_block);
+	}
+
+	// Now blocks_needed contains the blocks needed to be added to chain.
+	// Now, deal with removing the old ones, and adding these.
+
+	return;
+
 }
 
 block_validity_code blockchain::check_block_validity(block* b) {
@@ -77,9 +119,6 @@ block* blockchain::get_head_block(){
 	return blocks_.back();
 }
 
-void blockchain::repair_blockchain(block* b) {
-	
-}
 
 
 template <class T>
