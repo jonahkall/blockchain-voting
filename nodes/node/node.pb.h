@@ -29,7 +29,7 @@
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 
-namespace onvevote {
+namespace onevote {
 
 // Internal implementation detail -- do not call these.
 void protobuf_AddDesc_node_2eproto();
@@ -102,7 +102,7 @@ class Empty : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // @@protoc_insertion_point(class_scope:onvevote.Empty)
+  // @@protoc_insertion_point(class_scope:onevote.Empty)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -207,16 +207,16 @@ class BlockMsg : public ::google::protobuf::Message {
   ::std::string* release_merkle_root();
   void set_allocated_merkle_root(::std::string* merkle_root);
 
-  // repeated .onvevote.TransactionMsg transaction_msg = 4;
+  // repeated .onevote.TransactionMsg transaction_msg = 4;
   int transaction_msg_size() const;
   void clear_transaction_msg();
   static const int kTransactionMsgFieldNumber = 4;
-  const ::onvevote::TransactionMsg& transaction_msg(int index) const;
-  ::onvevote::TransactionMsg* mutable_transaction_msg(int index);
-  ::onvevote::TransactionMsg* add_transaction_msg();
-  ::google::protobuf::RepeatedPtrField< ::onvevote::TransactionMsg >*
+  const ::onevote::TransactionMsg& transaction_msg(int index) const;
+  ::onevote::TransactionMsg* mutable_transaction_msg(int index);
+  ::onevote::TransactionMsg* add_transaction_msg();
+  ::google::protobuf::RepeatedPtrField< ::onevote::TransactionMsg >*
       mutable_transaction_msg();
-  const ::google::protobuf::RepeatedPtrField< ::onvevote::TransactionMsg >&
+  const ::google::protobuf::RepeatedPtrField< ::onevote::TransactionMsg >&
       transaction_msg() const;
 
   // optional uint32 num_transactions = 5;
@@ -247,7 +247,7 @@ class BlockMsg : public ::google::protobuf::Message {
   ::std::string* release_final_hash();
   void set_allocated_final_hash(::std::string* final_hash);
 
-  // @@protoc_insertion_point(class_scope:onvevote.BlockMsg)
+  // @@protoc_insertion_point(class_scope:onevote.BlockMsg)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -257,7 +257,7 @@ class BlockMsg : public ::google::protobuf::Message {
   ::google::protobuf::uint32 block_number_;
   ::google::protobuf::uint32 num_transactions_;
   ::google::protobuf::internal::ArenaStringPtr merkle_root_;
-  ::google::protobuf::RepeatedPtrField< ::onvevote::TransactionMsg > transaction_msg_;
+  ::google::protobuf::RepeatedPtrField< ::onevote::TransactionMsg > transaction_msg_;
   ::google::protobuf::internal::ArenaStringPtr verifier_public_key_;
   ::google::protobuf::internal::ArenaStringPtr final_hash_;
   mutable int _cached_size_;
@@ -354,7 +354,7 @@ class TransactionMsg : public ::google::protobuf::Message {
   double timestamp() const;
   void set_timestamp(double value);
 
-  // @@protoc_insertion_point(class_scope:onvevote.TransactionMsg)
+  // @@protoc_insertion_point(class_scope:onevote.TransactionMsg)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -434,7 +434,7 @@ class AddrRequest : public ::google::protobuf::Message {
   ::google::protobuf::uint32 num_requested() const;
   void set_num_requested(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:onvevote.AddrRequest)
+  // @@protoc_insertion_point(class_scope:onevote.AddrRequest)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -522,7 +522,7 @@ class AddrResponse : public ::google::protobuf::Message {
   const ::google::protobuf::RepeatedPtrField< ::std::string>& peer() const;
   ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_peer();
 
-  // @@protoc_insertion_point(class_scope:onvevote.AddrResponse)
+  // @@protoc_insertion_point(class_scope:onevote.AddrResponse)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -605,7 +605,7 @@ class TransactionRequest : public ::google::protobuf::Message {
   ::std::string* release_publickey();
   void set_allocated_publickey(::std::string* publickey);
 
-  // @@protoc_insertion_point(class_scope:onvevote.TransactionRequest)
+  // @@protoc_insertion_point(class_scope:onevote.TransactionRequest)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -683,7 +683,7 @@ class BlockRequest : public ::google::protobuf::Message {
   ::google::protobuf::uint32 block_number() const;
   void set_block_number(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:onvevote.BlockRequest)
+  // @@protoc_insertion_point(class_scope:onevote.BlockRequest)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -714,13 +714,13 @@ inline void BlockMsg::clear_block_number() {
   block_number_ = 0u;
 }
 inline ::google::protobuf::uint32 BlockMsg::block_number() const {
-  // @@protoc_insertion_point(field_get:onvevote.BlockMsg.block_number)
+  // @@protoc_insertion_point(field_get:onevote.BlockMsg.block_number)
   return block_number_;
 }
 inline void BlockMsg::set_block_number(::google::protobuf::uint32 value) {
-  
+
   block_number_ = value;
-  // @@protoc_insertion_point(field_set:onvevote.BlockMsg.block_number)
+  // @@protoc_insertion_point(field_set:onevote.BlockMsg.block_number)
 }
 
 // optional string prev_block_SHA1 = 1;
@@ -728,42 +728,42 @@ inline void BlockMsg::clear_prev_block_sha1() {
   prev_block_sha1_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& BlockMsg::prev_block_sha1() const {
-  // @@protoc_insertion_point(field_get:onvevote.BlockMsg.prev_block_SHA1)
+  // @@protoc_insertion_point(field_get:onevote.BlockMsg.prev_block_SHA1)
   return prev_block_sha1_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void BlockMsg::set_prev_block_sha1(const ::std::string& value) {
-  
+
   prev_block_sha1_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:onvevote.BlockMsg.prev_block_SHA1)
+  // @@protoc_insertion_point(field_set:onevote.BlockMsg.prev_block_SHA1)
 }
 inline void BlockMsg::set_prev_block_sha1(const char* value) {
-  
+
   prev_block_sha1_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:onvevote.BlockMsg.prev_block_SHA1)
+  // @@protoc_insertion_point(field_set_char:onevote.BlockMsg.prev_block_SHA1)
 }
 inline void BlockMsg::set_prev_block_sha1(const char* value, size_t size) {
-  
+
   prev_block_sha1_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:onvevote.BlockMsg.prev_block_SHA1)
+  // @@protoc_insertion_point(field_set_pointer:onevote.BlockMsg.prev_block_SHA1)
 }
 inline ::std::string* BlockMsg::mutable_prev_block_sha1() {
-  
-  // @@protoc_insertion_point(field_mutable:onvevote.BlockMsg.prev_block_SHA1)
+
+  // @@protoc_insertion_point(field_mutable:onevote.BlockMsg.prev_block_SHA1)
   return prev_block_sha1_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* BlockMsg::release_prev_block_sha1() {
-  
+
   return prev_block_sha1_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void BlockMsg::set_allocated_prev_block_sha1(::std::string* prev_block_sha1) {
   if (prev_block_sha1 != NULL) {
-    
+
   } else {
-    
+
   }
   prev_block_sha1_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), prev_block_sha1);
-  // @@protoc_insertion_point(field_set_allocated:onvevote.BlockMsg.prev_block_SHA1)
+  // @@protoc_insertion_point(field_set_allocated:onevote.BlockMsg.prev_block_SHA1)
 }
 
 // optional int64 magic = 2;
@@ -771,13 +771,13 @@ inline void BlockMsg::clear_magic() {
   magic_ = GOOGLE_LONGLONG(0);
 }
 inline ::google::protobuf::int64 BlockMsg::magic() const {
-  // @@protoc_insertion_point(field_get:onvevote.BlockMsg.magic)
+  // @@protoc_insertion_point(field_get:onevote.BlockMsg.magic)
   return magic_;
 }
 inline void BlockMsg::set_magic(::google::protobuf::int64 value) {
-  
+
   magic_ = value;
-  // @@protoc_insertion_point(field_set:onvevote.BlockMsg.magic)
+  // @@protoc_insertion_point(field_set:onevote.BlockMsg.magic)
 }
 
 // optional string merkle_root = 3;
@@ -785,71 +785,71 @@ inline void BlockMsg::clear_merkle_root() {
   merkle_root_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& BlockMsg::merkle_root() const {
-  // @@protoc_insertion_point(field_get:onvevote.BlockMsg.merkle_root)
+  // @@protoc_insertion_point(field_get:onevote.BlockMsg.merkle_root)
   return merkle_root_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void BlockMsg::set_merkle_root(const ::std::string& value) {
-  
+
   merkle_root_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:onvevote.BlockMsg.merkle_root)
+  // @@protoc_insertion_point(field_set:onevote.BlockMsg.merkle_root)
 }
 inline void BlockMsg::set_merkle_root(const char* value) {
-  
+
   merkle_root_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:onvevote.BlockMsg.merkle_root)
+  // @@protoc_insertion_point(field_set_char:onevote.BlockMsg.merkle_root)
 }
 inline void BlockMsg::set_merkle_root(const char* value, size_t size) {
-  
+
   merkle_root_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:onvevote.BlockMsg.merkle_root)
+  // @@protoc_insertion_point(field_set_pointer:onevote.BlockMsg.merkle_root)
 }
 inline ::std::string* BlockMsg::mutable_merkle_root() {
-  
-  // @@protoc_insertion_point(field_mutable:onvevote.BlockMsg.merkle_root)
+
+  // @@protoc_insertion_point(field_mutable:onevote.BlockMsg.merkle_root)
   return merkle_root_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* BlockMsg::release_merkle_root() {
-  
+
   return merkle_root_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void BlockMsg::set_allocated_merkle_root(::std::string* merkle_root) {
   if (merkle_root != NULL) {
-    
+
   } else {
-    
+
   }
   merkle_root_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), merkle_root);
-  // @@protoc_insertion_point(field_set_allocated:onvevote.BlockMsg.merkle_root)
+  // @@protoc_insertion_point(field_set_allocated:onevote.BlockMsg.merkle_root)
 }
 
-// repeated .onvevote.TransactionMsg transaction_msg = 4;
+// repeated .onevote.TransactionMsg transaction_msg = 4;
 inline int BlockMsg::transaction_msg_size() const {
   return transaction_msg_.size();
 }
 inline void BlockMsg::clear_transaction_msg() {
   transaction_msg_.Clear();
 }
-inline const ::onvevote::TransactionMsg& BlockMsg::transaction_msg(int index) const {
-  // @@protoc_insertion_point(field_get:onvevote.BlockMsg.transaction_msg)
+inline const ::onevote::TransactionMsg& BlockMsg::transaction_msg(int index) const {
+  // @@protoc_insertion_point(field_get:onevote.BlockMsg.transaction_msg)
   return transaction_msg_.Get(index);
 }
-inline ::onvevote::TransactionMsg* BlockMsg::mutable_transaction_msg(int index) {
-  // @@protoc_insertion_point(field_mutable:onvevote.BlockMsg.transaction_msg)
+inline ::onevote::TransactionMsg* BlockMsg::mutable_transaction_msg(int index) {
+  // @@protoc_insertion_point(field_mutable:onevote.BlockMsg.transaction_msg)
   return transaction_msg_.Mutable(index);
 }
-inline ::onvevote::TransactionMsg* BlockMsg::add_transaction_msg() {
-  // @@protoc_insertion_point(field_add:onvevote.BlockMsg.transaction_msg)
+inline ::onevote::TransactionMsg* BlockMsg::add_transaction_msg() {
+  // @@protoc_insertion_point(field_add:onevote.BlockMsg.transaction_msg)
   return transaction_msg_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::onvevote::TransactionMsg >*
+inline ::google::protobuf::RepeatedPtrField< ::onevote::TransactionMsg >*
 BlockMsg::mutable_transaction_msg() {
-  // @@protoc_insertion_point(field_mutable_list:onvevote.BlockMsg.transaction_msg)
+  // @@protoc_insertion_point(field_mutable_list:onevote.BlockMsg.transaction_msg)
   return &transaction_msg_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::onvevote::TransactionMsg >&
+inline const ::google::protobuf::RepeatedPtrField< ::onevote::TransactionMsg >&
 BlockMsg::transaction_msg() const {
-  // @@protoc_insertion_point(field_list:onvevote.BlockMsg.transaction_msg)
+  // @@protoc_insertion_point(field_list:onevote.BlockMsg.transaction_msg)
   return transaction_msg_;
 }
 
@@ -858,13 +858,13 @@ inline void BlockMsg::clear_num_transactions() {
   num_transactions_ = 0u;
 }
 inline ::google::protobuf::uint32 BlockMsg::num_transactions() const {
-  // @@protoc_insertion_point(field_get:onvevote.BlockMsg.num_transactions)
+  // @@protoc_insertion_point(field_get:onevote.BlockMsg.num_transactions)
   return num_transactions_;
 }
 inline void BlockMsg::set_num_transactions(::google::protobuf::uint32 value) {
-  
+
   num_transactions_ = value;
-  // @@protoc_insertion_point(field_set:onvevote.BlockMsg.num_transactions)
+  // @@protoc_insertion_point(field_set:onevote.BlockMsg.num_transactions)
 }
 
 // optional string verifier_public_key = 6;
@@ -872,42 +872,42 @@ inline void BlockMsg::clear_verifier_public_key() {
   verifier_public_key_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& BlockMsg::verifier_public_key() const {
-  // @@protoc_insertion_point(field_get:onvevote.BlockMsg.verifier_public_key)
+  // @@protoc_insertion_point(field_get:onevote.BlockMsg.verifier_public_key)
   return verifier_public_key_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void BlockMsg::set_verifier_public_key(const ::std::string& value) {
-  
+
   verifier_public_key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:onvevote.BlockMsg.verifier_public_key)
+  // @@protoc_insertion_point(field_set:onevote.BlockMsg.verifier_public_key)
 }
 inline void BlockMsg::set_verifier_public_key(const char* value) {
-  
+
   verifier_public_key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:onvevote.BlockMsg.verifier_public_key)
+  // @@protoc_insertion_point(field_set_char:onevote.BlockMsg.verifier_public_key)
 }
 inline void BlockMsg::set_verifier_public_key(const char* value, size_t size) {
-  
+
   verifier_public_key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:onvevote.BlockMsg.verifier_public_key)
+  // @@protoc_insertion_point(field_set_pointer:onevote.BlockMsg.verifier_public_key)
 }
 inline ::std::string* BlockMsg::mutable_verifier_public_key() {
-  
-  // @@protoc_insertion_point(field_mutable:onvevote.BlockMsg.verifier_public_key)
+
+  // @@protoc_insertion_point(field_mutable:onevote.BlockMsg.verifier_public_key)
   return verifier_public_key_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* BlockMsg::release_verifier_public_key() {
-  
+
   return verifier_public_key_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void BlockMsg::set_allocated_verifier_public_key(::std::string* verifier_public_key) {
   if (verifier_public_key != NULL) {
-    
+
   } else {
-    
+
   }
   verifier_public_key_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), verifier_public_key);
-  // @@protoc_insertion_point(field_set_allocated:onvevote.BlockMsg.verifier_public_key)
+  // @@protoc_insertion_point(field_set_allocated:onevote.BlockMsg.verifier_public_key)
 }
 
 // optional string final_hash = 7;
@@ -915,42 +915,42 @@ inline void BlockMsg::clear_final_hash() {
   final_hash_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& BlockMsg::final_hash() const {
-  // @@protoc_insertion_point(field_get:onvevote.BlockMsg.final_hash)
+  // @@protoc_insertion_point(field_get:onevote.BlockMsg.final_hash)
   return final_hash_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void BlockMsg::set_final_hash(const ::std::string& value) {
-  
+
   final_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:onvevote.BlockMsg.final_hash)
+  // @@protoc_insertion_point(field_set:onevote.BlockMsg.final_hash)
 }
 inline void BlockMsg::set_final_hash(const char* value) {
-  
+
   final_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:onvevote.BlockMsg.final_hash)
+  // @@protoc_insertion_point(field_set_char:onevote.BlockMsg.final_hash)
 }
 inline void BlockMsg::set_final_hash(const char* value, size_t size) {
-  
+
   final_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:onvevote.BlockMsg.final_hash)
+  // @@protoc_insertion_point(field_set_pointer:onevote.BlockMsg.final_hash)
 }
 inline ::std::string* BlockMsg::mutable_final_hash() {
-  
-  // @@protoc_insertion_point(field_mutable:onvevote.BlockMsg.final_hash)
+
+  // @@protoc_insertion_point(field_mutable:onevote.BlockMsg.final_hash)
   return final_hash_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* BlockMsg::release_final_hash() {
-  
+
   return final_hash_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void BlockMsg::set_allocated_final_hash(::std::string* final_hash) {
   if (final_hash != NULL) {
-    
+
   } else {
-    
+
   }
   final_hash_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), final_hash);
-  // @@protoc_insertion_point(field_set_allocated:onvevote.BlockMsg.final_hash)
+  // @@protoc_insertion_point(field_set_allocated:onevote.BlockMsg.final_hash)
 }
 
 // -------------------------------------------------------------------
@@ -962,42 +962,42 @@ inline void TransactionMsg::clear_sender_public_key() {
   sender_public_key_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& TransactionMsg::sender_public_key() const {
-  // @@protoc_insertion_point(field_get:onvevote.TransactionMsg.sender_public_key)
+  // @@protoc_insertion_point(field_get:onevote.TransactionMsg.sender_public_key)
   return sender_public_key_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void TransactionMsg::set_sender_public_key(const ::std::string& value) {
-  
+
   sender_public_key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:onvevote.TransactionMsg.sender_public_key)
+  // @@protoc_insertion_point(field_set:onevote.TransactionMsg.sender_public_key)
 }
 inline void TransactionMsg::set_sender_public_key(const char* value) {
-  
+
   sender_public_key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:onvevote.TransactionMsg.sender_public_key)
+  // @@protoc_insertion_point(field_set_char:onevote.TransactionMsg.sender_public_key)
 }
 inline void TransactionMsg::set_sender_public_key(const char* value, size_t size) {
-  
+
   sender_public_key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:onvevote.TransactionMsg.sender_public_key)
+  // @@protoc_insertion_point(field_set_pointer:onevote.TransactionMsg.sender_public_key)
 }
 inline ::std::string* TransactionMsg::mutable_sender_public_key() {
-  
-  // @@protoc_insertion_point(field_mutable:onvevote.TransactionMsg.sender_public_key)
+
+  // @@protoc_insertion_point(field_mutable:onevote.TransactionMsg.sender_public_key)
   return sender_public_key_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* TransactionMsg::release_sender_public_key() {
-  
+
   return sender_public_key_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void TransactionMsg::set_allocated_sender_public_key(::std::string* sender_public_key) {
   if (sender_public_key != NULL) {
-    
+
   } else {
-    
+
   }
   sender_public_key_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sender_public_key);
-  // @@protoc_insertion_point(field_set_allocated:onvevote.TransactionMsg.sender_public_key)
+  // @@protoc_insertion_point(field_set_allocated:onevote.TransactionMsg.sender_public_key)
 }
 
 // optional string vote = 3;
@@ -1005,42 +1005,42 @@ inline void TransactionMsg::clear_vote() {
   vote_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& TransactionMsg::vote() const {
-  // @@protoc_insertion_point(field_get:onvevote.TransactionMsg.vote)
+  // @@protoc_insertion_point(field_get:onevote.TransactionMsg.vote)
   return vote_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void TransactionMsg::set_vote(const ::std::string& value) {
-  
+
   vote_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:onvevote.TransactionMsg.vote)
+  // @@protoc_insertion_point(field_set:onevote.TransactionMsg.vote)
 }
 inline void TransactionMsg::set_vote(const char* value) {
-  
+
   vote_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:onvevote.TransactionMsg.vote)
+  // @@protoc_insertion_point(field_set_char:onevote.TransactionMsg.vote)
 }
 inline void TransactionMsg::set_vote(const char* value, size_t size) {
-  
+
   vote_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:onvevote.TransactionMsg.vote)
+  // @@protoc_insertion_point(field_set_pointer:onevote.TransactionMsg.vote)
 }
 inline ::std::string* TransactionMsg::mutable_vote() {
-  
-  // @@protoc_insertion_point(field_mutable:onvevote.TransactionMsg.vote)
+
+  // @@protoc_insertion_point(field_mutable:onevote.TransactionMsg.vote)
   return vote_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* TransactionMsg::release_vote() {
-  
+
   return vote_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void TransactionMsg::set_allocated_vote(::std::string* vote) {
   if (vote != NULL) {
-    
+
   } else {
-    
+
   }
   vote_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), vote);
-  // @@protoc_insertion_point(field_set_allocated:onvevote.TransactionMsg.vote)
+  // @@protoc_insertion_point(field_set_allocated:onevote.TransactionMsg.vote)
 }
 
 // optional double timestamp = 4;
@@ -1048,13 +1048,13 @@ inline void TransactionMsg::clear_timestamp() {
   timestamp_ = 0;
 }
 inline double TransactionMsg::timestamp() const {
-  // @@protoc_insertion_point(field_get:onvevote.TransactionMsg.timestamp)
+  // @@protoc_insertion_point(field_get:onevote.TransactionMsg.timestamp)
   return timestamp_;
 }
 inline void TransactionMsg::set_timestamp(double value) {
-  
+
   timestamp_ = value;
-  // @@protoc_insertion_point(field_set:onvevote.TransactionMsg.timestamp)
+  // @@protoc_insertion_point(field_set:onevote.TransactionMsg.timestamp)
 }
 
 // -------------------------------------------------------------------
@@ -1066,13 +1066,13 @@ inline void AddrRequest::clear_num_requested() {
   num_requested_ = 0u;
 }
 inline ::google::protobuf::uint32 AddrRequest::num_requested() const {
-  // @@protoc_insertion_point(field_get:onvevote.AddrRequest.num_requested)
+  // @@protoc_insertion_point(field_get:onevote.AddrRequest.num_requested)
   return num_requested_;
 }
 inline void AddrRequest::set_num_requested(::google::protobuf::uint32 value) {
-  
+
   num_requested_ = value;
-  // @@protoc_insertion_point(field_set:onvevote.AddrRequest.num_requested)
+  // @@protoc_insertion_point(field_set:onevote.AddrRequest.num_requested)
 }
 
 // -------------------------------------------------------------------
@@ -1087,49 +1087,49 @@ inline void AddrResponse::clear_peer() {
   peer_.Clear();
 }
 inline const ::std::string& AddrResponse::peer(int index) const {
-  // @@protoc_insertion_point(field_get:onvevote.AddrResponse.peer)
+  // @@protoc_insertion_point(field_get:onevote.AddrResponse.peer)
   return peer_.Get(index);
 }
 inline ::std::string* AddrResponse::mutable_peer(int index) {
-  // @@protoc_insertion_point(field_mutable:onvevote.AddrResponse.peer)
+  // @@protoc_insertion_point(field_mutable:onevote.AddrResponse.peer)
   return peer_.Mutable(index);
 }
 inline void AddrResponse::set_peer(int index, const ::std::string& value) {
-  // @@protoc_insertion_point(field_set:onvevote.AddrResponse.peer)
+  // @@protoc_insertion_point(field_set:onevote.AddrResponse.peer)
   peer_.Mutable(index)->assign(value);
 }
 inline void AddrResponse::set_peer(int index, const char* value) {
   peer_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:onvevote.AddrResponse.peer)
+  // @@protoc_insertion_point(field_set_char:onevote.AddrResponse.peer)
 }
 inline void AddrResponse::set_peer(int index, const char* value, size_t size) {
   peer_.Mutable(index)->assign(
     reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:onvevote.AddrResponse.peer)
+  // @@protoc_insertion_point(field_set_pointer:onevote.AddrResponse.peer)
 }
 inline ::std::string* AddrResponse::add_peer() {
   return peer_.Add();
 }
 inline void AddrResponse::add_peer(const ::std::string& value) {
   peer_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:onvevote.AddrResponse.peer)
+  // @@protoc_insertion_point(field_add:onevote.AddrResponse.peer)
 }
 inline void AddrResponse::add_peer(const char* value) {
   peer_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:onvevote.AddrResponse.peer)
+  // @@protoc_insertion_point(field_add_char:onevote.AddrResponse.peer)
 }
 inline void AddrResponse::add_peer(const char* value, size_t size) {
   peer_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:onvevote.AddrResponse.peer)
+  // @@protoc_insertion_point(field_add_pointer:onevote.AddrResponse.peer)
 }
 inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
 AddrResponse::peer() const {
-  // @@protoc_insertion_point(field_list:onvevote.AddrResponse.peer)
+  // @@protoc_insertion_point(field_list:onevote.AddrResponse.peer)
   return peer_;
 }
 inline ::google::protobuf::RepeatedPtrField< ::std::string>*
 AddrResponse::mutable_peer() {
-  // @@protoc_insertion_point(field_mutable_list:onvevote.AddrResponse.peer)
+  // @@protoc_insertion_point(field_mutable_list:onevote.AddrResponse.peer)
   return &peer_;
 }
 
@@ -1142,42 +1142,42 @@ inline void TransactionRequest::clear_publickey() {
   publickey_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& TransactionRequest::publickey() const {
-  // @@protoc_insertion_point(field_get:onvevote.TransactionRequest.publickey)
+  // @@protoc_insertion_point(field_get:onevote.TransactionRequest.publickey)
   return publickey_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void TransactionRequest::set_publickey(const ::std::string& value) {
-  
+
   publickey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:onvevote.TransactionRequest.publickey)
+  // @@protoc_insertion_point(field_set:onevote.TransactionRequest.publickey)
 }
 inline void TransactionRequest::set_publickey(const char* value) {
-  
+
   publickey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:onvevote.TransactionRequest.publickey)
+  // @@protoc_insertion_point(field_set_char:onevote.TransactionRequest.publickey)
 }
 inline void TransactionRequest::set_publickey(const char* value, size_t size) {
-  
+
   publickey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:onvevote.TransactionRequest.publickey)
+  // @@protoc_insertion_point(field_set_pointer:onevote.TransactionRequest.publickey)
 }
 inline ::std::string* TransactionRequest::mutable_publickey() {
-  
-  // @@protoc_insertion_point(field_mutable:onvevote.TransactionRequest.publickey)
+
+  // @@protoc_insertion_point(field_mutable:onevote.TransactionRequest.publickey)
   return publickey_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* TransactionRequest::release_publickey() {
-  
+
   return publickey_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void TransactionRequest::set_allocated_publickey(::std::string* publickey) {
   if (publickey != NULL) {
-    
+
   } else {
-    
+
   }
   publickey_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), publickey);
-  // @@protoc_insertion_point(field_set_allocated:onvevote.TransactionRequest.publickey)
+  // @@protoc_insertion_point(field_set_allocated:onevote.TransactionRequest.publickey)
 }
 
 // -------------------------------------------------------------------
@@ -1189,13 +1189,13 @@ inline void BlockRequest::clear_block_number() {
   block_number_ = 0u;
 }
 inline ::google::protobuf::uint32 BlockRequest::block_number() const {
-  // @@protoc_insertion_point(field_get:onvevote.BlockRequest.block_number)
+  // @@protoc_insertion_point(field_get:onevote.BlockRequest.block_number)
   return block_number_;
 }
 inline void BlockRequest::set_block_number(::google::protobuf::uint32 value) {
-  
+
   block_number_ = value;
-  // @@protoc_insertion_point(field_set:onvevote.BlockRequest.block_number)
+  // @@protoc_insertion_point(field_set:onevote.BlockRequest.block_number)
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -1214,7 +1214,7 @@ inline void BlockRequest::set_block_number(::google::protobuf::uint32 value) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace onvevote
+}  // namespace onevote
 
 // @@protoc_insertion_point(global_scope)
 
