@@ -58,12 +58,25 @@ bool blockchain::check_if_block_in_chain(block* b) {
 	return false;
 }
 
+block* get_parent_block_from_neighbor(block* b) {
+	return NULL;
+}
+
 void blockchain::repair_blockchain(block* b) {
-	// Repeatedly ask neighbor for a parent block until a we get one 
-	// that is in this blockchain.
-		// Checking for being in our blockchain can be done by 
-	    // check_if_block_in_chain.
+	// This list will contain the blocks that need to be added to blockchain.
+	std:list<block*> blocks_needed;
+
+	// Get all of the blocks that need to be added to chain
 	block* current_block = b;
+	while(!check_if_block_in_chain(current_block)) {
+		blocks_needed.push_back(current_block);
+		block* current_block = get_parent_block_from_neighbor(current_block);
+	}
+
+	// Now blocks_needed contains the blocks needed to be added to chain.
+	// Now, deal with removing the old ones, and adding these.
+
+	return;
 
 }
 
