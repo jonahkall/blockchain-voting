@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+// package helloworld;
+
+service Miner {
+	rpc BroadcastBlock (Block) returns (Success) {}
+	rpc BroadcastTransaction (Transaction) returns (Success) {}
+	rpc GetAddr (AddrRequest) returns (AddrResponse) {}
+	rpc GetTransaction (TransactionRequest) returns (Transaction) {}
+	rpc GetBlock (BlockRequest) returns (Block) {}
+	rpc GetHeartbeat () returns (Success) {}
+}
+
+message Success {
+	required bool success = 1;
+	optional string message = 2;
+}
+
+message Block {
+	required bytes raw_data = 1;
+}
+
+message Transaction {
+	required bytes raw_data = 1;
+}
+
+message AddrRequest {
+	optional int32 num_requested = 1;
+}
+
+message AddrResponse {
+	repeated string peer = 1;
+}
+
+message TransactionRequest {
+	required string publickey = 1;
+}
+
+message BlockRequest {
+	// if not sent, then the latest block is requested
+	optional int32 block_number = 1;
+}
+
