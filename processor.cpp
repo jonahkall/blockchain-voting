@@ -80,9 +80,31 @@ block* get_parent_block_from_neighbor(block* b) {
 	return NULL;
 }
 
+void blockchain::remove_transactions_from_set(block* b) {
+	for (int i = 0; i < NUM_TRANSACTIONS_PER_BLOCK; ++i) {
+		voted.erase(b->transaction_array[i]->sender_public_key);
+	}
+	return;
+}
+
+void blockchain::add_transactions_to_set(block* b) {
+	for (int i = 0; i < NUM_TRANSACTIONS_PER_BLOCK; ++i) {
+		voted.insert(b->transaction_array[i]->sender_public_key);
+	}
+	return;
+}
+
+// TODO: Implement this.
+// This should add all transactions in this block into the
+// thread safe queue.
+void blockchain::add_transactions_to_queue(block* b) {
+	return;
+}
+
 void blockchain::repair_blockchain(block* b) {
 	// This list will contain the blocks that need to be added to blockchain.
-	std:list<block*> blocks_needed;
+	std::list<block*> blocks_to_add;
+	//std::list<block*> blocks_removed;
 
 	// Get all of the blocks that need to be added to chain
 	block* current_block = b;
@@ -92,13 +114,27 @@ void blockchain::repair_blockchain(block* b) {
 		it = check_if_block_in_chain(current_block);
 		if (it != blocks_.end())
 			break;
-		blocks_needed.push_back(current_block);
+		blocks_to_add.push_back(current_block);
 		block* current_block = get_parent_block_from_neighbor(current_block);
 	}
 
-	// Now blocks_needed contains the blocks needed to be added to chain.
-	// Also "it" is the iterator positioned at the location in the blockchain
-	// where the two chains diverge.
+	// Remove all of the necessary blocks from current chain.
+	// Remove their transactions from the set, and readd them to the transactions queue.
+	while(blocks_.begin() != it) {
+		block* first_block = blocks_.front();
+		remove_transactions_from_set(first_block);
+		add_transactions_to_queue(first_block);
+		blocks_.pop_front();
+	}
+
+	// Add the transactions for the new blocks to the set.
+	for (const auto& block: blocks_to_add) {
+		add_transactions_to_set(block);
+	}
+
+	// Add the actual blocks to the chain.
+	// This will add the blocks_to_add to the front of blocks_.
+	blocks_.splice(blocks_.begin(), blocks_to_add);
 
 	return;
 
@@ -126,7 +162,8 @@ bool blockchain::add_block(block* b) {
   if (block_validity_result == 1) {
     // Add block to the blockchain
     chain_length++;
-    blocks_.push_back(b);
+    blocks_.push_front(b);
+    add_transactions_to_set(b);
     return true;
   }
   return false;
@@ -136,7 +173,7 @@ block* blockchain::get_head_block(){
 	// Get the head block. Don't remove it from the chain.
 	if (chain_length == 0)
 		return NULL;
-	return blocks_.back();
+	return blocks_.front();
 }
 
 block::block() {
