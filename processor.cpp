@@ -17,11 +17,16 @@ char* block::verify_block_number() {
 
 
 // Check if a new block is valid to be added to this blockchain.
+// Make sure that none of the transactions in this block
+// are already in the blockchain.
 bool blockchain::verify_transactions(block* b) {
-	// Make sure that none of the transactions in this block
-	// are already in the blockchain.
-	
-
+	// Iterate over all transactions in the block.
+	for (int i = 0; i < NUM_TRANSACTIONS_PER_BLOCK; ++i) {
+		// If you ever find one, return false.
+		if (voted.find(b->transaction_array[i].sender_public_key) != voted.end()) {
+			return false
+		}
+	}
 	return true;
 }
 
@@ -35,15 +40,16 @@ bool blockchain::verify_transactions() {
 
 block_validity_code blockchain::check_block_validity(block* b) {
   // Make sure none of the votes had previously been made.
-  bool transaction_verification = verify_transactions(b);
-  if (!transaction_verification) 
-    return TRANSACTION_INVALID;
-  
+
   // Make sure the new block has the correct prev block.
   block* head_block = get_head_block();
   if (b->prev_block_SHA1 != head_block->merkle_root)
     return PREV_BLOCK_NONMATCH;
-    
+
+  bool transaction_verification = verify_transactions(b);
+  if (!transaction_verification) 
+    return TRANSACTION_INVALID;
+  
   // If everything checks out, return 1.
   return OK;
 }
