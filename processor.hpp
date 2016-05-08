@@ -22,6 +22,10 @@
 
 #define NUM_TRANSACTIONS_PER_BLOCK 64
 
+// This is the number of times to try hashing before
+// checking for a new block or a new transaction
+#define NUM_MAGIC_TO_TRY 2048
+
 struct transaction {
   size_t size;
   std::string sender_public_key;
@@ -45,6 +49,7 @@ class block {
     char* merkle_root;
     transaction transaction_array[NUM_TRANSACTIONS_PER_BLOCK];
     char* verifier_public_key;
+    char* finhash;
 
   char* calculate_merkle_root();
   char* verify_block_number();

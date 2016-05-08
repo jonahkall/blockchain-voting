@@ -1,6 +1,8 @@
 #include "peer.hpp"
 #include "processor.hpp"
 #include "communication.hpp"
+//#include "sha1.h"
+#include <openssl/sha.h>
 
 using namespace std;
 
@@ -32,15 +34,18 @@ void* processing_thread(void* arg) {
 		// on new block, add everything from the block to the set
 		block* b = ptap->bq->pop_nonblocking();
 		if (b) {
-			// Clear progress
+			// TODO: clear progress somehow
+
 			switch(bc.check_block_validity(b)) {
 				case OK:
+					//bc.add();
 					break;
 				case PREV_BLOCK_NONMATCH:
 					break;
 				case TRANSACTION_INVALID:
 					break;
 			}
+
 			//if ()
 		}
 		// Get a transaction from the transaction queue.
@@ -59,6 +64,20 @@ void* processing_thread(void* arg) {
 }
 
 int main () {
+
+	// char buffer[20];
+ //  string s = string("Some-Sample-Input");
+ //  s.copy(buffer, 10, 0);
+
+	//char *m = sha1(buffer);
+
+	//printf("The SHA1 Value is: %s\n", m);
+
+	const char str[] = "Original String";
+  unsigned char hash[SHA_DIGEST_LENGTH]; // == 20
+
+  SHA1((const unsigned char*)str, sizeof(str) - 1, hash);
+
 	pthread_t comm_t;
 	pthread_t processing_t;
 
