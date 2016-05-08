@@ -78,6 +78,8 @@ int main () {
 
   SHA1((const unsigned char*)str, sizeof(str) - 1, hash);
 
+  cout << "hash is:" << hash << endl;
+
 	pthread_t comm_t;
 	pthread_t processing_t;
 

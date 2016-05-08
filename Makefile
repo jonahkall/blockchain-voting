@@ -1,5 +1,5 @@
 CXX = clang++
-CXXFLAGS = -std=c++11 -stdlib=libc++ -O3 -lssl -pthread -funroll-loops
+CXXFLAGS = -std=c++11 -stdlib=libc++ -O3 -lssl -lcrypto -pthread -funroll-loops
 #CXXFLAGS = -std=c++11 -O3 -funroll-loops
 
 default: peer
