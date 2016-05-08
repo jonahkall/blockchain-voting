@@ -3,7 +3,7 @@
 
 syntax = "proto3";
 
-package onvevote;
+package onevote;
 
 service Miner {
 	rpc BroadcastBlock (BlockMsg) returns (Empty) {}
