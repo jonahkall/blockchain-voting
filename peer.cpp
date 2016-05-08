@@ -104,7 +104,9 @@ int main () {
 
   SHA1((const unsigned char*)str, sizeof(str) - 1, hash);
 
-  cout << "hash is:" << hash << endl;
+  for (int i = 0; i < 20; ++i)
+		printf("%02X", hash[i]);
+	printf("\n");
 
 	pthread_t comm_t;
 	pthread_t processing_t;
