@@ -24,7 +24,7 @@ bool blockchain::verify_transactions(block* b) {
 	for (int i = 0; i < NUM_TRANSACTIONS_PER_BLOCK; ++i) {
 		// If you ever find one, return false.
 		if (voted.find(b->transaction_array[i].sender_public_key) != voted.end()) {
-			return false
+			return false;
 		}
 	}
 	return true;
@@ -60,6 +60,7 @@ bool blockchain::add_block(block* b) {
   if (block_validity_result == 1) {
     // Add block to the blockchain
     chain_length++;
+    blocks_.push_back(b);
     return true;
   }
   return false;
