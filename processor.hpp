@@ -64,34 +64,6 @@ class block {
   
 };
 
-typedef std::list<block*> BlockList;
-
-// TODO: make a constructor, and initialize the blockchain to have a standardized start block.
-class blockchain {
-  public:
-    bool verify_transactions(block* b);
-    bool verify_transactions();
-    block_validity_code check_block_validity(block* b);
-    bool add_block(block* b);
-    block* get_head_block();
-    int chain_length;
-    void repair_blockchain(block* b);
-    BlockList::iterator check_if_block_in_chain(block* b);
-    void remove_transactions_from_set(block* b);
-    void add_transactions_to_set(block* b);
-    void add_transactions_to_queue(block* b);
-    blockchain(); // Constructor
-
-  private:
-  	BlockList blocks_;
-  	synchronized_queue<transaction*>* q_ptr_;
-
-  public:
-  	// A set containing the public keys of 
-  	// O(1)
-  	std::unordered_set<std::string> voted;
-};
-
 template <class T>
 class synchronized_queue {
   private:
@@ -105,6 +77,35 @@ class synchronized_queue {
   	T pop();
   	T pop_nonblocking();
   	bool empty();
+};
+
+typedef std::list<block*> BlockList;
+
+// TODO: make a constructor, and initialize the blockchain
+// to have a standardized start block.
+class blockchain {
+  public:
+    bool verify_transactions(block* b);
+    bool verify_transactions();
+    block_validity_code check_block_validity(block* b);
+    bool add_block(block* b);
+    block* get_head_block();
+    int chain_length;
+    void repair_blockchain(block* b);
+    BlockList::iterator check_if_block_in_chain(block* b);
+    void remove_transactions_from_set(block* b);
+    void add_transactions_to_set(block* b);
+    void add_transactions_to_queue(block* b);
+    blockchain(synchronized_queue<transaction*>* q); // Constructor
+
+  private:
+  	BlockList blocks_;
+  	synchronized_queue<transaction*>* q_ptr_;
+
+  public:
+  	// A set containing the public keys of 
+  	// O(1)
+  	std::unordered_set<std::string> voted;
 };
 
 

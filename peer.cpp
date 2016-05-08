@@ -45,7 +45,7 @@ void* processing_thread(void* arg) {
 	processing_thread_args* ptap = (processing_thread_args *) arg;
 	cout << "Hello from processing thread\n";
 
-	blockchain bc;
+	blockchain bc(ptap->tq);
 	bc.chain_length = 0;
 
 	// When this variable is true, we have a full set of

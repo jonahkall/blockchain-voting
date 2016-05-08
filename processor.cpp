@@ -44,12 +44,13 @@ unsigned char* block::calculate_finhash() {
 ///// blockchain implementation /////
 /////////////////////////////////////
 
-blockchain::blockchain() {
+blockchain::blockchain(synchronized_queue<transaction*>* q) {
 	block* b = new block;
 	b->block_number = 1;
 	b->finhash = "STARTINGBLOCK";
 	chain_length = 1;
 	blocks_.push_front(b);
+	q_ptr_ = q;
 }
 
 // Check if a new block is valid to be added to this blockchain.
@@ -130,7 +131,8 @@ void blockchain::repair_blockchain(block* b) {
 	}
 
 	// Remove all of the necessary blocks from current chain.
-	// Remove their transactions from the set, and readd them to the transactions queue.
+	// Remove their transactions from the set, and readd them
+	// to the transactions queue.
 	while(blocks_.begin() != it) {
 		block* first_block = blocks_.front();
 		remove_transactions_from_set(first_block);
