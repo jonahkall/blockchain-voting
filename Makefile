@@ -1,6 +1,6 @@
-CXX = g++-5
-#CXXFLAGS = -std=c++11 -stdlib=libc++ -O3 -funroll-loops
-CXXFLAGS = -std=c++11 -O3 -funroll-loops
+CXX = clang++
+CXXFLAGS = -std=c++11 -stdlib=libc++ -O3 -funroll-loops
+#CXXFLAGS = -std=c++11 -O3 -funroll-loops
 
 default: peer
 

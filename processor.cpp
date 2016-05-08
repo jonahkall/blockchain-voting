@@ -17,7 +17,7 @@ char* block::verify_block_number() {
 
 
 // Check if a new block is valid to be added to this blockchain.
-bool blockchain::verify_transactions(block b) {
+bool blockchain::verify_transactions(block* b) {
 	// Make sure that none of the transactions in this block
 	// are already in the blockchain.
 	return false;
@@ -31,27 +31,27 @@ bool blockchain::verify_transactions() {
 	return true;
 }
 
-int blockchain::check_block_validity(block b) {
+block_validity_code blockchain::check_block_validity(block* b) {
   // Make sure none of the votes had previously been made.
 	bool transaction_verification = verify_transactions(b);
   if (!transaction_verification) 
-    return -1;
+    return TRANSACTION_INVALID;
   
   // Make sure the new block has the correct prev block.
   block* head_block = get_head_block();
-  if (b.prev_block_SHA1 != head_block->merkle_root)
-    return -2;
+  if (b->prev_block_SHA1 != head_block->merkle_root)
+    return PREV_BLOCK_NONMATCH;
     
   // If everything checks out, return 1.
-  return 1;
+  return OK;
 }
 
-bool blockchain::add_block(block b) {
+bool blockchain::add_block(block* b) {
   // Call the appropriate code to make sure all of the transactions are valid.
   int block_validity_result = check_block_validity(b);
   if (block_validity_result == 1) {
     // Add block to the blockchain
-    chain_length_++;
+    chain_length++;
     return true;
   }
   return false;
@@ -64,12 +64,12 @@ block* blockchain::get_head_block(){
 
 template <class T>
 void synchronized_queue<T>::init() {
-	// pthread_mutex_init(&lock_, NULL);
-	// pthread_cond_init(&cv_, NULL);
+	pthread_mutex_init(&lock_, NULL);
+	pthread_cond_init(&cv_, NULL);
 }
 
 template <class T>
-void synchronized_queue<T>::push(T* t) {
+void synchronized_queue<T>::push(T t) {
 	pthread_mutex_lock(&lock_);
 	queue_.push(t);
 	pthread_cond_signal(&cv_);
@@ -77,11 +77,25 @@ void synchronized_queue<T>::push(T* t) {
 }
 
 template <class T>
-T* synchronized_queue<T>::pop() {
-	T* ret;
+T synchronized_queue<T>::pop() {
+	T ret;
 	pthread_mutex_lock(&lock_);
 	while (queue_.size() == 0) {
 		pthread_cond_wait(&cv_, &lock_);
+	}
+	ret = queue_.back();
+	queue_.pop();
+	pthread_mutex_unlock(&lock_);
+	return ret;
+}
+
+template <class T>
+T synchronized_queue<T>::pop_nonblocking() {
+	T ret;
+	pthread_mutex_lock(&lock_);
+	if (queue_.size() == 0) {
+		pthread_mutex_unlock(&lock_);
+		return NULL;
 	}
 	ret = queue_.back();
 	queue_.pop();

@@ -7,17 +7,12 @@
 #include <iostream>
 #include <cstdlib>
 #include <cstdio>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 #include <cassert>
 #include <pthread.h>
 #include <queue>
 #include <unistd.h>
 #include <list>
 #include <chrono>
-#include <algorithm>
-#include <thread>
 #include <cstring>
 #include <iostream>
 #include <iomanip>
@@ -29,9 +24,15 @@
 
 struct transaction {
   size_t size;
-  char* sender_public_key;
-  char* vote; // Public key of person you are voting for.
+  std::string sender_public_key;
+  std::string vote; // Public key of person you are voting for.
   double timestamp;
+};
+
+enum block_validity_code {
+	OK,
+	PREV_BLOCK_NONMATCH,
+	TRANSACTION_INVALID
 };
 
 // Block (SHA: Block Number, Pointer to previous block, Magic String, Merkel Root,
@@ -40,7 +41,7 @@ class block {
   public:
     unsigned block_number;
     char* prev_block_SHA1;
-    char* magic_string;
+    unsigned long long magic_string;
     char* merkle_root;
     transaction transaction_array[NUM_TRANSACTIONS_PER_BLOCK];
     char* verifier_public_key;
@@ -52,28 +53,33 @@ class block {
 
 class blockchain {
   public:
-    bool verify_transactions(block b);
+    bool verify_transactions(block* b);
     bool verify_transactions();
-    int check_block_validity(block b);
-    bool add_block(block b);
+    block_validity_code check_block_validity(block* b);
+    bool add_block(block* b);
     block* get_head_block();
-  
+    int chain_length;
+
   private:
   	std::list<block> blocks_;
-  	int chain_length_; 
+
+  	// A set containing the public keys of 
+  	// O(1)
+  	std::unordered_set<std::string> voted_;
 };
 
 template <class T>
 class synchronized_queue {
   private:
-  	std::queue<T*> queue_;
+  	std::queue<T> queue_;
   	pthread_mutex_t lock_;
   	pthread_cond_t cv_;
   
   public:
   	void init();
-  	void push(T* t);
-  	T* pop();
+  	void push(T t);
+  	T pop();
+  	T pop_nonblocking();
 };
 
 

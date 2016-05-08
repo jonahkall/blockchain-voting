@@ -5,11 +5,13 @@
 using namespace std;
 
 struct comm_thread_args {
-	synchronized_queue<transaction*>* q;
+	synchronized_queue<transaction*>* tq;
+	synchronized_queue<block*>* bq;
 };
 
 struct processing_thread_args {
-	synchronized_queue<transaction*>* q;
+	synchronized_queue<transaction*>* tq;
+	synchronized_queue<block*>* bq;
 };
 
 void* comm_thread (void* arg) {
@@ -22,13 +24,32 @@ void* processing_thread(void* arg) {
 	processing_thread_args* ptap = (processing_thread_args *) arg;
 	cout << "Hello from processing thread\n";
 
-	while(true) {
-		// Check if the block_queue is empty. If not, add the block as necessary. 
+	blockchain bc;
+	bc.chain_length = 0;
 
+	while(true) {
+		// Call pop_nonblocking. If not null, add the block to the blockchain, clear progress
+		// on new block, add everything from the block to the set
+		block* b = ptap->bq->pop_nonblocking();
+		if (b) {
+			// Clear progress
+			switch(bc.check_block_validity(b)) {
+				case OK:
+					break;
+				case PREV_BLOCK_NONMATCH:
+					break;
+				case TRANSACTION_INVALID:
+					break;
+			}
+			//if ()
+		}
 		// Get a transaction from the transaction queue.
-			// Check if already in the block chain. If so, throw it out.
-		// If not, add to set of voters. 
-		// 
+
+			// Check if already in the block chain (via the unordered set). If so, throw it out.
+
+		// add to set of things we are trying to turn into a block
+
+		// try to create a block x times.
 
 
 	}
@@ -44,11 +65,16 @@ int main () {
 	synchronized_queue<transaction*> tq = synchronized_queue<transaction*>();
 	tq.init();
 
+	synchronized_queue<block*> bq = synchronized_queue<block*>();
+	bq.init();
+
 	comm_thread_args cta;
-	cta.q = &tq;
+	cta.tq = &tq;
+	cta.bq = &bq;
 
 	processing_thread_args pta;
-	pta.q = &tq;
+	pta.tq = &tq;
+	pta.bq = &bq;
 
 	pthread_create(&comm_t, NULL, comm_thread, &cta);
 	pthread_create(&processing_t, NULL, processing_thread, &pta);
