@@ -20,7 +20,9 @@ char* block::verify_block_number() {
 bool blockchain::verify_transactions(block* b) {
 	// Make sure that none of the transactions in this block
 	// are already in the blockchain.
-	return false;
+	
+
+	return true;
 }
 
 // Overloaded function - this will just check if the current
@@ -33,7 +35,7 @@ bool blockchain::verify_transactions() {
 
 block_validity_code blockchain::check_block_validity(block* b) {
   // Make sure none of the votes had previously been made.
-	bool transaction_verification = verify_transactions(b);
+  bool transaction_verification = verify_transactions(b);
   if (!transaction_verification) 
     return TRANSACTION_INVALID;
   
