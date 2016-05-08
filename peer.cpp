@@ -34,7 +34,14 @@ void* processing_thread(void* arg) {
 	blockchain bc;
 	bc.chain_length = 0;
 
-	RSA* rsa_priv_object = createRSAWithFilename("private.pem", 1);
+	char data[2048/8] = "This is the message to encrypt/decrypt. If you see this, it works!"; 
+	unsigned char encrypted[4098];
+	unsigned char decrypted[4098];
+
+
+	int encrypted_length = private_encrypt((unsigned char *) data, strlen(data), "private.pem", encrypted);
+	public_decrypt(encrypted, encrypted_length, "public.pem", decrypted);
+	cout << decrypted << endl;
 	// RSA* private_key = createRSA(“PUBLIC_KEY_BUFFER”,1);
 	// RSA* public_key = createRSA(“PUBLIC_KEY_BUFFER”,1);
 
