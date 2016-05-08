@@ -39,9 +39,18 @@ unsigned char* block::calculate_finhash() {
 	return hash;
 }
 
+
 /////////////////////////////////////
 ///// blockchain implementation /////
 /////////////////////////////////////
+
+blockchain::blockchain() {
+	block* b = new block;
+	b->block_number = 1;
+	b->finhash = "STARTINGBLOCK";
+	chain_length = 1;
+	blocks_.push_front(b);
+}
 
 // Check if a new block is valid to be added to this blockchain.
 // Make sure that none of the transactions in this block
