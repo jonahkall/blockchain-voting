@@ -57,7 +57,7 @@ void* processing_thread(void* arg) {
 	// This is an example of how code will be encrypted and decrypted. 
 
 	// Create a message to encrypt
-	char data[2048/8] = "This is the message to encrypt/decrypt. If you see this, it works!"; 
+	char data[256] = "This is the message to encrypt/decrypt. If you see this, it works!"; 
 	// Create buffers that will store the encrypted and decrypted results.
 	unsigned char encrypted[4098];
 	unsigned char decrypted[4098];
@@ -69,8 +69,12 @@ void* processing_thread(void* arg) {
 	public_decrypt(encrypted, encrypted_length, "public.pem", decrypted);
 	// print message to stdout. It should match what is in data above.
 	cout << decrypted << endl;
+	
+	bool docontinue = false;
 
 	while(true) {
+		docontinue = false;
+
 		// Call pop_nonblocking. If not null, add the block to the blockchain, clear progress
 		// on new block, add everything from the block to the set
 		block* b = ptap->bq->pop_nonblocking();
@@ -90,16 +94,26 @@ void* processing_thread(void* arg) {
 						// O(n^2) algorithm for alignment
 						// maybe this should set maxind to 0
 						bc.repair_blockchain(b);
+						quotafull = false;
+						new_block->max_ind = 0;
+						// TODO: add transactions from newblock back into transactions queue
+						// TODO: initialize fields here and below correctly
+						// TODO: merkle tree
+						// finhash
+						new_block = new block;
 					}
 					else {
-						continue;
+						docontinue = true;
 					}
 					break;
 				case TRANSACTION_INVALID:
-					continue;
+					docontinue = true;
 					break;
 			}
 		}
+
+		if (docontinue)
+			continue;
 
 		// Get a transaction from the transaction queue.
 		transaction* new_trans;
@@ -112,16 +126,17 @@ void* processing_thread(void* arg) {
 			continue;
 		}
 
-		// add to set of things we are trying to turn into a block
-		if (new_block->max_ind == 64) {
-			quotafull = true;
-		}
-		else {
+		if (quotafull == false) {
 			new_block->transaction_array[new_block->max_ind] = new_trans;
 			++new_block->max_ind;
+			if (new_block->max_ind == 64) {
+				quotafull = true;
+			}
 		}
 
 		// try to create a block NUM_MAGIC_TO_TRY times.
+		// advantages the property that there is always useful work to do
+		// while waiting to receive a new block
 		if (quotafull) {
 			for (int throwaway = 0; throwaway < NUM_MAGIC_TO_TRY; ++throwaway) {
 				// if successful, set quotafull back to false
@@ -133,6 +148,7 @@ void* processing_thread(void* arg) {
 					new_block->max_ind = 0;
 					bc.add_block(new_block);
 					new_block = new block;
+					break;
 				}
 			}
 		}
