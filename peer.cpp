@@ -63,12 +63,12 @@ void* processing_thread(void* arg) {
 	unsigned char decrypted[4098];
 
 	// Encrypt and store in "encrypted". Get the encrypted_length
-	int encrypted_length = private_encrypt((unsigned char *) data,
-			strlen(data), "private.pem", encrypted);
+	//int encrypted_length = private_encrypt((unsigned char *) data,
+	//		strlen(data), "private.pem", encrypted);
 	// Decrypt and store in "decrypted"
-	public_decrypt(encrypted, encrypted_length, "public.pem", decrypted);
+	//public_decrypt(encrypted, encrypted_length, "public.pem", decrypted);
 	// print message to stdout. It should match what is in data above.
-	cout << decrypted << endl;
+	//cout << decrypted << endl;
 	
 	bool docontinue = false;
 
@@ -96,10 +96,12 @@ void* processing_thread(void* arg) {
 						bc.repair_blockchain(b);
 						quotafull = false;
 						new_block->max_ind = 0;
-						// TODO: add transactions from newblock back into transactions queue
-						// TODO: initialize fields here and below correctly
 						// TODO: merkle tree
 						// finhash
+						for (int i = 0; i < new_block->max_ind; ++i) {
+							ptap->tq->push(new_block->transaction_array[i]);
+						}
+						
 						new_block = new block;
 					}
 					else {

@@ -20,6 +20,7 @@
 #include <cmath>
 #include <unordered_set>
 #include <openssl/sha.h>
+#include <string.h>
 
 #define NUM_TRANSACTIONS_PER_BLOCK 64
 
@@ -56,7 +57,8 @@ class block {
     char* verifier_public_key;
     char* finhash;
 
-  char* calculate_finhash();
+  block();
+  unsigned char* calculate_finhash();
   unsigned char* calculate_merkle_root();
   char* verify_block_number();
   

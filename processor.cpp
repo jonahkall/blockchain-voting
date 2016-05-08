@@ -4,6 +4,9 @@
 using namespace std;
 using namespace std::chrono;
 
+///////////////////////////////
+///// block mplementation /////
+///////////////////////////////
 
 unsigned char* block::calculate_merkle_root() {
 	// Calculate and return the Merkle root. 
@@ -11,10 +14,10 @@ unsigned char* block::calculate_merkle_root() {
 	// For now, we can just implement this by calculating the 
 	// SHA1 of the first element.
 	// TODO: This probably needs to be heap allocated.
-	unsigned char* hash = new unsigned char[SHA_DIGEST_LENGTH]; // == 20
+	unsigned char* hash = new unsigned char[SHA_DIGEST_LENGTH];
 	const unsigned char* data_to_hash = 
 	    (const unsigned char*) transaction_array[0]->sender_public_key.c_str();
- 	SHA1(data_to_hash, sizeof(data_to_hash), hash);
+ 	SHA1(data_to_hash, strlen((const char*)data_to_hash) + 1, hash);
  	return hash;
 
 }
@@ -25,9 +28,21 @@ char* block::verify_block_number() {
   return NULL;
 }
 
-char* block::calculate_finhash() {
-	return NULL;
+unsigned char* block::calculate_finhash() {
+	unsigned char* hash = new unsigned char[SHA_DIGEST_LENGTH];
+	const unsigned char* data_to_hash = this->calculate_merkle_root();
+	unsigned char* buffer =
+			new unsigned char[SHA_DIGEST_LENGTH + sizeof(unsigned long long)];
+	memcpy(buffer, data_to_hash, SHA_DIGEST_LENGTH);
+	memcpy(buffer + SHA_DIGEST_LENGTH, &this->magic, sizeof(unsigned long long));
+	SHA1(buffer, SHA_DIGEST_LENGTH + sizeof(unsigned long long), hash);
+	return hash;
 }
+
+
+/////////////////////////////////////
+///// blockchain implementation /////
+/////////////////////////////////////
 
 blockchain::blockchain() {
 	block* b = new block;
@@ -170,6 +185,19 @@ block* blockchain::get_head_block(){
 	return blocks_.front();
 }
 
+block::block() {
+	cout << "called block constructor\n";
+	prev_block_SHA1 = NULL;
+	magic = 0;
+	merkle_root = NULL;
+	max_ind = 0;
+	verifier_public_key = NULL;
+	finhash = NULL;
+}
+
+/////////////////////////////////////////////
+///// Synchronized Queue Implementation /////
+/////////////////////////////////////////////
 
 
 template <class T>
