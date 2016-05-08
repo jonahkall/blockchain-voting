@@ -255,3 +255,4 @@ bool synchronized_queue<T>::empty() {
 
 template class synchronized_queue<transaction*>;
 template class synchronized_queue<block*>;
+template class synchronized_queue<std::string>;
