@@ -4,11 +4,10 @@
 using namespace std;
 using namespace std::chrono;
 
-///////////////////////////////
-///// block mplementation /////
-///////////////////////////////
+////////////////////////////////
+///// block implementation /////
+////////////////////////////////
 block::block() {
-	cout << "called block constructor\n";
 	prev_block_SHA1 = NULL;
 	magic = 0;
 	merkle_root = NULL;
@@ -20,15 +19,37 @@ block::block() {
 unsigned char* block::calculate_merkle_root() {
 	// Calculate and return the Merkle root. 
 
-	// For now, we can just implement this by calculating the 
-	// SHA1 of the first element.
-	// TODO: This probably needs to be heap allocated.
-	unsigned char* hash = new unsigned char[SHA_DIGEST_LENGTH];
-	const unsigned char* data_to_hash = 
-	    (const unsigned char*) transaction_array[0]->sender_public_key.c_str();
- 	SHA1(data_to_hash, strlen((const char*)data_to_hash) + 1, hash);
- 	return hash;
+	vector<unsigned char*> old_hashes;
+	vector<unsigned char*> new_hashes;
+	void *naked = (void *) transaction_array;
+	for (int i = 0; i < NUM_TRANSACTIONS_PER_BLOCK; ++i) {
+		unsigned char* hash1 = new unsigned char[SHA_DIGEST_LENGTH];
+		unsigned char* data_to_hash =
+				(unsigned char*) transaction_array[0]->sender_public_key.c_str();
+		SHA1(data_to_hash, PUBLIC_KEY_SIZE, hash1);
+		old_hashes.push_back(hash1);
+	}
 
+	// Until we reach root, construct each level in turn.
+	while (1) {
+		unsigned char* buffer = new unsigned char[SHA_DIGEST_LENGTH * 2];
+		for (int i = 0; i < old_hashes.size(); i += 2) {
+			unsigned char* hash2 = new unsigned char[SHA_DIGEST_LENGTH];
+
+			// Concatenate leaves into a single buffer and SHA-1 it.
+			memcpy(buffer, old_hashes[i], SHA_DIGEST_LENGTH);
+			memcpy(buffer + SHA_DIGEST_LENGTH, old_hashes[i+1], SHA_DIGEST_LENGTH);
+			SHA1(buffer, 2 * SHA_DIGEST_LENGTH, hash2);
+			new_hashes.push_back(hash2);
+		}
+		if (new_hashes.size() == 1) {
+			break;
+		}
+		old_hashes = new_hashes;
+		new_hashes.clear();
+	}
+
+ 	return old_hashes[0];
 }
   
 char* block::verify_block_number() {

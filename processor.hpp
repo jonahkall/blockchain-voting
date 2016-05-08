@@ -21,6 +21,7 @@
 #include <unordered_set>
 #include <openssl/sha.h>
 #include <string.h>
+#include <math.h>
 
 #define NUM_TRANSACTIONS_PER_BLOCK 64
 
@@ -30,6 +31,8 @@
 
 // This is the number of leading zeros in hex 
 #define NUM_LEADING_ZEROS 10
+
+#define PUBLIC_KEY_SIZE 20
 
 struct transaction {
   size_t size;
