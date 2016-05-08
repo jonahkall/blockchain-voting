@@ -11,11 +11,13 @@ using namespace std;
 struct comm_thread_args {
 	synchronized_queue<transaction*>* tq;
 	synchronized_queue<block*>* bq;
+	synchronized_queue<std::string>* peerq;
 };
 
 struct processing_thread_args {
 	synchronized_queue<transaction*>* tq;
 	synchronized_queue<block*>* bq;
+	synchronized_queue<std::string>* peerq;
 };
 
 static int leading_zeros(unsigned char* buf, size_t n) {
@@ -206,13 +208,18 @@ int main () {
 		printf("%02X", output[i]);
 	printf("\n");
 
+	synchronized_queue<std::string> peerq = synchronized_queue<std::string>();
+	peerq.init();
+
 	comm_thread_args cta;
 	cta.tq = &tq;
 	cta.bq = &bq;
+	cta.peerq = &peerq;
 
 	processing_thread_args pta;
 	pta.tq = &tq;
 	pta.bq = &bq;
+	pta.peerq = &peerq;
 
 	pthread_create(&comm_t, NULL, comm_thread, &cta);
 	pthread_create(&processing_t, NULL, processing_thread, &pta);

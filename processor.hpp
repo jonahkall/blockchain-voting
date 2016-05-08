@@ -82,10 +82,9 @@ class synchronized_queue {
   	bool empty();
 };
 
+
 typedef std::list<block*> BlockList;
 
-// TODO: make a constructor, and initialize the blockchain
-// to have a standardized start block.
 class blockchain {
   public:
     bool verify_transactions(block* b);
