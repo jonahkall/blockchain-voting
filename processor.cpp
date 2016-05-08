@@ -52,14 +52,14 @@ bool blockchain::verify_transactions() {
 	return true;
 }
 
-bool blockchain::check_if_block_in_chain(block* b) {
+BlockList::iterator blockchain::check_if_block_in_chain(block* b) {
 	// Iterate over the blocks, and check if any have a matching final hash.
-	for(const auto& block: blocks_) {
-		if (strcmp(b->finhash, block->finhash) == 0) {
-			return true;
+	for (auto it = blocks_.begin(); it != blocks_.end(); ++it) {
+		if (strcmp((*it)->finhash, b->finhash) == 0) {
+			return it;
 		}
 	}
-	return false;
+	return blocks_.end();
 }
 
 block* get_parent_block_from_neighbor(block* b) {
@@ -72,13 +72,19 @@ void blockchain::repair_blockchain(block* b) {
 
 	// Get all of the blocks that need to be added to chain
 	block* current_block = b;
-	while(!check_if_block_in_chain(current_block)) {
+	BlockList::iterator it;
+
+	while(true) {
+		it = check_if_block_in_chain(current_block);
+		if (it != blocks_.end())
+			break;
 		blocks_needed.push_back(current_block);
 		block* current_block = get_parent_block_from_neighbor(current_block);
 	}
 
 	// Now blocks_needed contains the blocks needed to be added to chain.
-	// Now, deal with removing the old ones, and adding these.
+	// Also "it" is the iterator positioned at the location in the blockchain
+	// where the two chains diverge.
 
 	return;
 

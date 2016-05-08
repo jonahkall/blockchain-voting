@@ -62,6 +62,8 @@ class block {
   
 };
 
+typedef std::list<block*> BlockList;
+
 class blockchain {
   public:
     bool verify_transactions(block* b);
@@ -71,10 +73,10 @@ class blockchain {
     block* get_head_block();
     int chain_length;
     void repair_blockchain(block* b);
-    bool check_if_block_in_chain(block* b);
+    BlockList::iterator check_if_block_in_chain(block* b);
 
   private:
-  	std::list<block*> blocks_;
+  	BlockList blocks_;
 
   public:
   	// A set containing the public keys of 
