@@ -10,7 +10,8 @@ char* block::calculate_merkle_root() {
 
 	// For now, we can just implement this by calculating the SHA1 of the first element.
 	unsigned char hash[SHA_DIGEST_LENGTH]; // == 20
- 	SHA1((const unsigned char*) *(transaction_array[0]), sizeof(*(transaction_array[0])), hash);
+	const unsigned char* data_to_hash = (const unsigned char*) transaction_array[0]->sender_public_key.c_str();
+ 	SHA1(data_to_hash, sizeof(data_to_hash), hash);
 
 	return NULL;
 }
