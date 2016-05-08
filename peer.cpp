@@ -45,7 +45,7 @@ void* processing_thread(void* arg) {
 	processing_thread_args* ptap = (processing_thread_args *) arg;
 	cout << "Hello from processing thread\n";
 
-	blockchain bc;
+	blockchain bc(ptap->tq);
 	bc.chain_length = 0;
 
 	// When this variable is true, we have a full set of
@@ -97,7 +97,6 @@ void* processing_thread(void* arg) {
 						quotafull = false;
 						new_block->max_ind = 0;
 						// TODO: merkle tree
-						// finhash
 						for (int i = 0; i < new_block->max_ind; ++i) {
 							ptap->tq->push(new_block->transaction_array[i]);
 						}
