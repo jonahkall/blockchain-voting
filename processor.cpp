@@ -23,7 +23,7 @@ bool blockchain::verify_transactions(block* b) {
 	// Iterate over all transactions in the block.
 	for (int i = 0; i < NUM_TRANSACTIONS_PER_BLOCK; ++i) {
 		// If you ever find one, return false.
-		if (voted.find(b->transaction_array[i].sender_public_key) != voted.end()) {
+		if (voted.find(b->transaction_array[i]->sender_public_key) != voted.end()) {
 			return false;
 		}
 	}
