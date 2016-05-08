@@ -7,6 +7,7 @@
 #include <grpc++/grpc++.h>
 
 #include "node.grpc.pb.h"
+#include "peer.cpp"
 
 using grpc::Server;
 using grpc::ServerBuilder;
@@ -85,6 +86,12 @@ TransactionMsg* encode_transaction(Transaction* transaction) {
 
 // Logic and data behind the server's behavior.
 class MinerServiceImpl final : public Miner::Service {
+  private comm_thread_args* ctap_;
+
+  MinerServiceImpl(comm_thread_args* ctap) : Miner::Service {
+    ctap_ = ctap;
+  }
+
 	Status BroadcastBlock(ServerContext* context, const BlockMsg* block_msg, Empty* empty) override {
 		// turn blockmsg into block
 		blocks.push_back(block_msg);
@@ -114,9 +121,9 @@ class MinerServiceImpl final : public Miner::Service {
 	}
 };
 
-void RunServer() {
+void RunServer(comm_thread_args* ctap) {
   std::string server_address("0.0.0.0:50051");
-  GreeterServiceImpl service;
+  MinerServiceImpl service(ctap);
 
   ServerBuilder builder;
   // Listen on the given address without any authentication mechanism.
