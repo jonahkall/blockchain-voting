@@ -13,7 +13,7 @@ char* block::calculate_merkle_root() {
 	unsigned char hash[SHA_DIGEST_LENGTH]; // == 20
 	const unsigned char* data_to_hash = (const unsigned char*) transaction_array[0]->sender_public_key.c_str();
  	SHA1(data_to_hash, sizeof(data_to_hash), hash);
- 	return hash
+ 	return hash;
 
 }
   
@@ -49,15 +49,16 @@ bool blockchain::check_if_block_in_chain(block* b) {
 	// Iterate over the blocks, and check if any have a matching final hash.
 	for(const auto& block: blocks_) {
 		if (strcmp(b->finhash, block->finhash) == 0) {
-			return true
+			return true;
 		}
 	}
-	return false
+	return false;
 }
 
 void blockchain::repair_blockchain(block* b) {
 	// Repeatedly ask neighbor for a parent block until a we get one that is in this blockchain.
 		// Checking for being in our blockchain can be done by check_if_block_in_chain.
+	block* current_block = b;
 
 }
 
@@ -96,9 +97,6 @@ block* blockchain::get_head_block(){
 	return blocks_.back();
 }
 
-void blockchain::repair_blockchain(block* b) {
-	
-}
 
 
 template <class T>
