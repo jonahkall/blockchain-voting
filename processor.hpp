@@ -78,6 +78,7 @@ class blockchain {
     void remove_transactions_from_set(block* b);
     void add_transactions_to_set(block* b);
     void add_transactions_to_queue(block* b);
+    blockchain(); // Constructor
 
   private:
   	BlockList blocks_;
