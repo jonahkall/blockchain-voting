@@ -7,6 +7,15 @@ using namespace std::chrono;
 ///////////////////////////////
 ///// block mplementation /////
 ///////////////////////////////
+block::block() {
+	cout << "called block constructor\n";
+	prev_block_SHA1 = NULL;
+	magic = 0;
+	merkle_root = NULL;
+	max_ind = 0;
+	verifier_public_key = NULL;
+	finhash = NULL;
+}
 
 unsigned char* block::calculate_merkle_root() {
 	// Calculate and return the Merkle root. 
@@ -191,15 +200,7 @@ block* blockchain::get_head_block(){
 	return blocks_.front();
 }
 
-block::block() {
-	cout << "called block constructor\n";
-	prev_block_SHA1 = NULL;
-	magic = 0;
-	merkle_root = NULL;
-	max_ind = 0;
-	verifier_public_key = NULL;
-	finhash = NULL;
-}
+
 
 /////////////////////////////////////////////
 ///// Synchronized Queue Implementation /////
