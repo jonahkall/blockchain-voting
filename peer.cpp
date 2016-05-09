@@ -101,6 +101,13 @@ void* processing_thread(void* arg) {
 			switch(bc->check_block_validity(b)) {
 				case OK:
 					bc->add_block(b);
+					ptap->client->BroadcastBlock(b);
+					quotafull = false;
+					for (int i = 0; i < new_block->max_ind; ++i) {
+						ptap->tq->push(new_block->transaction_array[i]);
+					}
+					delete new_block;
+					new_block = new block;
 					break;
 				case PREV_BLOCK_NONMATCH:
 					// Check if this block number is higher than ours, in which
@@ -170,9 +177,10 @@ void* processing_thread(void* arg) {
 				// else do another iteration
 				++new_block->magic;
 				new_block->calculate_finhash();
-				if (leading_zeros((unsigned char *)new_block->finhash, 20) >= NUM_LEADING_ZEROS) {
+				if (leading_zeros((unsigned char *)new_block->finhash, PUBLIC_KEY_SIZE) >= NUM_LEADING_ZEROS) {
 					quotafull = false;
 					new_block->max_ind = 0;
+					new_block->prev_block_SHA1 = bc->get_head_block()->finhash;
 					bc->add_block(new_block);
 					ptap->client->BroadcastBlock(new_block);
 					new_block = new block;

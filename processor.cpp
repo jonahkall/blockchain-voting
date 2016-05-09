@@ -329,8 +329,10 @@ bool blockchain::add_block(block* b) {
 */
 block* blockchain::get_head_block(){
 	// Get the head block. Don't remove it from the chain.
-	if (chain_length == 0)
+	if (chain_length == 0) {
+		assert(false);
 		return NULL;
+	}
 	return blocks_.front();
 }
 
