@@ -117,6 +117,15 @@ block* blockchain::get_block(int n) {
 	return NULL;
 }
 
+block* blockchain::get_block(char* hash) {
+	for (auto it = blocks_.begin(); it != blocks_.end(); ++it) {
+		if (strcmp((*it)->finhash, hash) == 0) {
+			return *it;
+		}
+	}
+	return NULL;
+}
+
 BlockList::iterator blockchain::check_if_block_in_chain(block* b) {
 	// Iterate over the blocks, and check if any have a matching final hash.
 	for (auto it = blocks_.begin(); it != blocks_.end(); ++it) {
