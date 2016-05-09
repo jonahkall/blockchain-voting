@@ -108,6 +108,15 @@ bool blockchain::verify_transactions() {
 	return true;
 }
 
+block* blockchain::get_block(int n) {
+	for (auto it = blocks_.begin(); it != blocks_.end(); ++it) {
+		if ((*it)->block_number == n) {
+			return *it;
+		}
+	}
+	return NULL;
+}
+
 BlockList::iterator blockchain::check_if_block_in_chain(block* b) {
 	// Iterate over the blocks, and check if any have a matching final hash.
 	for (auto it = blocks_.begin(); it != blocks_.end(); ++it) {

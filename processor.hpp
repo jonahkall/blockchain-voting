@@ -99,6 +99,7 @@ class blockchain {
     void add_transactions_to_set(block* b);
     void add_transactions_to_queue(block* b);
     blockchain(synchronized_queue<transaction*>* q); // Constructor
+    block* get_block(int n);
 
   private:
   	BlockList blocks_;
