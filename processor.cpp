@@ -51,13 +51,17 @@ unsigned char* block::calculate_merkle_root() {
 
  	return old_hashes[0];
 }
-  
+
+
 char* block::verify_block_number() {
  // Asks neighbors for the previous block, and checks to make sure its 
  // block_number is one less than this one's.
   return NULL;
 }
 
+/**
+ *	Combine the merkle root with the magic string to create a final hash.
+ */
 unsigned char* block::calculate_finhash() {
 	unsigned char* hash = new unsigned char[SHA_DIGEST_LENGTH];
 	const unsigned char* data_to_hash = this->calculate_merkle_root();
@@ -73,7 +77,9 @@ unsigned char* block::calculate_finhash() {
 /////////////////////////////////////
 ///// blockchain implementation /////
 /////////////////////////////////////
-
+/**
+ * Blockshain constructor. 
+ */
 blockchain::blockchain(synchronized_queue<transaction*>* q) {
 	block* b = new block;
 	b->block_number = 1;
@@ -85,9 +91,10 @@ blockchain::blockchain(synchronized_queue<transaction*>* q) {
 	q_ptr_ = q;
 }
 
-// Check if a new block is valid to be added to this blockchain.
-// Make sure that none of the transactions in this block
-// are already in the blockchain.
+/** 
+ * Check if a new block is valid to be added to this blockchain.
+ * Make sure that none of the transactions in this block are already in the blockchain.
+ */ 
 bool blockchain::verify_transactions(block* b) {
 	// Iterate over all transactions in the block.
 	for (int i = 0; i < NUM_TRANSACTIONS_PER_BLOCK; ++i) {
@@ -108,6 +115,33 @@ bool blockchain::verify_transactions() {
 	return true;
 }
 
+/**
+ * Get a pointer to the block in the blockchain with block_number n.
+ */
+block* blockchain::get_block(int n) {
+	for (auto it = blocks_.begin(); it != blocks_.end(); ++it) {
+		if ((*it)->block_number == n) {
+			return *it;
+		}
+	}
+	return NULL;
+}
+
+/**
+ * Get a pointer to the block in the blockchain with a given hash.
+ */
+block* blockchain::get_block(char* hash) {
+	for (auto it = blocks_.begin(); it != blocks_.end(); ++it) {
+		if (strcmp((*it)->finhash, hash) == 0) {
+			return *it;
+		}
+	}
+	return NULL;
+}
+
+/**
+ * Return an iterator to a given block reference.
+ */
 BlockList::iterator blockchain::check_if_block_in_chain(block* b) {
 	// Iterate over the blocks, and check if any have a matching final hash.
 	for (auto it = blocks_.begin(); it != blocks_.end(); ++it) {
@@ -122,6 +156,9 @@ block* get_parent_block_from_neighbor(block* b) {
 	return NULL;
 }
 
+/**
+ * Remove all of the transactions from block* b from the set of transaction public keys.
+ */
 void blockchain::remove_transactions_from_set(block* b) {
 	for (int i = 0; i < NUM_TRANSACTIONS_PER_BLOCK; ++i) {
 		voted.erase(b->transaction_array[i]->sender_public_key);
@@ -129,6 +166,9 @@ void blockchain::remove_transactions_from_set(block* b) {
 	return;
 }
 
+/**
+ * Add all of the transactions from block* b to the set of transaction public keys.
+ */
 void blockchain::add_transactions_to_set(block* b) {
 	for (int i = 0; i < NUM_TRANSACTIONS_PER_BLOCK; ++i) {
 		voted.insert(b->transaction_array[i]->sender_public_key);
@@ -136,9 +176,9 @@ void blockchain::add_transactions_to_set(block* b) {
 	return;
 }
 
-// TODO: Implement this.
-// This should add all transactions in this block into the
-// thread safe queue.
+/**
+ * Add all transactions from block* b to the transactions queue.
+ */
 void blockchain::add_transactions_to_queue(block* b) {
 	for (int i = 0; i < b->max_ind; ++i) {
 		q_ptr_->push(b->transaction_array[i]);
