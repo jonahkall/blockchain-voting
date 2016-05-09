@@ -21,20 +21,6 @@ using onevote::AddrResponse;
 using onevote::TransactionRequest;
 using onevote::BlockRequest;
 
-class Client {
-public:
-  Client(std::string firstAddr);
-  void BroadcastBlock(block* block);
-  void BroadcastTransaction(transaction* transaction);
-  int checkHeartbeats();
-  std::list<std::string*> getPeerList();
-
-private:
-  std::list<SinglePeerClient*> peer_clients_;
-  void addNewPeer(std::string addr);
-  bool successHearbeat(const SinglePeerClient*& peer_client);
-};
-
 class SinglePeerClient {
   public:
     SinglePeerClient(std::shared_ptr<Channel> channel, std::string addr);
@@ -42,7 +28,21 @@ class SinglePeerClient {
     Status BroadcastTransaction(transaction* transaction);
     bool GetHeartbeat();
 
- private:
-  std::string addr_;
-  std::unique_ptr<Miner::Stub> stub_;
+  private:
+    std::string addr_;
+    std::unique_ptr<Miner::Stub> stub_;
+};
+
+class Client {
+  public:
+    Client(std::string firstAddr);
+    void BroadcastBlock(Block* block);
+    void BroadcastTransaction(Transaction* transaction);
+    int checkHeartbeats();
+    std::list<std::string*> getPeerList();
+
+  private:
+    std::list<SinglePeerClient*> peer_clients_;
+    void addNewPeer(std::string addr);
+    bool successHearbeat(const SinglePeerClient*& peer_client);
 };
