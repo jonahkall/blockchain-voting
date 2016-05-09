@@ -20,12 +20,10 @@ Status MinerServiceImpl::BroadcastTransaction(ServerContext* context, const Tran
 }
 
 Status MinerServiceImpl::GetAddr(ServerContext* context, const AddrRequest* addr_req, AddrResponse* addr_resp)  {
-  std::string log_string("GetAddr requested: ");
+  serverLog("GetAddr requested");
   for (const auto& peer: *client_->getPeersList()) {
     addr_resp->add_peer(*peer);
-    log_string << *peer << " "
   }
-  serverLog(log_string);
   return Status::OK;
 }
 
