@@ -160,6 +160,7 @@ void* processing_thread(void* arg) {
 					quotafull = false;
 					new_block->max_ind = 0;
 					bc->add_block(new_block);
+					ptap->client->BroadcastBlock(new_block);
 					new_block = new block;
 					break;
 				}
