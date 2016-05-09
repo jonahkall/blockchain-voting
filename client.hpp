@@ -31,7 +31,6 @@ class SinglePeerClient {
     Status BroadcastBlock(block* block);
     Status BroadcastTransaction(transaction* transaction);
     bool GetHeartbeat();
-    AddrResponse GetAddr();
 
   private:
     std::string addr_;
@@ -45,11 +44,10 @@ class Client {
     void BroadcastTransaction(transaction* transaction);
     int checkHeartbeats();
     std::list<std::string*>* getPeersList();
-    void addNewPeer(std::string addr);
-    void getNewPeers(synchronized_queue<std::string*>* peerq);
 
   private:
     std::list<SinglePeerClient*> peer_clients_;
+    void addNewPeer(std::string addr);
     bool successHearbeat(const SinglePeerClient*& peer_client);
 };
 

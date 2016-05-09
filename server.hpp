@@ -33,7 +33,7 @@ using onevote::Miner;
 // Logic and data behind the server's behavior.
 class MinerServiceImpl final : public Miner::Service {
   public:
-    MinerServiceImpl(comm_thread_args* ctap);
+    MinerServiceImpl(comm_thread_args* ctap, Client* client);
   	Status BroadcastBlock(ServerContext* context, const BlockMsg* block_msg, Empty* empty) override;
   	Status BroadcastTransaction(ServerContext* context, const TransactionMsg* transaction_msg, Empty* empty) override;
   	Status GetAddr(ServerContext* context, const AddrRequest* addr_req, AddrResponse* addr_resp) override;
@@ -43,8 +43,9 @@ class MinerServiceImpl final : public Miner::Service {
 
   private:
     comm_thread_args* ctap_;
+    Client* client_;
 };
 
-void RunServer(comm_thread_args* ctap);
+void RunServer(comm_thread_args* ctap, Client* client);
 
 #endif

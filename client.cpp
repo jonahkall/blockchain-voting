@@ -36,18 +36,6 @@ void Client::addNewPeer(std::string addr) {
   peer_clients_->push(peer_client);
 }
 
-void getNewPeers(synchronized_queue<std::string*>* peerq) {
-  for (const auto& peer_client: peer_clients_i) {
-    AddrResponse response = peer_client->GetAddr();
-    if (!response) {
-      return
-    }
-    while (addr = response->get_peer()) {
-      peerq->push(addr)
-    }
-  }
-}
-
 bool Client::successHearbeat(const SinglePeerClient*& peer_client) { 
   return peer_client->GetHeartbeat() 
 };
@@ -95,19 +83,6 @@ bool SinglePeerClient::GetHeartbeat() {
   Empty empty_req;
   Empty empty_resp;
   ClientContext context;
-  Status status = stub_->GetHeartbeat(&context, empty_req, &empty_resp);
+  Status stauts = stub_->GetHeartbeat(&context, empty_req, empty_resp);
   return status.ok();
-}
-
-AddrResponse GetAddr() {
-  AddrRequest addr_req;
-  addr_req->set_num_requested(2);
-  AddrResponse* addr_resp = new AddrResponse;
-  ClientContext context;
-  Status status = stub_->GetAddr(&context, addr_req, addr_resp);
-  if (status.ok()) {
-    return addr_resp;
-  } else {
-    return NULL;
-  }
 }
