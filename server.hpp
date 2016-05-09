@@ -12,7 +12,7 @@
 #include "node.grpc.pb.h"
 // TODO how do I fix this relying on peer?
 #include "peer.hpp"
-
+struct comm_thread_args;
 #include "processor.hpp"
 #include "encoding_helpers.hpp"
 #include "client.hpp"
