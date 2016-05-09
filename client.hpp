@@ -1,3 +1,6 @@
+#ifndef __CLIENT_H__
+#define __CLIENT_H__
+
 #include <iostream>
 #include <memory>
 #include <string>
@@ -47,3 +50,5 @@ class Client {
     void addNewPeer(std::string addr);
     bool successHearbeat(const SinglePeerClient*& peer_client);
 };
+
+#endif

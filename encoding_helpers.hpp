@@ -1,3 +1,6 @@
+#ifndef __ENCODING_HELPERS_H__
+#define __ENCODING_HELPERS_H__
+
 #include <iostream>
 #include <memory>
 #include <string>
@@ -21,3 +24,5 @@ transaction* decode_transaction(const TransactionMsg* transaction_msg);
 TransactionMsg* encode_transaction(const transaction* transaction);
 block* decode_block(const BlockMsg* block_msg);
 BlockMsg* encode_block(const block* block);
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef __SERVER_H__
+#define __SERVER_H__
+
 #include <iostream>
 #include <memory>
 #include <string>
@@ -44,3 +47,5 @@ class MinerServiceImpl final : public Miner::Service {
 };
 
 void RunServer(comm_thread_args* ctap, Client* client);
+
+#endif
