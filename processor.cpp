@@ -179,9 +179,16 @@ BlockList::iterator blockchain::check_if_block_in_chain(block* b) {
 	return blocks_.end();
 }
 
-// Unimplemented
-block* get_parent_block_from_neighbor(block* b) {
-	return NULL;
+/*
+	Makes a request to all peers to looking 
+*/
+block* get_parent_block_from_neighbor(block* b, Client* client) {
+	block* block = client->getBlock(b->block_number - 1);
+	if (!block) {
+		// TODO change this to just return null;
+		assert(false);
+	}
+	return block;
 }
 
 /*
@@ -225,7 +232,7 @@ void blockchain::add_transactions_to_queue(block* b) {
  \param b, the block that is being added, and whose history determines the repair
  \return void
  */
-void blockchain::repair_blockchain(block* b) {
+void blockchain::repair_blockchain(block* b, Client* client) {
 	// This list will contain the blocks that need to be added to blockchain.
 	std::list<block*> blocks_to_add;
 	//std::list<block*> blocks_removed;
@@ -239,7 +246,7 @@ void blockchain::repair_blockchain(block* b) {
 		if (it != blocks_.end())
 			break;
 		blocks_to_add.push_back(current_block);
-		block* current_block = get_parent_block_from_neighbor(current_block);
+		block* current_block = get_parent_block_from_neighbor(current_block, Client* client);
 	}
 
 	// Remove all of the necessary blocks from current chain.
