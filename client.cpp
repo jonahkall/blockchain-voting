@@ -53,9 +53,8 @@ int Client::bootstrapPeers() {
   std::list<std::string> new_peers;
   for (const auto& peer_client: peer_clients_) {
     AddrResponse response = peer_client->GetAddr();
-    std::string peer;
-    while(peer = response.peer()) {
-      new_peers.push_front(peer);
+    for (int i = 0; i < response.peer_size(); ++i) {
+      new_peers.push_front(response.peer(i));
     }
   }
   for (const auto& new_peer: new_peers) {
