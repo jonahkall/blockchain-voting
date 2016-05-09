@@ -53,11 +53,14 @@ void Client::addNewPeer(std::string addr) {
     return;    
   }
 
+  std::cout << addr;
+
   // ensure validity of address as IP_ADDRESS:PORT
-  std::regex ip_and_port ("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]+(\\:[0-9]{1,5})?$");
+  std::regex ip_and_port ("[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}:[0-9]{1,5}");
   if (!std::regex_match(addr, ip_and_port)) {
     return;    
   }
+
 
   // make sure the peer has not already been added
   for (const auto& peer_client: peer_clients_) {
