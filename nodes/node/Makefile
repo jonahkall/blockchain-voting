@@ -31,8 +31,8 @@
 
 CXX = g++
 CPPFLAGS += -I/usr/local/include -pthread
-CXXFLAGS += -std=c++11
-LDFLAGS += -L/usr/local/lib `pkg-config --libs grpc++` -lprotobuf -lpthread -ldl
+CXXFLAGS += -std=c++11 -O3 -lssl -lcrypto -funroll-loops
+LDFLAGS += -Wno-deprecated-declarations -std=c++11 -stdlib=libc++ -L/usr/local/lib `pkg-config --libs grpc++` -lprotobuf -lpthread -ldl
 PROTOC = protoc
 GRPC_CPP_PLUGIN = grpc_cpp_plugin
 GRPC_CPP_PLUGIN_PATH ?= `which $(GRPC_CPP_PLUGIN)`
@@ -42,6 +42,21 @@ PROTOS_PATH = ../../protos
 vpath %.proto $(PROTOS_PATH)
 
 all: system-check server
+
+default: peer
+
+run: peer
+	./runpeer
+
+peer: processor.o communication.o peer.cpp peer.hpp rsa.cpp rsa.hpp
+	$(CXX) $(LDFLAGS) -c peer.hpp peer.cpp rsa.cpp rsa.hpp
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o runpeer processor.o communication.o peer.o rsa.o
+
+processor.o: processor.cpp processor.hpp
+	$(CXX) $(LDFLAGS) -c processor.cpp
+
+communication.o: communication.cpp communication.hpp
+	$(CXX) $(LDFLAGS) -c communication.cpp
 
 server: node.pb.o node.grpc.pb.o server.o
 	$(CXX) $^ $(LDFLAGS) -o $@
@@ -56,6 +71,7 @@ server: node.pb.o node.grpc.pb.o server.o
 
 clean:
 	rm -f *.o *.pb.cc *.pb.h server
+	$(RM) *.o *.gch runpeer
 
 
 # The following is to test your system and ensure a smoother experience.
