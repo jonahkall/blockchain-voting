@@ -164,7 +164,11 @@ void* processing_thread(void* arg) {
 	return NULL;
 }
 
-int main () {
+int main (int argc, char** argv) {
+	if (argc != 2) {
+		std::cout << "Usage: ./runpeer2 ip-address:port"
+		return 1;
+	}
 
 	const char str[] = "Original String";
   	unsigned char hash[SHA_DIGEST_LENGTH]; // == 20
@@ -216,8 +220,7 @@ int main () {
 
 	blockchain bc(&tq);
 
-	// TODO update this addr to be from commandline
-	Client client("0.0.0.0:50051");
+	Client client(argv[1]);
 	client.bootstrapPeers();
 
 	comm_thread_args cta;

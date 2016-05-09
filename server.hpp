@@ -45,6 +45,7 @@ class MinerServiceImpl final : public Miner::Service {
   private:
     comm_thread_args* ctap_;
     Client* client_;
+    void serverLog(std::string message);
 };
 
 void RunServer(comm_thread_args* ctap);

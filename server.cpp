@@ -6,19 +6,26 @@ MinerServiceImpl::MinerServiceImpl(comm_thread_args* ctap, Client* client) : Min
 }
 
 Status MinerServiceImpl::BroadcastBlock(ServerContext* context, const BlockMsg* block_msg, Empty* empty) {
-  ctap_->bq->push(decode_block(block_msg));
+  block* block = decode_block(block_msg);
+  ctap_->bq->push(block);
+  serverLog("Received block broadcast: " << block->block_number);
 	return Status::OK;
 }
 
 Status MinerServiceImpl::BroadcastTransaction(ServerContext* context, const TransactionMsg* transaction_msg, Empty* empty) {
-  ctap_->tq->push(decode_transaction(transaction_msg));
+  transaction* transaction = decode_transaction(transaction_msg);
+  ctap_->tq->push(transaction);
+  serverLog("Received transaction broadcast: " << transaction->timestamp);
 	return Status::OK;
 }
 
 Status MinerServiceImpl::GetAddr(ServerContext* context, const AddrRequest* addr_req, AddrResponse* addr_resp)  {
+  std::string log_string("GetAddr requested: ");
   for (const auto& peer: *client_->getPeersList()) {
     addr_resp->add_peer(*peer);
+    log_string << *peer << " "
   }
+  serverLog(log_string);
   return Status::OK;
 }
 
@@ -43,6 +50,10 @@ Status MinerServiceImpl::GetBlock(ServerContext* context, const BlockRequest* bl
 
 Status MinerServiceImpl::GetHeartbeat(ServerContext* context, const Empty* empty, Empty* dummy)  {
 	return Status::OK;
+}
+
+void MinerServiceImpl::serverLog(std::string message) {
+  std::cout << "Server Log: " << message << std::endl;
 }
 
 void RunServer(comm_thread_args* ctap) {
