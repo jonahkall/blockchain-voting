@@ -10,7 +10,7 @@ transaction* decode_transaction(const TransactionMsg* transaction_msg) {
   return decoded_transaction;
 }
 
-TransactionMsg* encode_transaction(transaction* transaction) {
+TransactionMsg* encode_transaction(const transaction* transaction) {
   TransactionMsg* encoded_transaction = new TransactionMsg;
 
   encoded_transaction->set_sender_public_key(transaction->sender_public_key);
@@ -20,7 +20,7 @@ TransactionMsg* encode_transaction(transaction* transaction) {
   return encoded_transaction;
 }
 
-block* decode_block(BlockMsg* block_msg) {
+block* decode_block(const BlockMsg* block_msg) {
   block* decoded_block = new block;
 
   decoded_block->block_number        = block_msg->block_number();
@@ -38,7 +38,7 @@ block* decode_block(BlockMsg* block_msg) {
   return decoded_block;
 }
 
-BlockMsg* encode_block(block* block) {
+BlockMsg* encode_block(const block* block) {
   BlockMsg* encoded_block = new BlockMsg;
 
   encoded_block->set_block_number(block->block_number);

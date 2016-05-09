@@ -17,6 +17,6 @@ using onevote::TransactionRequest;
 using onevote::BlockRequest;
 
 transaction* decode_transaction(const TransactionMsg* transaction_msg);
-TransactionMsg* encode_transaction(transaction* transaction);
-block* decode_block(BlockMsg* block_msg);
-BlockMsg* encode_block(block* block);
+TransactionMsg* encode_transaction(const transaction* transaction);
+block* decode_block(const BlockMsg* block_msg);
+BlockMsg* encode_block(const block* block);
