@@ -40,7 +40,7 @@ class Client {
     void BroadcastBlock(block* block);
     void BroadcastTransaction(transaction* transaction);
     int checkHeartbeats();
-    std::list<std::string*> getPeerList();
+    std::list<std::string*> getPeersList();
 
   private:
     std::list<SinglePeerClient*> peer_clients_;

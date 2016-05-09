@@ -21,7 +21,7 @@ void Client::checkHeartbeats() {
   return peer_clients_.size();
 }
 
-std::list<std::string*> Client::getPeerList() {
+std::list<std::string*> Client::getPeersList() {
   std::list<std::string*> peer_list;
   for (const auto& peer_client: peer_clients_) {
     peer_list->push(peer_client->getAddr());

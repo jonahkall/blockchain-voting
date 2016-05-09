@@ -58,10 +58,10 @@ public:
 	}
 
 	Status GetBlock(ServerContext* context, const BlockRequest* block_req, BlockMsg* block_msg) override {
-    if (block_req->get_block_number() == NULL) {
+    if (block_req->block_number() == NULL) {
       *block_msg = *encode_block(ctap_->bc->get_head_block());
     } else {
-      block* block = ctap_->bc->get_block(block_req->get_block_number());
+      block* block = ctap_->bc->get_block(block_req->block_number());
       if (block == NULL) {
         return Status::CANCELLED;
       }
