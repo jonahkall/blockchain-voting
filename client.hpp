@@ -30,6 +30,7 @@ class SinglePeerClient {
     SinglePeerClient(std::shared_ptr<Channel> channel, std::string addr);
     Status BroadcastBlock(block* block);
     Status BroadcastTransaction(transaction* transaction);
+    std::string* peerAddr();
     bool GetHeartbeat();
 
   private:
