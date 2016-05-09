@@ -12,6 +12,7 @@
 
 #include "node.grpc.pb.h"
 #include "encoding_helpers.hpp"
+#include "processor.hpp"
 
 using grpc::Channel;
 using grpc::ClientContext;
