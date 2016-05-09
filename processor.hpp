@@ -26,14 +26,14 @@
 #include "client.hpp"
 class Client;
 
-#define NUM_TRANSACTIONS_PER_BLOCK 64
+#define NUM_TRANSACTIONS_PER_BLOCK 8
 
 // This is the number of times to try hashing before
 // checking for a new block or a new transaction
 #define NUM_MAGIC_TO_TRY 2048
 
 // This is the number of leading zeros in hex 
-#define NUM_LEADING_ZEROS 10
+#define NUM_LEADING_ZEROS 4
 
 #define PUBLIC_KEY_SIZE 20
 
