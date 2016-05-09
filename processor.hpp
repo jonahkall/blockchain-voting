@@ -127,7 +127,7 @@ class synchronized_queue {
   
   public:
   	void init();
-  	void push(T t);A 
+  	void push(T t);
   	T pop();
   	T pop_nonblocking();
   	bool empty();
