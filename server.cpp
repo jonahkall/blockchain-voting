@@ -28,7 +28,7 @@ Status MinerServiceImpl::GetTransaction(ServerContext* context, const Transactio
 }
 
 Status MinerServiceImpl::GetBlock(ServerContext* context, const BlockRequest* block_req, BlockMsg* block_msg)  {
-  if (block_req->block_number() == NULL) {
+  if (!block_req->block_number()) {
     *block_msg = *encode_block(ctap_->bc->get_head_block());
   } else {
     block* block = ctap_->bc->get_block(block_req->block_number());
