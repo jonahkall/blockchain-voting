@@ -56,8 +56,9 @@ unsigned char* block::calculate_merkle_root() {
 		old_hashes = new_hashes;
 		new_hashes.clear();
 	}
-
- 	return old_hashes[0];
+	if (new_hashes[0] == NULL)
+		assert(false);
+ 	return new_hashes[0];
 }
 
 // Unimplemented
@@ -79,6 +80,8 @@ unsigned char* block::calculate_finhash() {
 	memcpy(buffer, data_to_hash, SHA_DIGEST_LENGTH);
 	memcpy(buffer + SHA_DIGEST_LENGTH, &this->magic, sizeof(unsigned long long));
 	SHA1(buffer, SHA_DIGEST_LENGTH + sizeof(unsigned long long), hash);
+	if (hash == NULL)
+		assert(false);
 	return hash;
 }
 
