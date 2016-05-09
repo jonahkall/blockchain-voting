@@ -48,8 +48,8 @@ default: peer
 run: peer
 	./runpeer
 
-peer:  peer.cpp peer.hpp rsa.cpp rsa.hpp encoding_helpers.cpp encoding_helpers.hpp client.cpp client.hpp processor.hpp processor.cpp server.cpp
-	$(CXX) $(LDFLAGS) -c peer.hpp peer.cpp rsa.cpp rsa.hpp encoding_helpers.cpp encoding_helpers.hpp client.cpp client.hpp processor.hpp processor.cpp server.cpp
+peer:  peer.cpp peer.hpp rsa.cpp rsa.hpp encoding_helpers.cpp encoding_helpers.hpp client.cpp client.hpp processor.hpp processor.cpp server.cpp server.hpp
+	$(CXX) $(LDFLAGS) -c peer.hpp peer.cpp rsa.cpp rsa.hpp encoding_helpers.cpp encoding_helpers.hpp client.cpp client.hpp processor.hpp processor.cpp server.cpp server.hpp
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o runpeer processor.o communication.o peer.o rsa.o encoding_helpers.o client.o server.o
 
 processor.o: processor.cpp processor.hpp

@@ -1,83 +1,50 @@
-#include <iostream>
-#include <memory>
-#include <string>
-#include <cstdlib>
-#include <queue>
+#include "server.hpp"
 
-#include <grpc++/grpc++.h>
+MinerServiceImpl::MinerServiceImpl(comm_thread_args* ctap, Client* client) : Miner::Service() {
+  client_ = client;
+  ctap_ = ctap;
+}
 
-#include "node.grpc.pb.h"
-#include "peer.hpp"
+Status MinerServiceImpl::BroadcastBlock(ServerContext* context, const BlockMsg* block_msg, Empty* empty) override {
+  ctap_->bq->push(decode_block(block_msg));
+	return Status::OK;
+}
 
-#include "processor.hpp"
-#include "encoding_helpers.hpp"
-#include "client.hpp"
+Status MinerServiceImpl::BroadcastTransaction(ServerContext* context, const TransactionMsg* transaction_msg, Empty* empty) override {
+  ctap_->tq->push(decode_transaction(transaction_msg));
+	return Status::OK;
+}
 
-using grpc::Server;
-using grpc::ServerBuilder;
-using grpc::ServerContext;
-using grpc::Status;
+Status MinerServiceImpl::GetAddr(ServerContext* context, const AddrRequest* addr_req, AddrResponse* addr_resp) override {
+  for (const auto& peer: client_->getPeersList()) {
+    addr_resp->add_peer(*peer);
+  }
+  return Status::OK;
+}
 
-using onevote::Empty;
-using onevote::BlockMsg;
-using onevote::TransactionMsg;
-using onevote::AddrRequest;
-using onevote::AddrResponse;
-using onevote::TransactionRequest;
-using onevote::BlockRequest;
-using onevote::Miner;
+Status MinerServiceImpl::GetTransaction(ServerContext* context, const TransactionRequest* trans_req, TransactionMsg* transaction_msg) override {
+  // TODO not going to implement this one
+  return Status::CANCELLED;
+}
 
-// Logic and data behind the server's behavior.
-class MinerServiceImpl final : public Miner::Service {
-public:
-  MinerServiceImpl(comm_thread_args* ctap, Client* client) : Miner::Service() {
-    client_ = client;
-    ctap_ = ctap;
+Status MinerServiceImpl::GetBlock(ServerContext* context, const BlockRequest* block_req, BlockMsg* block_msg) override {
+  if (block_req->block_number() == NULL) {
+    *block_msg = *encode_block(ctap_->bc->get_head_block());
+  } else {
+    block* block = ctap_->bc->get_block(block_req->block_number());
+    if (block == NULL) {
+      return Status::CANCELLED;
+    }
+    *block_msg = *encode_block(block);
   }
 
-	Status BroadcastBlock(ServerContext* context, const BlockMsg* block_msg, Empty* empty) override {
-    ctap_->bq->push(decode_block(block_msg));
-		return Status::OK;
-	}
+  return Status::OK;
+}
 
-	Status BroadcastTransaction(ServerContext* context, const TransactionMsg* transaction_msg, Empty* empty) override {
-    ctap_->tq->push(decode_transaction(transaction_msg));
-		return Status::OK;
-	}
+Status MinerServiceImpl::GetHeartbeat(ServerContext* context, const Empty* empty, Empty* dummy) override {
+	return Status::OK;
+}
 
-	Status GetAddr(ServerContext* context, const AddrRequest* addr_req, AddrResponse* addr_resp) override {
-    for (const auto& peer: client_->getPeersList()) {
-      addr_resp->add_peer(*peer);
-    }
-    return Status::OK;
-	}
-
-	Status GetTransaction(ServerContext* context, const TransactionRequest* trans_req, TransactionMsg* transaction_msg) override {
-    // TODO not going to implement this one
-    return Status::CANCELLED;
-	}
-
-	Status GetBlock(ServerContext* context, const BlockRequest* block_req, BlockMsg* block_msg) override {
-    if (block_req->block_number() == NULL) {
-      *block_msg = *encode_block(ctap_->bc->get_head_block());
-    } else {
-      block* block = ctap_->bc->get_block(block_req->block_number());
-      if (block == NULL) {
-        return Status::CANCELLED;
-      }
-      *block_msg = *encode_block(block);
-    }
-
-    return Status::OK;
-	}
-
-	Status GetHeartbeat(ServerContext* context, const Empty* empty, Empty* dummy) override {
-		return Status::OK;
-	}
-private:
-  comm_thread_args* ctap_;
-  Client* client_;
-};
 
 void RunServer(comm_thread_args* ctap, Client* client) {
   std::string server_address("0.0.0.0:50051");
