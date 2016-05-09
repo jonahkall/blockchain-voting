@@ -155,7 +155,7 @@ void* processing_thread(void* arg) {
 				new_block->transaction_array[new_block->max_ind] = new_trans;
 				ptap->client->BroadcastTransaction(new_trans);
 				++new_block->max_ind;
-				if (new_block->max_ind == 64) {
+				if (new_block->max_ind == NUM_TRANSACTIONS_PER_BLOCK) {
 					quotafull = true;
 				}
 			}
