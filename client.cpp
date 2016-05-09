@@ -43,7 +43,8 @@ void Client::addNewPeer(std::string addr) {
 
   clientLog("Adding peer: " + addr);
   SinglePeerClient* peer_client = new SinglePeerClient(
-    grpc::CreateChannel(addr, grpc::InsecureChannelCredentials()), 
+    grpc::CreateChannel(addr, grpc::InsecureChannelCredentials()),
+    my_address_,
     addr);
   peer_clients_.push_front(peer_client);
 };
@@ -75,9 +76,10 @@ void Client::clientLog(std::string message) {
   std::cout << "Client log: " << message << std::endl;
 }
 
-SinglePeerClient::SinglePeerClient(std::shared_ptr<Channel> channel, std::string addr)
+SinglePeerClient::SinglePeerClient(std::shared_ptr<Channel> channel, std::string my_addr, std::string addr)
     : stub_(Miner::NewStub(channel)) {
       addr_ = addr;
+      my_addr_ = my_addr;
 }
 
 Status SinglePeerClient::BroadcastBlock(block* block) {

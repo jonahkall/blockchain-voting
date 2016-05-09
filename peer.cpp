@@ -48,8 +48,8 @@ void* processing_thread(void* arg) {
 	std::chrono::seconds t(CLIENT_TIMEOUT);
 	std::this_thread::sleep_for(t);
 
-	*client = new Client(*ptap->own_address, *ptap->first_peer);
-	client->bootstrapPeers();
+	*ptap->client = new Client(*ptap->own_address, *ptap->first_peer);
+	ptap->client->bootstrapPeers();
 
 	blockchain* bc = ptap->bc;
 	bc->chain_length = 0;
