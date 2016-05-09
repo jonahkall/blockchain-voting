@@ -72,7 +72,7 @@ char* block::verify_block_number() {
   Calculates the overall SHA1 hash for the block by appending the merkle root to he
   magic string and taking the SHA1 hash of the result.
 */
-unsigned char* block::calculate_finhash() {
+void block::calculate_finhash() {
 	unsigned char* hash = new unsigned char[SHA_DIGEST_LENGTH];
 	const unsigned char* data_to_hash = this->calculate_merkle_root();
 	unsigned char* buffer =
@@ -82,7 +82,7 @@ unsigned char* block::calculate_finhash() {
 	SHA1(buffer, SHA_DIGEST_LENGTH + sizeof(unsigned long long), hash);
 	if (hash == NULL)
 		assert(false);
-	return hash;
+	finhash = (char*)hash;
 }
 
 

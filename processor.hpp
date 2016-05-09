@@ -107,7 +107,7 @@ class block {
       Calculates the overall SHA1 hash for the block by appending the merkle root to he
       magic string and taking the SHA1 hash of the result.
     */
-    unsigned char* calculate_finhash();
+    void calculate_finhash();
 
     /*
       Calculate the merkle root of the transactions. This requires hashing pairs of transactions in a binary tree-style format. 
