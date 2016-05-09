@@ -64,7 +64,7 @@ client.o: client.cpp client.hpp encoding_helpers.o processor.o
 encoding_helpers.o: encoding_helpers.cpp encoding_helpers.hpp processor.o
 	$(CXX) $(LDFLAGS) -c encoding_helpers.cpp 
 
-processor.o: processor.cpp processor.hpp
+processor.o: processor.cpp processor.hpp rsa.o
 	$(CXX) $(LDFLAGS) -c processor.cpp 
 
 rsa.o: rsa.cpp rsa.hpp
