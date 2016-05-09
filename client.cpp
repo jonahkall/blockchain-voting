@@ -124,7 +124,7 @@ std::string* SinglePeerClient::peerAddr() {
 
 AddrResponse SinglePeerClient::GetAddr() {
   ClientContext context;
-  context.AddMetadata("address", my_address_);
+  context.AddMetadata("address", my_addr_);
   AddrRequest req;
   req.set_num_requested(MAX_SECOND_DEGREE_FROM_PEER);
   AddrResponse resp;
