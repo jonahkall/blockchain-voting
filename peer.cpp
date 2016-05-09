@@ -1,5 +1,7 @@
 #include "peer.hpp"
 
+#define CLIENT_TIMEOUT 5s
+
 using namespace std;
 
 static int leading_zeros(unsigned char* buf, size_t n) {
@@ -39,6 +41,9 @@ void* comm_thread (void* arg) {
 	communcations thread, along with transactions, and using that to create and broadcast blocks
 */
 void* processing_thread(void* arg) {
+	std::cout << "Processing thread timeout " << CLIENT_TIMEOUT << std::endl;
+	std::this_thread::sleep_for(CLIENT_TIMEOUT);
+
 	processing_thread_args* ptap = (processing_thread_args *) arg;
 	cout << "Hello from processing thread\n";
 
