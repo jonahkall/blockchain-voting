@@ -166,7 +166,7 @@ void* processing_thread(void* arg) {
 
 int main (int argc, char** argv) {
 	if (argc != 2) {
-		std::cout << "Usage: ./runpeer2 ip-address:port"
+		std::cout << "Usage: ./runpeer2 ip-address:port";
 		return 1;
 	}
 

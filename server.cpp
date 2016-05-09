@@ -8,14 +8,14 @@ MinerServiceImpl::MinerServiceImpl(comm_thread_args* ctap, Client* client) : Min
 Status MinerServiceImpl::BroadcastBlock(ServerContext* context, const BlockMsg* block_msg, Empty* empty) {
   block* block = decode_block(block_msg);
   ctap_->bq->push(block);
-  serverLog("Received block broadcast: " << block->block_number);
+  serverLog("Received block broadcast: " + to_string(block->block_number));
 	return Status::OK;
 }
 
 Status MinerServiceImpl::BroadcastTransaction(ServerContext* context, const TransactionMsg* transaction_msg, Empty* empty) {
   transaction* transaction = decode_transaction(transaction_msg);
   ctap_->tq->push(transaction);
-  serverLog("Received transaction broadcast: " << transaction->timestamp);
+  serverLog("Received transaction broadcast: " + to_string(transaction->timestamp));
 	return Status::OK;
 }
 
