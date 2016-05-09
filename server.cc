@@ -7,6 +7,7 @@
 #include <grpc++/grpc++.h>
 
 #include "node.grpc.pb.h"
+#include "peer.cpp"
 
 using grpc::Server;
 using grpc::ServerBuilder;
@@ -85,28 +86,40 @@ TransactionMsg* encode_transaction(Transaction* transaction) {
 
 // Logic and data behind the server's behavior.
 class MinerServiceImpl final : public Miner::Service {
+  private comm_thread_args* ctap_;
+
+  MinerServiceImpl(comm_thread_args* ctap) : Miner::Service {
+    ctap_ = ctap;
+  }
+
 	Status BroadcastBlock(ServerContext* context, const BlockMsg* block_msg, Empty* empty) override {
-		// turn blockmsg into block
-		blocks.push_back(block_msg);
+    ctap->bq->push(decode_block(block_msg));
 		return Status::OK;
 	}
 
 	Status BroadcastTransaction(ServerContext* context, const TransactionMsg* transaction_msg, Empty* empty) override {
-		// turn transactionmsg into transaction
-		transactions.push_back(transaction_msg);
+    ctap->tq->push(decode_transaction(transaction_msg));
 		return Status::OK;
 	}
 
 	Status GetAddr(ServerContext* context, const AddrRequest* addr_req, AddrResponse* addr_resp) override {
-
+    
+    // TODO
 	}
 
 	Status GetTransaction(ServerContext* context, const TransactionRequest* trans_req, TransactionMsg* transaction_msg) override {
-
+    // TODO not going to implement this one
+    return Status::CANCELLED;
 	}
 
 	Status GetBlock(ServerContext* context, const BlockRequest* block_req, BlockMsg* block_msg) override {
+    if (block_req->block_number === NULL) {
+      *block_msg = *encode_block(ctap->bc->get_head_block());
+    } else {
+      // TODO 
+    }
 
+    return Status::OK;
 	}
 
 	Status GetHeartbeat(ServerContext* context, const Empty* empty, Empty* empty) override {
@@ -114,9 +127,9 @@ class MinerServiceImpl final : public Miner::Service {
 	}
 };
 
-void RunServer() {
+void RunServer(comm_thread_args* ctap) {
   std::string server_address("0.0.0.0:50051");
-  GreeterServiceImpl service;
+  MinerServiceImpl service(ctap);
 
   ServerBuilder builder;
   // Listen on the given address without any authentication mechanism.
