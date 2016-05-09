@@ -2,6 +2,7 @@
 #define __VOTING_BOOTH_H__
 #include <openssl/sha.h>
 #include "client.hpp"
+#include "processor.hpp"
 #include <iostream>
 #include <fstream>
 #include <memory>
