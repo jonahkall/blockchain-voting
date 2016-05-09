@@ -8,6 +8,8 @@
 
 #include "node.grpc.pb.h"
 
+#include "processor.hpp"
+
 using grpc::Server;
 using grpc::ServerBuilder;
 using grpc::ServerContext;
@@ -23,29 +25,48 @@ using onevote::BlockRequest;
 
 std::queue<std::string> peers;
 
-std::queue<Block> blocks;
-std::queue<Transaction> transactions;
+std::queue<block> blocks;
+std::queue<transaction> transactions;
 
-Block* decode_block(BlockMsg* block_msg) {
-  Block* decoded_block = new Block;
+transaction* decode_transaction(const TransactionMsg* transaction_msg) {
+  transaction* decoded_transaction = new transaction;
+
+  decoded_transaction->sender_public_key = transaction_msg->sender_public_key();
+  decoded_transaction->vote              = transaction_msg->vote();
+  decoded_transaction->timestamp         = transaction_msg->timestamp();
+
+  return decoded_transaction;
+}
+
+TransactionMsg* encode_transaction(transaction* transaction) {
+  TransactionMsg* encoded_transaction = new TransactionMsg;
+
+  encoded_transaction->set_sender_public_key(transaction->sender_public_key);
+  encoded_transaction->set_vote(transaction->vote);
+  encoded_transaction->set_timestamp(transaction->timestamp);
+
+  return encoded_transaction;
+}
+
+block* decode_block(BlockMsg* block_msg) {
+  block* decoded_block = new block;
 
   decoded_block->block_number        = block_msg->block_number();
-  decoded_block->prev_block_SHA1     = block_msg->prev_block_sha1();
+  decoded_block->prev_block_SHA1     = (char*) block_msg->prev_block_sha1().c_str();
   decoded_block->magic               = block_msg->magic();
-  decoded_block->merkle_root         = block_msg->merkle_root();
+  decoded_block->merkle_root         = (char*) block_msg->merkle_root().c_str();
   decoded_block->max_ind             = block_msg->num_transactions();
-  decoded_block->verifier_public_key = block_msg->verifier_public_key();
-  decoded_block->finhash             = block_msg->final_hash();
-  decoded_block->transaction_array   = new Transaction[block_msg->transaction_msg_size()]
+  decoded_block->verifier_public_key = (char*) block_msg->verifier_public_key().c_str();
+  decoded_block->finhash             = (char*) block_msg->final_hash().c_str();
 
   for (int i = 0; i < block_msg->transaction_msg_size(); i++) {
-    decoded_block->transaction_array[i] = decode_transaction(block_msg->transaction_msg(i));
+    decoded_block->transaction_array[i] = decode_transaction(&block_msg->transaction_msg(i));
   }
 
   return decoded_block;
 }
 
-BlockMsg* encode_block(Block* block) {
+BlockMsg* encode_block(block* block) {
   BlockMsg* encoded_block = new BlockMsg;
 
   encoded_block->set_block_number(block->block_number);
@@ -57,30 +78,14 @@ BlockMsg* encode_block(Block* block) {
   encoded_block->set_final_hash(block->finhash);
 
   for (int i = 0; i < block->max_ind; i++) {
-    encoded_block->add_transaction_msg(*encode_transaction(*block->transaction_array[i]))
+    TransactionMsg* transaction_msg = encoded_block->add_transaction_msg();
+
+    transaction_msg->set_sender_public_key(block->transaction_array[i]->sender_public_key);
+    transaction_msg->set_vote(block->transaction_array[i]->vote);
+    transaction_msg->set_timestamp(block->transaction_array[i]->timestamp);
   }
 
   return encoded_block;
-}
-
-Transaction* decode_transaction(TransactionMsg* transaction_msg) {
-  Transaction* decoded_transaction = new Transaction;
-
-  decoded_transaction->sender_public_key = transaction_msg->sender_public_key();
-  decoded_transaction->vote              = transaction_msg->vote();
-  decoded_transaction->timestamp         = transaction_msg->timestamp();
-
-  return decoded_transaction;
-}
-
-TransactionMsg* encode_transaction(Transaction* transaction) {
-  TransactionMsg* encoded_transaction = new TransactionMsg;
-
-  encoded_transaction->set_sender_public_key(transaction->sender_public_key);
-  encoded_transaction->set_vote(transaction->vote);
-  encoded_transaction->set_timestamp(transaction->timestamp);
-
-  return encoded_transaction;
 }
 
 // Logic and data behind the server's behavior.
