@@ -6,19 +6,31 @@ MinerServiceImpl::MinerServiceImpl(comm_thread_args* ctap, Client* client) : Min
 }
 
 Status MinerServiceImpl::BroadcastBlock(ServerContext* context, const BlockMsg* block_msg, Empty* empty) {
-  ctap_->bq->push(decode_block(block_msg));
+  block* block = decode_block(block_msg);
+  ctap_->bq->push(block);
+  serverLog("Received block broadcast: " + std::to_string(block->block_number));
 	return Status::OK;
 }
 
 Status MinerServiceImpl::BroadcastTransaction(ServerContext* context, const TransactionMsg* transaction_msg, Empty* empty) {
-  ctap_->tq->push(decode_transaction(transaction_msg));
+  transaction* transaction = decode_transaction(transaction_msg);
+  ctap_->tq->push(transaction);
+  serverLog("Received transaction broadcast: " + std::to_string(transaction->timestamp));
 	return Status::OK;
 }
 
 Status MinerServiceImpl::GetAddr(ServerContext* context, const AddrRequest* addr_req, AddrResponse* addr_resp)  {
+  serverLog("GetAddr requested");
+  if (!client_) {
+    return Status::CANCELLED;
+  }
   for (const auto& peer: *client_->getPeersList()) {
     addr_resp->add_peer(*peer);
   }
+
+  auto it = context->client_metadata().find("address");
+  client_->addNewPeer(it->second.data());
+
   return Status::OK;
 }
 
@@ -32,7 +44,7 @@ Status MinerServiceImpl::GetBlock(ServerContext* context, const BlockRequest* bl
     *block_msg = *encode_block(ctap_->bc->get_head_block());
   } else {
     block* block = ctap_->bc->get_block(block_req->block_number());
-    if (block == NULL) {
+    if (!block) {
       return Status::CANCELLED;
     }
     *block_msg = *encode_block(block);
@@ -45,10 +57,13 @@ Status MinerServiceImpl::GetHeartbeat(ServerContext* context, const Empty* empty
 	return Status::OK;
 }
 
+void MinerServiceImpl::serverLog(std::string message) {
+  std::cout << "Server Log: " << message << std::endl;
+}
 
-void RunServer(comm_thread_args* ctap, Client* client) {
+void RunServer(comm_thread_args* ctap) {
   std::string server_address("0.0.0.0:50051");
-  MinerServiceImpl service(ctap, client);
+  MinerServiceImpl service(ctap, ctap->client);
 
   ServerBuilder builder;
   // Listen on the given address without any authentication mechanism.

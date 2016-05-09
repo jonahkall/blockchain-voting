@@ -27,29 +27,34 @@ using onevote::Miner;
 
 class SinglePeerClient {
   public:
-    SinglePeerClient(std::shared_ptr<Channel> channel, std::string addr);
+    SinglePeerClient(std::shared_ptr<Channel> channel, std::string my_addr, std::string addr);
     Status BroadcastBlock(block* block);
     Status BroadcastTransaction(transaction* transaction);
     std::string* peerAddr();
+    AddrResponse GetAddr();
     bool GetHeartbeat();
 
   private:
+    std::string my_addr_;
     std::string addr_;
     std::unique_ptr<Miner::Stub> stub_;
 };
 
 class Client {
   public:
-    Client(std::string firstAddr);
+    Client(std::string own_address, std::string first_peer);
     void BroadcastBlock(block* block);
     void BroadcastTransaction(transaction* transaction);
     int checkHeartbeats();
+    int bootstrapPeers();
     std::list<std::string*>* getPeersList();
+    void addNewPeer(std::string addr);
 
   private:
+    std::string my_address_;
     std::list<SinglePeerClient*> peer_clients_;
-    void addNewPeer(std::string addr);
     bool successHearbeat(const SinglePeerClient*& peer_client);
+    void clientLog(std::string message);
 };
 
 #endif

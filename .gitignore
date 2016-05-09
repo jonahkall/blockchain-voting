@@ -1,2 +1,4 @@
 *.o
 *.gch
+runpeer*
+node.pb.*

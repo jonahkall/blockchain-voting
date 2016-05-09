@@ -11,6 +11,7 @@
 
 #include "node.grpc.pb.h"
 #include "peer.hpp"
+struct comm_thread_args;
 
 #include "processor.hpp"
 #include "encoding_helpers.hpp"
@@ -44,8 +45,9 @@ class MinerServiceImpl final : public Miner::Service {
   private:
     comm_thread_args* ctap_;
     Client* client_;
+    void serverLog(std::string message);
 };
 
-void RunServer(comm_thread_args* ctap, Client* client);
+void RunServer(comm_thread_args* ctap);
 
 #endif

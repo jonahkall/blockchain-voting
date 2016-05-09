@@ -67,7 +67,7 @@ encoding_helpers.o: encoding_helpers.cpp encoding_helpers.hpp
 	$(PROTOC) -I $(PROTOS_PATH) --cpp_out=. $<
 
 clean:
-	rm -f *.o *.pb.cc *.pb.h client server
+	rm -f *.o *.pb.cc *.pb.h *.gch client server
 
 
 # The following is to test your system and ensure a smoother experience.
