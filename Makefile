@@ -48,22 +48,20 @@ default: peer
 run: peer
 	./runpeer
 
-peer: peer.cpp peer.hpp processor.o server.o client.o encoding_helpers.o rsa.o
+peer: peer.cpp peer.hpp server.o client.o encoding_helpers.o rsa.o processor.o 
 	$(CXX) $(LDFLAGS) -c peer.hpp peer.cpp 
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o runpeer peer.o server.o client.o encoding_helpers.o processor.o rsa.o 
-
-
 
 communication.o: communication.cpp communication.hpp
 	$(CXX) $(LDFLAGS) -c communication.cpp 
 
-server.o: node.pb.o node.grpc.pb.o client.o encoding_helpers.o
+server.o: node.pb.o node.grpc.pb.o client.o encoding_helpers.o processor.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 
-client.o: client.cpp client.hpp encoding_helpers.o
+client.o: client.cpp client.hpp encoding_helpers.o processor.o
 	$(CXX) $(LDFLAGS) -c client.cpp 
 
-encoding_helpers.o: encoding_helpers.cpp encoding_helpers.hpp preprocessor.o
+encoding_helpers.o: encoding_helpers.cpp encoding_helpers.hpp processor.o
 	$(CXX) $(LDFLAGS) -c encoding_helpers.cpp 
 
 processor.o: processor.cpp processor.hpp
