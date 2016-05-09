@@ -10,6 +10,7 @@
 #include <grpc++/grpc++.h>
 
 #include "node.grpc.pb.h"
+// TODO how do I fix this relying on peer?
 #include "peer.hpp"
 
 #include "processor.hpp"
