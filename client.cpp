@@ -62,9 +62,15 @@ int Client::bootstrapPeers() {
       break;
     }
     addNewPeer(new_peer);
+    clientLog("Adding new peer " + std::to_string(new_peer));
   }
+  clientLog("Number of peers: " + std::to_string(peer_clients_.size()));
   return peer_clients_.size();
 };
+
+void Client::clientLog(std::string message) {
+  std::cout << "Client log: " << message << std::endl;
+}
 
 SinglePeerClient::SinglePeerClient(std::shared_ptr<Channel> channel, std::string addr)
     : stub_(Miner::NewStub(channel)) {

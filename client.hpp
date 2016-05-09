@@ -52,6 +52,7 @@ class Client {
   private:
     std::list<SinglePeerClient*> peer_clients_;
     bool successHearbeat(const SinglePeerClient*& peer_client);
+    void clientLog(std::string message);
 };
 
 #endif
