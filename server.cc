@@ -87,9 +87,7 @@ BlockMsg* encode_block(block* block) {
 
 // Logic and data behind the server's behavior.
 class MinerServiceImpl final : public Miner::Service {
-  private comm_thread_args* ctap_;
-  private Client* client_;
-
+public:
   MinerServiceImpl(comm_thread_args* ctap, Client* client) : Miner::Service {
     ctap_ = ctap;
     client_ = client;
@@ -134,6 +132,9 @@ class MinerServiceImpl final : public Miner::Service {
 	Status GetHeartbeat(ServerContext* context, const Empty* empty, Empty* empty) override {
 		return Status::OK;
 	}
+private:
+  comm_thread_args* ctap_;
+  Client* client_;
 };
 
 void RunServer(comm_thread_args* ctap, Client* client) {

@@ -23,8 +23,6 @@ using onevote::TransactionRequest;
 using onevote::BlockRequest;
 
 class Client {
-  private std::list<SinglePeerClient*> peer_clients_;
-
 public:
   Client(std::string firstAddr) {
     addNewPeer(firstAddr);
@@ -56,6 +54,8 @@ public:
   }
 
 private:
+  std::list<SinglePeerClient*> peer_clients_;
+
   void addNewPeer(std::string addr) {
     SinglePeerClient* peer_client = new SinglePeerClient(
       grpc::CreateChannel(addr, grpc::InsecureChannelCredentials()), 
