@@ -2,8 +2,12 @@
 // If you make any local change, they will be lost.
 // source: node.proto
 // Original file comments:
+// Execute the following commands to compile this file:
 // protoc --grpc_out=. --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` node.proto
 // protoc --cpp_out=. --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` node.proto
+//
+// See proto3 syntax here:
+// https://developers.google.com/protocol-buffers/docs/proto3
 //
 #ifndef GRPC_node_2eproto__INCLUDED
 #define GRPC_node_2eproto__INCLUDED
@@ -29,31 +33,39 @@ class ServerContext;
 
 namespace onevote {
 
+// Defines the requests that can be made by the miner.
 class Miner GRPC_FINAL {
  public:
   class StubInterface {
    public:
     virtual ~StubInterface() {}
+    // Broadcasts a block to your set of peers.
     virtual ::grpc::Status BroadcastBlock(::grpc::ClientContext* context, const ::onevote::BlockMsg& request, ::onevote::Empty* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onevote::Empty>> AsyncBroadcastBlock(::grpc::ClientContext* context, const ::onevote::BlockMsg& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onevote::Empty>>(AsyncBroadcastBlockRaw(context, request, cq));
     }
+    // Broadcasts a transaction to your set of peers.
     virtual ::grpc::Status BroadcastTransaction(::grpc::ClientContext* context, const ::onevote::TransactionMsg& request, ::onevote::Empty* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onevote::Empty>> AsyncBroadcastTransaction(::grpc::ClientContext* context, const ::onevote::TransactionMsg& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onevote::Empty>>(AsyncBroadcastTransactionRaw(context, request, cq));
     }
+    // Gets some specified number of peers.
     virtual ::grpc::Status GetAddr(::grpc::ClientContext* context, const ::onevote::AddrRequest& request, ::onevote::AddrResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onevote::AddrResponse>> AsyncGetAddr(::grpc::ClientContext* context, const ::onevote::AddrRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onevote::AddrResponse>>(AsyncGetAddrRaw(context, request, cq));
     }
+    // Gets the vote associated with a particular public key.
     virtual ::grpc::Status GetTransaction(::grpc::ClientContext* context, const ::onevote::TransactionRequest& request, ::onevote::TransactionMsg* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onevote::TransactionMsg>> AsyncGetTransaction(::grpc::ClientContext* context, const ::onevote::TransactionRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onevote::TransactionMsg>>(AsyncGetTransactionRaw(context, request, cq));
     }
+    // Gets a block from another node by block number.
+    // Gets the latest block if no number specified.
     virtual ::grpc::Status GetBlock(::grpc::ClientContext* context, const ::onevote::BlockRequest& request, ::onevote::BlockMsg* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onevote::BlockMsg>> AsyncGetBlock(::grpc::ClientContext* context, const ::onevote::BlockRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onevote::BlockMsg>>(AsyncGetBlockRaw(context, request, cq));
     }
+    // Pings to verify the connection is still alive.
     virtual ::grpc::Status GetHeartbeat(::grpc::ClientContext* context, const ::onevote::Empty& request, ::onevote::Empty* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onevote::Empty>> AsyncGetHeartbeat(::grpc::ClientContext* context, const ::onevote::Empty& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::onevote::Empty>>(AsyncGetHeartbeatRaw(context, request, cq));
@@ -115,11 +127,18 @@ class Miner GRPC_FINAL {
    public:
     Service();
     virtual ~Service();
+    // Broadcasts a block to your set of peers.
     virtual ::grpc::Status BroadcastBlock(::grpc::ServerContext* context, const ::onevote::BlockMsg* request, ::onevote::Empty* response);
+    // Broadcasts a transaction to your set of peers.
     virtual ::grpc::Status BroadcastTransaction(::grpc::ServerContext* context, const ::onevote::TransactionMsg* request, ::onevote::Empty* response);
+    // Gets some specified number of peers.
     virtual ::grpc::Status GetAddr(::grpc::ServerContext* context, const ::onevote::AddrRequest* request, ::onevote::AddrResponse* response);
+    // Gets the vote associated with a particular public key.
     virtual ::grpc::Status GetTransaction(::grpc::ServerContext* context, const ::onevote::TransactionRequest* request, ::onevote::TransactionMsg* response);
+    // Gets a block from another node by block number.
+    // Gets the latest block if no number specified.
     virtual ::grpc::Status GetBlock(::grpc::ServerContext* context, const ::onevote::BlockRequest* request, ::onevote::BlockMsg* response);
+    // Pings to verify the connection is still alive.
     virtual ::grpc::Status GetHeartbeat(::grpc::ServerContext* context, const ::onevote::Empty* request, ::onevote::Empty* response);
   };
   template <class BaseClass>
