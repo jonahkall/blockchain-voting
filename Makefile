@@ -63,7 +63,7 @@ server.o: node.pb.o node.grpc.pb.o client.o encoding_helpers.o
 client.o: client.cpp client.hpp encoding_helpers.o
 	$(CXX) $(LDFLAGS) -c client.cpp 
 
-encoding_helpers.o: encoding_helpers.cpp encoding_helpers.hpp preprocessor.o
+encoding_helpers.o: encoding_helpers.cpp encoding_helpers.hpp processor.o
 	$(CXX) $(LDFLAGS) -c encoding_helpers.cpp 
 
 processor.o: processor.cpp processor.hpp
