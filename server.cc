@@ -7,10 +7,10 @@
 #include <grpc++/grpc++.h>
 
 #include "node.grpc.pb.h"
-#include "peer.cpp"
+#include "peer.hpp"
 
 #include "processor.hpp"
-#include "encoding_helpers.cpp"
+#include "encoding_helpers.hpp"
 
 using grpc::Server;
 using grpc::ServerBuilder;

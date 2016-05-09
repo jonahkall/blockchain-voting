@@ -8,20 +8,6 @@
 
 using namespace std;
 
-struct comm_thread_args {
-	synchronized_queue<transaction*>* tq;
-	synchronized_queue<block*>* bq;
-	synchronized_queue<std::string*>* peerq;
-	blockchain* bc;
-};
-
-struct processing_thread_args {
-	synchronized_queue<transaction*>* tq;
-	synchronized_queue<block*>* bq;
-	synchronized_queue<std::string*>* peerq;
-	blockchain* bc;
-};
-
 static int leading_zeros(unsigned char* buf, size_t n) {
 	int lz = 0;
 	for (int i = 0; i < n; i++) {

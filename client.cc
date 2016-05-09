@@ -7,7 +7,7 @@
 #include <grpc++/grpc++.h>
 
 #include "node.grpc.pb.h"
-#include "encoding_helpers.cpp"
+#include "encoding_helpers.hpp"
 
 using grpc::Channel;
 using grpc::ClientContext;
