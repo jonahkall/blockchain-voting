@@ -77,8 +77,13 @@ void* processing_thread(void* arg) {
 	
 	bool docontinue = false;
 
+	int loop_counter = 0;
 	while(true) {
-
+		++loop_counter;
+		if (loop_counter % BOOTSTRAP_RETRY == 0) {
+			ptap->client->bootstrapPeers();
+			loop_counter = 0;
+		}
 		// this will check for any peers on the queue and add them to the
 		// broadcast network for the client
 		std::string* peer;
@@ -140,10 +145,19 @@ void* processing_thread(void* arg) {
 		}
 
 		if (quotafull == false) {
-			new_block->transaction_array[new_block->max_ind] = new_trans;
-			++new_block->max_ind;
-			if (new_block->max_ind == 64) {
-				quotafull = true;
+			bool txn_already_in_block = false;
+			for (int i = 0; i < new_block->max_ind; ++i) {
+				if (new_trans->sender_public_key == new_block->transaction_array[i]->sender_public_key) {
+					txn_already_in_block = true;
+				}
+			}
+			if (!txn_already_in_block) {
+				new_block->transaction_array[new_block->max_ind] = new_trans;
+				ptap->client->BroadcastTransaction(new_trans);
+				++new_block->max_ind;
+				if (new_block->max_ind == 64) {
+					quotafull = true;
+				}
 			}
 		}
 

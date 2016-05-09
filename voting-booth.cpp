@@ -41,7 +41,7 @@ int main (int argc, char** argv) {
 	// std::cout << vote << std::endl;
 	// std::cout << std::setprecision(12) << t->timestamp << std::endl;
 
-	Client* client = new Client("VotingBoothAddress", first_peer);
+	Client* client = new Client(NOT_AN_IP_TOKEN, first_peer);
 	// Uncomment these when bootstrap peers works.
 	client->bootstrapPeers();
 	client->BroadcastTransaction(t);
