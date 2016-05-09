@@ -1,7 +1,7 @@
 #include "server.hpp"
 
-MinerServiceImpl::MinerServiceImpl(comm_thread_args* ctap, Client* client) : Miner::Service() {
-  client_ = client;
+MinerServiceImpl::MinerServiceImpl(comm_thread_args* ctap) : Miner::Service() {
+  // client_ = client;
   ctap_ = ctap;
 }
 
@@ -16,8 +16,11 @@ Status MinerServiceImpl::BroadcastTransaction(ServerContext* context, const Tran
 }
 
 Status MinerServiceImpl::GetAddr(ServerContext* context, const AddrRequest* addr_req, AddrResponse* addr_resp)  {
-  for (const auto& peer: *client_->getPeersList()) {
+  for (const auto& peer: *ctap_->client->getPeersList()) {
     addr_resp->add_peer(*peer);
+  }
+  if (rand() % 100 == 1) {
+    ctap_->peerq->push(peer);
   }
   return Status::OK;
 }
@@ -46,9 +49,9 @@ Status MinerServiceImpl::GetHeartbeat(ServerContext* context, const Empty* empty
 }
 
 
-void RunServer(comm_thread_args* ctap, Client* client) {
+void RunServer(comm_thread_args* ctap) {
   std::string server_address("0.0.0.0:50051");
-  MinerServiceImpl service(ctap, client);
+  MinerServiceImpl service(ctap);
 
   ServerBuilder builder;
   // Listen on the given address without any authentication mechanism.
