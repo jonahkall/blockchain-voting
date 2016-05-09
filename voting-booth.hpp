@@ -1,5 +1,5 @@
-#ifndef __PEER_H__
-#define __PEER_H__
+#ifndef __VOTING_BOOTH_H__
+#define __VOTING_BOOTH_H__
 #include <openssl/sha.h>
 #include "processor.hpp"
 #include "rsa.hpp"
@@ -13,3 +13,4 @@
 #include <openssl/rsa.h>
 #include <chrono>
 #include <thread>
+#endif
