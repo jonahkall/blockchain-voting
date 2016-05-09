@@ -2,7 +2,6 @@
 
 #define MAX_PEERS 10
 #define MAX_SECOND_DEGREE_FROM_PEER 2
-#define NOT_AN_IP_TOKEN "dummy"
 
 Client::Client(std::string my_address, std::string first_peer) {
   my_address_ = my_address;

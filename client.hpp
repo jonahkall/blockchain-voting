@@ -1,6 +1,8 @@
 #ifndef __CLIENT_H__
 #define __CLIENT_H__
 
+#define NOT_AN_IP_TOKEN "dummy"
+
 #include <iostream>
 #include <memory>
 #include <string>
