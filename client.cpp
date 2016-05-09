@@ -54,7 +54,7 @@ int Client::bootstrapPeers() {
   for (const auto& peer_client: peer_clients_) {
     AddrResponse response = peer_client->GetAddr();
     std::string peer;
-    while(peer = response.get_peer()) {
+    while(peer = response.peer()) {
       new_peers.push_front(peer);
     }
   }
