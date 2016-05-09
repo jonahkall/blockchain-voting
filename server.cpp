@@ -5,29 +5,29 @@ MinerServiceImpl::MinerServiceImpl(comm_thread_args* ctap, Client* client) : Min
   ctap_ = ctap;
 }
 
-Status MinerServiceImpl::BroadcastBlock(ServerContext* context, const BlockMsg* block_msg, Empty* empty) override {
+Status MinerServiceImpl::BroadcastBlock(ServerContext* context, const BlockMsg* block_msg, Empty* empty) {
   ctap_->bq->push(decode_block(block_msg));
 	return Status::OK;
 }
 
-Status MinerServiceImpl::BroadcastTransaction(ServerContext* context, const TransactionMsg* transaction_msg, Empty* empty) override {
+Status MinerServiceImpl::BroadcastTransaction(ServerContext* context, const TransactionMsg* transaction_msg, Empty* empty) {
   ctap_->tq->push(decode_transaction(transaction_msg));
 	return Status::OK;
 }
 
-Status MinerServiceImpl::GetAddr(ServerContext* context, const AddrRequest* addr_req, AddrResponse* addr_resp) override {
+Status MinerServiceImpl::GetAddr(ServerContext* context, const AddrRequest* addr_req, AddrResponse* addr_resp)  {
   for (const auto& peer: client_->getPeersList()) {
     addr_resp->add_peer(*peer);
   }
   return Status::OK;
 }
 
-Status MinerServiceImpl::GetTransaction(ServerContext* context, const TransactionRequest* trans_req, TransactionMsg* transaction_msg) override {
+Status MinerServiceImpl::GetTransaction(ServerContext* context, const TransactionRequest* trans_req, TransactionMsg* transaction_msg)  {
   // TODO not going to implement this one
   return Status::CANCELLED;
 }
 
-Status MinerServiceImpl::GetBlock(ServerContext* context, const BlockRequest* block_req, BlockMsg* block_msg) override {
+Status MinerServiceImpl::GetBlock(ServerContext* context, const BlockRequest* block_req, BlockMsg* block_msg)  {
   if (block_req->block_number() == NULL) {
     *block_msg = *encode_block(ctap_->bc->get_head_block());
   } else {
@@ -41,7 +41,7 @@ Status MinerServiceImpl::GetBlock(ServerContext* context, const BlockRequest* bl
   return Status::OK;
 }
 
-Status MinerServiceImpl::GetHeartbeat(ServerContext* context, const Empty* empty, Empty* dummy) override {
+Status MinerServiceImpl::GetHeartbeat(ServerContext* context, const Empty* empty, Empty* dummy)  {
 	return Status::OK;
 }
 
