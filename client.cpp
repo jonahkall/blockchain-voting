@@ -54,7 +54,7 @@ int Client::bootstrapPeers() {
   for (const auto& peer_client: peer_clients_) {
     AddrResponse response = peer_client->GetAddr();
     std::string peer;
-    while(peer = response->get_peer()) {
+    while(peer = response.get_peer()) {
       new_peers.push_front(peer);
     }
   }
@@ -111,7 +111,7 @@ std::string* SinglePeerClient::peerAddr() {
 AddrResponse SinglePeerClient::GetAddr() {
   ClientContext context;
   AddrRequest req;
-  req->set_num_requested(MAX_SECOND_DEGREE_FROM_PEER);
+  req.set_num_requested(MAX_SECOND_DEGREE_FROM_PEER);
   AddrResponse resp;
   Status status = stub_->GetAddr(&context, req, &resp);
   return resp;
