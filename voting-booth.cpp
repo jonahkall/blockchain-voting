@@ -16,7 +16,7 @@ int main (int argc, char** argv) {
 	std::string publickey((std::istreambuf_iterator<char>(t)),
                  std::istreambuf_iterator<char>());
 
-	cout << publickey << endl;
+	std::cout << publickey << std::endl;
 
 	// Client* client = new Client("VotingBoothAddress", first_peer);
 	// client->bootstrapPeers();
