@@ -24,6 +24,7 @@
 #include <math.h>
 
 #include "client.hpp"
+class Client;
 
 #define NUM_TRANSACTIONS_PER_BLOCK 64
 

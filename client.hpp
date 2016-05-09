@@ -13,6 +13,8 @@
 #include "node.grpc.pb.h"
 #include "encoding_helpers.hpp"
 #include "processor.hpp"
+class block;
+struct transaction;
 
 using grpc::Channel;
 using grpc::ClientContext;

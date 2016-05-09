@@ -246,7 +246,7 @@ void blockchain::repair_blockchain(block* b, Client* client) {
 		if (it != blocks_.end())
 			break;
 		blocks_to_add.push_back(current_block);
-		block* current_block = get_parent_block_from_neighbor(current_block, Client* client);
+		block* current_block = get_parent_block_from_neighbor(current_block, client);
 	}
 
 	// Remove all of the necessary blocks from current chain.
