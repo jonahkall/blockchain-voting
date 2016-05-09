@@ -5,7 +5,7 @@
 
 Client::Client(std::string my_address, std::string first_peer) {
   my_address_ = my_address;
-  addNewPeer(first_peer);
+  first_peer_ = first_peer;
 }
 
 void Client::BroadcastBlock(block* block) {
@@ -35,6 +35,8 @@ std::list<std::string*>* Client::getPeersList() {
 };
 
 void Client::addNewPeer(std::string addr) {
+  // TODO don't add new peer if it's already in it.
+
   if (peer_clients_.size() >= MAX_PEERS) {
     return;
   } else if (addr == my_address_) {
@@ -55,6 +57,8 @@ bool Client::successHearbeat(const SinglePeerClient*& peer_client) {
 };
 
 int Client::bootstrapPeers() {
+  addNewPeer(first_peer_);
+
   std::list<std::string> new_peers;
   for (const auto& peer_client: peer_clients_) {
     AddrResponse response = peer_client->GetAddr();
