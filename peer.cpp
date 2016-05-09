@@ -11,14 +11,14 @@ using namespace std;
 struct comm_thread_args {
 	synchronized_queue<transaction*>* tq;
 	synchronized_queue<block*>* bq;
-	synchronized_queue<std::string>* peerq;
+	synchronized_queue<std::string*>* peerq;
 	blockchain* bc;
 };
 
 struct processing_thread_args {
 	synchronized_queue<transaction*>* tq;
 	synchronized_queue<block*>* bq;
-	synchronized_queue<std::string>* peerq;
+	synchronized_queue<std::string*>* peerq;
 	blockchain* bc;
 };
 
@@ -50,6 +50,7 @@ void* processing_thread(void* arg) {
 	cout << "Hello from processing thread\n";
 
 	blockchain* bc = ptap->bc;
+	std::list<std::string*> peer_list;
 	//blockchain bc(ptap->tq);
 	bc->chain_length = 0;
 
@@ -78,6 +79,14 @@ void* processing_thread(void* arg) {
 	bool docontinue = false;
 
 	while(true) {
+		
+
+		std::string* peer_val = ptap->peerq->pop_nonblocking();
+		while (peer_val) {
+			peer_list.push_front(peer_val);
+			peer_val = ptap->peerq->pop_nonblocking();
+		} 
+
 		docontinue = false;
 
 		// Call pop_nonblocking. If not null, add the block to the blockchain, clear progress
@@ -211,7 +220,7 @@ int main () {
 		printf("%02X", output[i]);
 	printf("\n");
 
-	synchronized_queue<std::string> peerq = synchronized_queue<std::string>();
+	synchronized_queue<std::string*> peerq = synchronized_queue<std::string*>();
 	peerq.init();
 
 	blockchain bc(&tq);
