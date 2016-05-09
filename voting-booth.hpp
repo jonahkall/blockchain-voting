@@ -6,6 +6,7 @@
 #include "client.hpp"
 #include "server.hpp"
 #include <iostream>
+#include <fstream>
 #include <memory>
 #include <string>
 #include <cstdlib>
