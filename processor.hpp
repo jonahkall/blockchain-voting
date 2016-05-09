@@ -60,10 +60,10 @@ class block {
     char* verifier_public_key;
     char* finhash;
 
-  block();
-  unsigned char* calculate_finhash();
-  unsigned char* calculate_merkle_root();
-  char* verify_block_number();
+    block();
+    unsigned char* calculate_finhash();
+    unsigned char* calculate_merkle_root();
+    char* verify_block_number();
   
 };
 
