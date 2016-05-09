@@ -30,18 +30,18 @@ using onevote::Miner;
 // Logic and data behind the server's behavior.
 class MinerServiceImpl final : public Miner::Service {
 public:
-  MinerServiceImpl(comm_thread_args* ctap, Client* client) : Miner::Service {
+  MinerServiceImpl(comm_thread_args* ctap, Client* client) : Miner::Service() {
     client_ = client;
     ctap_ = ctap;
   }
 
 	Status BroadcastBlock(ServerContext* context, const BlockMsg* block_msg, Empty* empty) override {
-    ctap->bq->push(decode_block(block_msg));
+    ctap_->bq->push(decode_block(block_msg));
 		return Status::OK;
 	}
 
 	Status BroadcastTransaction(ServerContext* context, const TransactionMsg* transaction_msg, Empty* empty) override {
-    ctap->tq->push(decode_transaction(transaction_msg));
+    ctap_->tq->push(decode_transaction(transaction_msg));
 		return Status::OK;
 	}
 
@@ -59,9 +59,9 @@ public:
 
 	Status GetBlock(ServerContext* context, const BlockRequest* block_req, BlockMsg* block_msg) override {
     if (block_req->get_block_number() == NULL) {
-      *block_msg = *encode_block(ctap->bc->get_head_block());
+      *block_msg = *encode_block(ctap_->bc->get_head_block());
     } else {
-      Block* block = ctap->bc->get_block(block_req->get_block_number());
+      block* block = ctap_->bc->get_block(block_req->get_block_number());
       if (block == NULL) {
         return Status::CANCELLED;
       }
@@ -71,7 +71,7 @@ public:
     return Status::OK;
 	}
 
-	Status GetHeartbeat(ServerContext* context, const Empty* empty, Empty* empty) override {
+	Status GetHeartbeat(ServerContext* context, const Empty* empty, Empty* dummy) override {
 		return Status::OK;
 	}
 private:
