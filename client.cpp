@@ -48,7 +48,7 @@ void Client::addNewPeer(std::string addr) {
 
   // make sure the peer has not already been added
   for (const auto& peer_client: peer_clients_) {
-    if (peer_client->peerAddr() == addr) {
+    if (*peer_client->peerAddr() == addr) {
       return;
     }
   }
