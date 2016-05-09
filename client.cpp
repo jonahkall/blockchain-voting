@@ -62,7 +62,7 @@ int Client::bootstrapPeers() {
       break;
     }
     addNewPeer(new_peer);
-    clientLog("Adding new peer " + std::to_string(new_peer));
+    clientLog("Adding new peer " + new_peer);
   }
   clientLog("Number of peers: " + std::to_string(peer_clients_.size()));
   return peer_clients_.size();
