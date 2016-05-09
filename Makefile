@@ -32,7 +32,7 @@
 CXX = g++
 CPPFLAGS += -I/usr/local/include -pthread
 CXXFLAGS += -std=c++11
-LDFLAGS += -L/usr/local/lib `pkg-config --libs grpc++` -lprotobuf -lpthread -ldl
+LDFLAGS += -L/usr/local/lib `pkg-config --libs grpc++` -lpthread -ldl -lssl -lcrypto
 PROTOC = protoc
 GRPC_CPP_PLUGIN = grpc_cpp_plugin
 GRPC_CPP_PLUGIN_PATH ?= `which $(GRPC_CPP_PLUGIN)`
@@ -43,20 +43,23 @@ vpath %.proto $(PROTOS_PATH)
 
 default: all
 
-all: node.pb.o node.grpc.pb.o
+all: node.pb.o node.grpc.pb.o server.cpp server.hpp processor.cpp processor.hpp encoding_helpers.cpp encoding_helpers.hpp peer.cpp peer.hpp client.cpp client.hpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c server.cpp server.hpp processor.cpp processor.hpp encoding_helpers.cpp encoding_helpers.hpp peer.cpp peer.hpp client.cpp client.hpp
+	$(CXX) -o runpeer2 $(LDFLAGS) peer.o client.o server.o processor.o encoding_helpers.o node.pb.o node.grpc.pb.o -lprotobuf
+#dummy: server client dummy.cpp
+#	$(CXX) -c dummy.cpp
+#	$(CXX) $(LDFLAGS) $(CXXFLAGS) -o dummy dummy.o server.o client.o
 
-dummy: server client dummy.cpp
-	$(CXX) -c dummy.cpp
-	$(CXX) $(LDFLAGS) $(CXXFLAGS) -o dummy dummy.o server.o client.o
+#client: node.pb.o node.grpc.pb.o client.o encoding_helpers.o
+#	$(CXX) $^ $(LDFLAGS) -o $@
 
-client: node.pb.o node.grpc.pb.o client.o encoding_helpers.o
-	$(CXX) $^ $(LDFLAGS) -o $@
+#server: node.pb.o node.grpc.pb.o server.o encoding_helpers.o
+#	$(CXX) $^ $(LDFLAGS) -o $@
 
-server: node.pb.o node.grpc.pb.o server.o encoding_helpers.o
-	$(CXX) $^ $(LDFLAGS) -o $@
+#encoding_helpers.o: encoding_helpers.cpp encoding_helpers.hpp
+#	$(CXX) $^ $(LDFLAGS) $(CXXFLAGS) -c encoding_helpers.cpp encoding_helpers.hpp
 
-encoding_helpers.o: encoding_helpers.cpp encoding_helpers.hpp
-	$(CXX) $^ $(LDFLAGS) $(CXXFLAGS) -c encoding_helpers.cpp encoding_helpers.hpp
+
 
 .PRECIOUS: %.grpc.pb.cc
 %.grpc.pb.cc: %.proto
