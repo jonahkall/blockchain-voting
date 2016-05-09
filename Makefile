@@ -52,8 +52,7 @@ peer: peer.cpp peer.hpp processor.o server.o client.o encoding_helpers.o rsa.o
 	$(CXX) $(LDFLAGS) -c peer.hpp peer.cpp 
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o runpeer peer.o server.o client.o encoding_helpers.o processor.o rsa.o 
 
-processor.o: processor.cpp processor.hpp
-	$(CXX) $(LDFLAGS) -c processor.cpp 
+
 
 communication.o: communication.cpp communication.hpp
 	$(CXX) $(LDFLAGS) -c communication.cpp 
@@ -64,8 +63,11 @@ server.o: node.pb.o node.grpc.pb.o server.o client.o encoding_helpers.o
 client.o: client.cpp client.hpp encoding_helpers.o
 	$(CXX) $(LDFLAGS) -c client.cpp 
 
-encoding_helpers.o: encoding_helpers.cpp encoding_helpers.hpp
+encoding_helpers.o: encoding_helpers.cpp encoding_helpers.hpp preprocessor.o
 	$(CXX) $(LDFLAGS) -c encoding_helpers.cpp 
+
+processor.o: processor.cpp processor.hpp
+	$(CXX) $(LDFLAGS) -c processor.cpp 
 
 rsa.o: rsa.cpp rsa.hpp
 	$(CXX) $(LDFLAGS) -c rsa.cpp
