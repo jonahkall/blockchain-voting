@@ -231,6 +231,7 @@ class blockchain {
      \return void
      */
     void repair_blockchain(block* b);
+
     /*
       Searches for block b in the chain, and returns the iterator to it if so.
       Assumptions: A block can be found by just comparing the hashes for equality.
@@ -257,7 +258,7 @@ class blockchain {
     void add_transactions_to_set(block* b);
 
     /*
-     Remove all of the transactions from block b from the queue of transactinos to process. 
+     Add all of the transactions from block b from the queue of transactinos to process. 
 
      /param b, the block whose transactions are being added.
      */

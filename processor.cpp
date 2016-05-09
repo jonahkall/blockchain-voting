@@ -7,6 +7,11 @@ using namespace std::chrono;
 ////////////////////////////////
 ///// block implementation /////
 ////////////////////////////////
+
+// A constructor for the blocl. 
+/*
+  This instantiates the block and initializes the various attributes
+*/
 block::block() {
 	prev_block_SHA1 = NULL;
 	magic = 0;
@@ -16,8 +21,11 @@ block::block() {
 	finhash = NULL;
 }
 
+/*
+	Calculate the merkle root of the transactions.
+	This requires hashing pairs of transactions in a binary tree-style format. 
+*/
 unsigned char* block::calculate_merkle_root() {
-	// Calculate and return the Merkle root. 
 
 	vector<unsigned char*> old_hashes;
 	vector<unsigned char*> new_hashes;
@@ -52,16 +60,17 @@ unsigned char* block::calculate_merkle_root() {
  	return old_hashes[0];
 }
 
-
+// Unimplemented
 char* block::verify_block_number() {
  // Asks neighbors for the previous block, and checks to make sure its 
  // block_number is one less than this one's.
   return NULL;
 }
 
-/**
- *	Combine the merkle root with the magic string to create a final hash.
- */
+/*
+  Calculates the overall SHA1 hash for the block by appending the merkle root to he
+  magic string and taking the SHA1 hash of the result.
+*/
 unsigned char* block::calculate_finhash() {
 	unsigned char* hash = new unsigned char[SHA_DIGEST_LENGTH];
 	const unsigned char* data_to_hash = this->calculate_merkle_root();
@@ -77,9 +86,12 @@ unsigned char* block::calculate_finhash() {
 /////////////////////////////////////
 ///// blockchain implementation /////
 /////////////////////////////////////
-/**
- * Blockshain constructor. 
- */
+
+/* 
+  A constructor. 
+  \param q, takes a pointer to the thread-safe queue of transactions. This is needed so that in the case
+  of a block chain repair, transactions can be readded to the queue.
+*/
 blockchain::blockchain(synchronized_queue<transaction*>* q) {
 	block* b = new block;
 	b->block_number = 1;
@@ -91,10 +103,12 @@ blockchain::blockchain(synchronized_queue<transaction*>* q) {
 	q_ptr_ = q;
 }
 
-/** 
- * Check if a new block is valid to be added to this blockchain.
- * Make sure that none of the transactions in this block are already in the blockchain.
- */ 
+/* 
+  Iterate over the transactions in the block and make sure none were already in the blockchain.
+
+  \param b, the block those transaction are being verified. 
+  \return boolean, indicating whether the block's transactions are all new.
+*/
 bool blockchain::verify_transactions(block* b) {
 	// Iterate over all transactions in the block.
 	for (int i = 0; i < NUM_TRANSACTIONS_PER_BLOCK; ++i) {
@@ -107,17 +121,18 @@ bool blockchain::verify_transactions(block* b) {
 	return true;
 }
 
-// Overloaded function - this will just check if the current
-// transactions in blockchain are valid.
+/* 
+	Unimplemented.
+*/
 bool blockchain::verify_transactions() {
-  // Iterate over all of the blocks, and check that there are
-  // not two transactions from the same person.
 	return true;
 }
 
-/**
- * Get a pointer to the block in the blockchain with block_number n.
- */
+/*
+  Return a pointer to a block based on its block number
+  \param n, the block number
+  \return block*, the block matching that number
+*/
 block* blockchain::get_block(int n) {
 	for (auto it = blocks_.begin(); it != blocks_.end(); ++it) {
 		if ((*it)->block_number == n) {
@@ -127,9 +142,15 @@ block* blockchain::get_block(int n) {
 	return NULL;
 }
 
-/**
- * Get a pointer to the block in the blockchain with a given hash.
- */
+/*
+  Return a pointer to a block based on its hash
+  Assumptions: A block can be found by just comparing the hashes for equality.
+  This assumptions that two distinct blocks do not share a hash. Based on  research about
+  blockchain and its encryption algorithms, this is a reasonable assumption. 
+
+  \param n, the hash
+  \return block*, the block matching that hash
+*/
 block* blockchain::get_block(char* hash) {
 	for (auto it = blocks_.begin(); it != blocks_.end(); ++it) {
 		if (strcmp((*it)->finhash, hash) == 0) {
@@ -139,9 +160,15 @@ block* blockchain::get_block(char* hash) {
 	return NULL;
 }
 
-/**
- * Return an iterator to a given block reference.
- */
+/*
+  Searches for block b in the chain, and returns the iterator to it if so.
+  Assumptions: A block can be found by just comparing the hashes for equality.
+  This assumptions that two distinct blocks do not share a hash. Based on  research about
+  blockchain and its encryption algorithms, this is a reasonable assumption. 
+
+  \param b, the block being searched.
+  \return BlockList::iterator to the block. Will return BlockList::end() if not found
+*/
 BlockList::iterator blockchain::check_if_block_in_chain(block* b) {
 	// Iterate over the blocks, and check if any have a matching final hash.
 	for (auto it = blocks_.begin(); it != blocks_.end(); ++it) {
@@ -152,12 +179,15 @@ BlockList::iterator blockchain::check_if_block_in_chain(block* b) {
 	return blocks_.end();
 }
 
+// Unimplemented
 block* get_parent_block_from_neighbor(block* b) {
 	return NULL;
 }
 
-/**
- * Remove all of the transactions from block* b from the set of transaction public keys.
+/*
+ Remove all of the transactions from block b from the set of votes. 
+
+ /param b, the block whose transactions are being removed.
  */
 void blockchain::remove_transactions_from_set(block* b) {
 	for (int i = 0; i < NUM_TRANSACTIONS_PER_BLOCK; ++i) {
@@ -166,8 +196,10 @@ void blockchain::remove_transactions_from_set(block* b) {
 	return;
 }
 
-/**
- * Add all of the transactions from block* b to the set of transaction public keys.
+/*
+ Add all of the transactions from block b to the set of votes. 
+
+ /param b, the block whose transactions are being added.
  */
 void blockchain::add_transactions_to_set(block* b) {
 	for (int i = 0; i < NUM_TRANSACTIONS_PER_BLOCK; ++i) {
@@ -176,8 +208,10 @@ void blockchain::add_transactions_to_set(block* b) {
 	return;
 }
 
-/**
- * Add all transactions from block* b to the transactions queue.
+/*
+ Add all of the transactions from block b from the queue of transactinos to process. 
+
+ /param b, the block whose transactions are being added.
  */
 void blockchain::add_transactions_to_queue(block* b) {
 	for (int i = 0; i < b->max_ind; ++i) {
@@ -185,6 +219,12 @@ void blockchain::add_transactions_to_queue(block* b) {
 	}
 }
 
+/*
+ Given a new block b, repairs the blockchain to match the history of b. 
+
+ \param b, the block that is being added, and whose history determines the repair
+ \return void
+ */
 void blockchain::repair_blockchain(block* b) {
 	// This list will contain the blocks that need to be added to blockchain.
 	std::list<block*> blocks_to_add;
@@ -225,6 +265,15 @@ void blockchain::repair_blockchain(block* b) {
 
 }
 
+/* 
+  Checks whether the incoming block is valid, and returns the appopriate validity code.
+  This will indicate whether the block is OK to be added to the chain, has invalid transactions,
+  or if its previous block doesn't match the head of the current one, meaning a blockchain
+  repair may be needed.
+
+  \param b, the block being considered
+  \return block_validity_code enum element indicating the result.
+*/
 block_validity_code blockchain::check_block_validity(block* b) {
   // Make sure none of the votes had previously been made.
 
@@ -241,7 +290,16 @@ block_validity_code blockchain::check_block_validity(block* b) {
   return OK;
 }
 
+/* 
+  Add a block to the head of a blockchain.
+  Assumptions: This function assumes that the incoming block is OK to add to the head. It does not
+  run any additional checks.
+
+  \param b, the block being added
+  \return boolean, indicating success/failure
+*/
 bool blockchain::add_block(block* b) {
+  // TODO: Is this check still needed?
   // Call the appropriate code to make sure all of the transactions are valid.
   int block_validity_result = check_block_validity(b);
   if (block_validity_result == 1) {
@@ -254,6 +312,11 @@ bool blockchain::add_block(block* b) {
   return false;
 }
 
+/*
+  Get's the block currently at the head of the blockchain.
+
+  \return block*, a pointer to hhe head block
+*/
 block* blockchain::get_head_block(){
 	// Get the head block. Don't remove it from the chain.
 	if (chain_length == 0)
@@ -267,13 +330,19 @@ block* blockchain::get_head_block(){
 ///// Synchronized Queue Implementation /////
 /////////////////////////////////////////////
 
-
+ // Initialize the queue. In particular, this should initialize the locking code.
 template <class T>
 void synchronized_queue<T>::init() {
 	pthread_mutex_init(&lock_, NULL);
 	pthread_cond_init(&cv_, NULL);
 }
 
+
+/* 
+  Push an element of type T onto the thread-safe queue. 
+
+  \param t: an element of type T to be pushed on the queue.
+*/
 template <class T>
 void synchronized_queue<T>::push(T t) {
 	pthread_mutex_lock(&lock_);
@@ -282,6 +351,11 @@ void synchronized_queue<T>::push(T t) {
 	pthread_mutex_unlock(&lock_);
 }
 
+/* 
+  Pop from the front of the queue. Block if queue is empty until an item comes in.
+
+  \return item of type T from front of queue. 
+*/
 template <class T>
 T synchronized_queue<T>::pop() {
 	T ret;
@@ -295,6 +369,11 @@ T synchronized_queue<T>::pop() {
 	return ret;
 }
 
+/* 
+  Pop from the front of the queue. Return NULL if empty instead of blocking.
+
+  \return item of type T from front of queue. 
+*/
 template <class T>
 T synchronized_queue<T>::pop_nonblocking() {
 	T ret;
@@ -309,6 +388,11 @@ T synchronized_queue<T>::pop_nonblocking() {
 	return ret;
 }
 
+/* 
+  Indicate whether queue is empty.
+
+  \return boolean indicating whether queue is empty. 
+*/
 template <class T>
 bool synchronized_queue<T>::empty() {
 	return queue_.size() == 0;
