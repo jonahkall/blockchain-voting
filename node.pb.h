@@ -753,7 +753,6 @@ inline ::std::string* BlockMsg::mutable_prev_block_sha1() {
   return prev_block_sha1_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* BlockMsg::release_prev_block_sha1() {
-  // @@protoc_insertion_point(field_release:onevote.BlockMsg.prev_block_SHA1)
   
   return prev_block_sha1_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -811,7 +810,6 @@ inline ::std::string* BlockMsg::mutable_merkle_root() {
   return merkle_root_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* BlockMsg::release_merkle_root() {
-  // @@protoc_insertion_point(field_release:onevote.BlockMsg.merkle_root)
   
   return merkle_root_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -899,7 +897,6 @@ inline ::std::string* BlockMsg::mutable_verifier_public_key() {
   return verifier_public_key_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* BlockMsg::release_verifier_public_key() {
-  // @@protoc_insertion_point(field_release:onevote.BlockMsg.verifier_public_key)
   
   return verifier_public_key_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -943,7 +940,6 @@ inline ::std::string* BlockMsg::mutable_final_hash() {
   return final_hash_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* BlockMsg::release_final_hash() {
-  // @@protoc_insertion_point(field_release:onevote.BlockMsg.final_hash)
   
   return final_hash_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -991,7 +987,6 @@ inline ::std::string* TransactionMsg::mutable_sender_public_key() {
   return sender_public_key_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* TransactionMsg::release_sender_public_key() {
-  // @@protoc_insertion_point(field_release:onevote.TransactionMsg.sender_public_key)
   
   return sender_public_key_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1035,7 +1030,6 @@ inline ::std::string* TransactionMsg::mutable_vote() {
   return vote_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* TransactionMsg::release_vote() {
-  // @@protoc_insertion_point(field_release:onevote.TransactionMsg.vote)
   
   return vote_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1114,7 +1108,6 @@ inline void AddrResponse::set_peer(int index, const char* value, size_t size) {
   // @@protoc_insertion_point(field_set_pointer:onevote.AddrResponse.peer)
 }
 inline ::std::string* AddrResponse::add_peer() {
-  // @@protoc_insertion_point(field_add_mutable:onevote.AddrResponse.peer)
   return peer_.Add();
 }
 inline void AddrResponse::add_peer(const ::std::string& value) {
@@ -1174,7 +1167,6 @@ inline ::std::string* TransactionRequest::mutable_publickey() {
   return publickey_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* TransactionRequest::release_publickey() {
-  // @@protoc_insertion_point(field_release:onevote.TransactionRequest.publickey)
   
   return publickey_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }

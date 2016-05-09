@@ -341,12 +341,11 @@ Empty* Empty::New(::google::protobuf::Arena* arena) const {
 }
 
 void Empty::Clear() {
-// @@protoc_insertion_point(message_clear_start:onevote.Empty)
 }
 
 bool Empty::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:onevote.Empty)
   for (;;) {
@@ -384,7 +383,6 @@ void Empty::SerializeWithCachedSizes(
 }
 
 int Empty::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:onevote.Empty)
   int total_size = 0;
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -394,34 +392,28 @@ int Empty::ByteSize() const {
 }
 
 void Empty::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:onevote.Empty)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const Empty* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Empty>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:onevote.Empty)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:onevote.Empty)
     MergeFrom(*source);
   }
 }
 
 void Empty::MergeFrom(const Empty& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:onevote.Empty)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
 }
 
 void Empty::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:onevote.Empty)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Empty::CopyFrom(const Empty& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:onevote.Empty)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -538,17 +530,8 @@ BlockMsg* BlockMsg::New(::google::protobuf::Arena* arena) const {
 }
 
 void BlockMsg::Clear() {
-// @@protoc_insertion_point(message_clear_start:onevote.BlockMsg)
-#if defined(__clang__)
-#define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(BlockMsg, f) \
-  _Pragma("clang diagnostic pop")
-#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<BlockMsg*>(16)->f)
-#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -569,7 +552,7 @@ void BlockMsg::Clear() {
 
 bool BlockMsg::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:onevote.BlockMsg)
   for (;;) {
@@ -868,7 +851,6 @@ void BlockMsg::SerializeWithCachedSizes(
 }
 
 int BlockMsg::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:onevote.BlockMsg)
   int total_size = 0;
 
   // optional uint32 block_number = 8;
@@ -935,22 +917,18 @@ int BlockMsg::ByteSize() const {
 }
 
 void BlockMsg::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:onevote.BlockMsg)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const BlockMsg* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const BlockMsg>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:onevote.BlockMsg)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:onevote.BlockMsg)
     MergeFrom(*source);
   }
 }
 
 void BlockMsg::MergeFrom(const BlockMsg& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:onevote.BlockMsg)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   transaction_msg_.MergeFrom(from.transaction_msg_);
   if (from.block_number() != 0) {
@@ -981,14 +959,12 @@ void BlockMsg::MergeFrom(const BlockMsg& from) {
 }
 
 void BlockMsg::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:onevote.BlockMsg)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void BlockMsg::CopyFrom(const BlockMsg& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:onevote.BlockMsg)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1071,7 +1047,6 @@ void BlockMsg::clear_prev_block_sha1() {
   return prev_block_sha1_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BlockMsg::release_prev_block_sha1() {
-  // @@protoc_insertion_point(field_release:onevote.BlockMsg.prev_block_SHA1)
   
   return prev_block_sha1_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1129,7 +1104,6 @@ void BlockMsg::clear_merkle_root() {
   return merkle_root_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BlockMsg::release_merkle_root() {
-  // @@protoc_insertion_point(field_release:onevote.BlockMsg.merkle_root)
   
   return merkle_root_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1217,7 +1191,6 @@ void BlockMsg::clear_verifier_public_key() {
   return verifier_public_key_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BlockMsg::release_verifier_public_key() {
-  // @@protoc_insertion_point(field_release:onevote.BlockMsg.verifier_public_key)
   
   return verifier_public_key_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1261,7 +1234,6 @@ void BlockMsg::clear_final_hash() {
   return final_hash_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BlockMsg::release_final_hash() {
-  // @@protoc_insertion_point(field_release:onevote.BlockMsg.final_hash)
   
   return final_hash_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1350,7 +1322,6 @@ TransactionMsg* TransactionMsg::New(::google::protobuf::Arena* arena) const {
 }
 
 void TransactionMsg::Clear() {
-// @@protoc_insertion_point(message_clear_start:onevote.TransactionMsg)
   sender_public_key_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   vote_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   timestamp_ = 0;
@@ -1358,7 +1329,7 @@ void TransactionMsg::Clear() {
 
 bool TransactionMsg::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:onevote.TransactionMsg)
   for (;;) {
@@ -1501,7 +1472,6 @@ void TransactionMsg::SerializeWithCachedSizes(
 }
 
 int TransactionMsg::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:onevote.TransactionMsg)
   int total_size = 0;
 
   // optional string sender_public_key = 2;
@@ -1530,22 +1500,18 @@ int TransactionMsg::ByteSize() const {
 }
 
 void TransactionMsg::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:onevote.TransactionMsg)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const TransactionMsg* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const TransactionMsg>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:onevote.TransactionMsg)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:onevote.TransactionMsg)
     MergeFrom(*source);
   }
 }
 
 void TransactionMsg::MergeFrom(const TransactionMsg& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:onevote.TransactionMsg)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.sender_public_key().size() > 0) {
 
@@ -1561,14 +1527,12 @@ void TransactionMsg::MergeFrom(const TransactionMsg& from) {
 }
 
 void TransactionMsg::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:onevote.TransactionMsg)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void TransactionMsg::CopyFrom(const TransactionMsg& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:onevote.TransactionMsg)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1632,7 +1596,6 @@ void TransactionMsg::clear_sender_public_key() {
   return sender_public_key_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* TransactionMsg::release_sender_public_key() {
-  // @@protoc_insertion_point(field_release:onevote.TransactionMsg.sender_public_key)
   
   return sender_public_key_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1676,7 +1639,6 @@ void TransactionMsg::clear_vote() {
   return vote_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* TransactionMsg::release_vote() {
-  // @@protoc_insertion_point(field_release:onevote.TransactionMsg.vote)
   
   return vote_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1772,13 +1734,12 @@ AddrRequest* AddrRequest::New(::google::protobuf::Arena* arena) const {
 }
 
 void AddrRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:onevote.AddrRequest)
   num_requested_ = 0u;
 }
 
 bool AddrRequest::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:onevote.AddrRequest)
   for (;;) {
@@ -1845,7 +1806,6 @@ void AddrRequest::SerializeWithCachedSizes(
 }
 
 int AddrRequest::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:onevote.AddrRequest)
   int total_size = 0;
 
   // optional uint32 num_requested = 1;
@@ -1862,22 +1822,18 @@ int AddrRequest::ByteSize() const {
 }
 
 void AddrRequest::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:onevote.AddrRequest)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const AddrRequest* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const AddrRequest>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:onevote.AddrRequest)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:onevote.AddrRequest)
     MergeFrom(*source);
   }
 }
 
 void AddrRequest::MergeFrom(const AddrRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:onevote.AddrRequest)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.num_requested() != 0) {
     set_num_requested(from.num_requested());
@@ -1885,14 +1841,12 @@ void AddrRequest::MergeFrom(const AddrRequest& from) {
 }
 
 void AddrRequest::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:onevote.AddrRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void AddrRequest::CopyFrom(const AddrRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:onevote.AddrRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -2006,13 +1960,12 @@ AddrResponse* AddrResponse::New(::google::protobuf::Arena* arena) const {
 }
 
 void AddrResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:onevote.AddrResponse)
   peer_.Clear();
 }
 
 bool AddrResponse::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:onevote.AddrResponse)
   for (;;) {
@@ -2094,7 +2047,6 @@ void AddrResponse::SerializeWithCachedSizes(
 }
 
 int AddrResponse::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:onevote.AddrResponse)
   int total_size = 0;
 
   // repeated string peer = 1;
@@ -2111,35 +2063,29 @@ int AddrResponse::ByteSize() const {
 }
 
 void AddrResponse::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:onevote.AddrResponse)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const AddrResponse* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const AddrResponse>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:onevote.AddrResponse)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:onevote.AddrResponse)
     MergeFrom(*source);
   }
 }
 
 void AddrResponse::MergeFrom(const AddrResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:onevote.AddrResponse)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   peer_.MergeFrom(from.peer_);
 }
 
 void AddrResponse::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:onevote.AddrResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void AddrResponse::CopyFrom(const AddrResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:onevote.AddrResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -2200,7 +2146,6 @@ void AddrResponse::clear_peer() {
   // @@protoc_insertion_point(field_set_pointer:onevote.AddrResponse.peer)
 }
  ::std::string* AddrResponse::add_peer() {
-  // @@protoc_insertion_point(field_add_mutable:onevote.AddrResponse.peer)
   return peer_.Add();
 }
  void AddrResponse::add_peer(const ::std::string& value) {
@@ -2296,13 +2241,12 @@ TransactionRequest* TransactionRequest::New(::google::protobuf::Arena* arena) co
 }
 
 void TransactionRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:onevote.TransactionRequest)
   publickey_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 bool TransactionRequest::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:onevote.TransactionRequest)
   for (;;) {
@@ -2382,7 +2326,6 @@ void TransactionRequest::SerializeWithCachedSizes(
 }
 
 int TransactionRequest::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:onevote.TransactionRequest)
   int total_size = 0;
 
   // optional string publickey = 1;
@@ -2399,22 +2342,18 @@ int TransactionRequest::ByteSize() const {
 }
 
 void TransactionRequest::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:onevote.TransactionRequest)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const TransactionRequest* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const TransactionRequest>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:onevote.TransactionRequest)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:onevote.TransactionRequest)
     MergeFrom(*source);
   }
 }
 
 void TransactionRequest::MergeFrom(const TransactionRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:onevote.TransactionRequest)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.publickey().size() > 0) {
 
@@ -2423,14 +2362,12 @@ void TransactionRequest::MergeFrom(const TransactionRequest& from) {
 }
 
 void TransactionRequest::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:onevote.TransactionRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void TransactionRequest::CopyFrom(const TransactionRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:onevote.TransactionRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -2492,7 +2429,6 @@ void TransactionRequest::clear_publickey() {
   return publickey_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* TransactionRequest::release_publickey() {
-  // @@protoc_insertion_point(field_release:onevote.TransactionRequest.publickey)
   
   return publickey_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2574,13 +2510,12 @@ BlockRequest* BlockRequest::New(::google::protobuf::Arena* arena) const {
 }
 
 void BlockRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:onevote.BlockRequest)
   block_number_ = 0u;
 }
 
 bool BlockRequest::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:onevote.BlockRequest)
   for (;;) {
@@ -2647,7 +2582,6 @@ void BlockRequest::SerializeWithCachedSizes(
 }
 
 int BlockRequest::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:onevote.BlockRequest)
   int total_size = 0;
 
   // optional uint32 block_number = 1;
@@ -2664,22 +2598,18 @@ int BlockRequest::ByteSize() const {
 }
 
 void BlockRequest::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:onevote.BlockRequest)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const BlockRequest* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const BlockRequest>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:onevote.BlockRequest)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:onevote.BlockRequest)
     MergeFrom(*source);
   }
 }
 
 void BlockRequest::MergeFrom(const BlockRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:onevote.BlockRequest)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.block_number() != 0) {
     set_block_number(from.block_number());
@@ -2687,14 +2617,12 @@ void BlockRequest::MergeFrom(const BlockRequest& from) {
 }
 
 void BlockRequest::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:onevote.BlockRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void BlockRequest::CopyFrom(const BlockRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:onevote.BlockRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
