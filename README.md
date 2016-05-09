@@ -13,8 +13,9 @@ First, clone this repository.
 ## Usage
 
 ### Compilation
-To compile the miner, type `./compile.sh`.
-To compile the voting booth, type `./make_booth.sh`
+To compile the miner, type `make miner`.
+To compile the voting booth, type `make voting-booth`
+To compile both, just type `make` or `make all`
 ### Running
 
 - To run the miner: `./runpeer2 <YOUR_IP_ADDRESS>:<YOUR_PORT> 54.164.190.217:50051`. Here, the first argument should contain your ip address and port. The second argument is the ip address and port of one peer.
