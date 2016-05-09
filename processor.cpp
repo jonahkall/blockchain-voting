@@ -56,8 +56,9 @@ unsigned char* block::calculate_merkle_root() {
 		old_hashes = new_hashes;
 		new_hashes.clear();
 	}
-
- 	return old_hashes[0];
+	if (new_hashes[0] == NULL)
+		assert(false);
+ 	return new_hashes[0];
 }
 
 // Unimplemented
@@ -71,7 +72,7 @@ char* block::verify_block_number() {
   Calculates the overall SHA1 hash for the block by appending the merkle root to he
   magic string and taking the SHA1 hash of the result.
 */
-unsigned char* block::calculate_finhash() {
+void block::calculate_finhash() {
 	unsigned char* hash = new unsigned char[SHA_DIGEST_LENGTH];
 	const unsigned char* data_to_hash = this->calculate_merkle_root();
 	unsigned char* buffer =
@@ -79,7 +80,9 @@ unsigned char* block::calculate_finhash() {
 	memcpy(buffer, data_to_hash, SHA_DIGEST_LENGTH);
 	memcpy(buffer + SHA_DIGEST_LENGTH, &this->magic, sizeof(unsigned long long));
 	SHA1(buffer, SHA_DIGEST_LENGTH + sizeof(unsigned long long), hash);
-	return hash;
+	if (hash == NULL)
+		assert(false);
+	finhash = (char*)hash;
 }
 
 
