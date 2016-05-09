@@ -8,18 +8,18 @@
 
 unsigned char* SHA1(const unsigned char* s, size_t size, unsigned char* md);
 
-struct comm_thread_args {
+typedef struct comm_thread_args {
 	synchronized_queue<transaction*>* tq;
 	synchronized_queue<block*>* bq;
 	synchronized_queue<std::string*>* peerq;
 	blockchain* bc;
-};
+} comm_thread_args;
 
-struct processing_thread_args {
+typedef struct processing_thread_args {
 	synchronized_queue<transaction*>* tq;
 	synchronized_queue<block*>* bq;
 	synchronized_queue<std::string*>* peerq;
 	blockchain* bc;
-};
+} processing_thread_args;
 
 #endif
