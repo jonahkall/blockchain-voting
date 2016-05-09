@@ -1,3 +1,5 @@
+#ifndef __PEER_H__
+#define __PEER_H__
 #include <openssl/sha.h>
 #include "processor.hpp"
 #include "communication.hpp"
@@ -19,3 +21,5 @@ typedef struct processing_thread_args {
 	synchronized_queue<std::string*>* peerq;
 	blockchain* bc;
 } processing_thread_args;
+
+#endif

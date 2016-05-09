@@ -1,3 +1,6 @@
+#ifndef __PROCESSOR_H__
+#define __PROCESSOR_H__
+
 #include <unordered_map>
 #include <string>
 #include <vector>
@@ -108,3 +111,6 @@ class blockchain {
   	// O(1)
   	std::unordered_set<std::string> voted;
 };
+
+
+#endif
