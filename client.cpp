@@ -35,12 +35,22 @@ std::list<std::string*>* Client::getPeersList() {
 };
 
 void Client::addNewPeer(std::string addr) {
-  // TODO don't add new peer if it's already in it.
+  // validate number of peers or address is not own
+  if ((peer_clients_.size() >= MAX_PEERS) || addr == my_address_) {
+    return;    
+  }
 
-  if (peer_clients_.size() >= MAX_PEERS) {
-    return;
-  } else if (addr == my_address_) {
-    return;
+  // ensure validity of address as IP_ADDRESS:PORT
+  std::regex ip_and_port ("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]+(\\:[0-9]{1,5})?$");
+  if (!std::regex_match(addr, ip_and_port)) {
+    return;    
+  }
+
+  // make sure the peer has not already been added
+  for (const auto& peer_client: peer_clients_) {
+    if (*peer_client->peerAddr() == addr) {
+      return;
+    }
   }
 
   clientLog("Adding peer: " + addr);

@@ -6,6 +6,7 @@
 #include <string>
 #include <cstdlib>
 #include <queue>
+#include <regex>
 
 #include <grpc++/grpc++.h>
 
