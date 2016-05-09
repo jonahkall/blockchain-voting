@@ -2,6 +2,9 @@
 #define __PEER_H__
 #include <openssl/sha.h>
 #include "processor.hpp"
+#include "communication.hpp"
+#include "rsa.hpp"
+#include <openssl/rsa.h>
 
 unsigned char* SHA1(const unsigned char* s, size_t size, unsigned char* md);
 

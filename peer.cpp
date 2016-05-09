@@ -1,10 +1,4 @@
 #include "peer.hpp"
-#include "processor.hpp"
-#include "communication.hpp"
-#include "rsa.hpp"
-//#include "sha1.h"
-#include <openssl/sha.h>
-#include <openssl/rsa.h>
 
 using namespace std;
 
