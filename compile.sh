@@ -1,3 +1,4 @@
+make clean
 make all
 g++ -I/usr/local/include -pthread -std=c++11 -c server.cpp server.hpp
 g++ -I/usr/local/include -pthread -std=c++11 -c processor.cpp processor.hpp
