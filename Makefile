@@ -31,44 +31,32 @@
 
 CXX = g++
 CPPFLAGS += -I/usr/local/include -pthread
-CXXFLAGS += -std=c++11 -O3 -funroll-loops
-LDFLAGS += -Wno-deprecated-declarations -std=c++11  -L/usr/local/lib `pkg-config --libs grpc++` -lprotobuf -lpthread -ldl -lssl -lcrypto
+CXXFLAGS += -std=c++11
+LDFLAGS += -L/usr/local/lib `pkg-config --libs grpc++` -lprotobuf -lpthread -ldl
 PROTOC = protoc
 GRPC_CPP_PLUGIN = grpc_cpp_plugin
 GRPC_CPP_PLUGIN_PATH ?= `which $(GRPC_CPP_PLUGIN)`
 
-PROTOS_PATH = ./nodes/protos
+PROTOS_PATH = nodes/protos
 
 vpath %.proto $(PROTOS_PATH)
 
-all: system-check server
+default: all
 
-default: peer
+all: node.pb.o node.grpc.pb.o
 
-run: peer
-	./runpeer
+dummy: server client dummy.cpp
+	$(CXX) -c dummy.cpp
+	$(CXX) $(LDFLAGS) $(CXXFLAGS) -o dummy dummy.o server.o client.o
 
-peer: peer.cpp peer.hpp server.o client.o encoding_helpers.o rsa.o processor.o 
-	$(CXX) $(LDFLAGS) -c peer.hpp peer.cpp 
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o runpeer peer.o server.o client.o encoding_helpers.o processor.o rsa.o
-
-communication.o: communication.cpp communication.hpp
-	$(CXX) $(LDFLAGS) -c communication.cpp 
-
-server.o: node.pb.o node.grpc.pb.o client.o encoding_helpers.o processor.o
+client: node.pb.o node.grpc.pb.o client.o encoding_helpers.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 
-client.o: client.cpp client.hpp encoding_helpers.o processor.o
-	$(CXX) $(LDFLAGS) -c client.cpp 
+server: node.pb.o node.grpc.pb.o server.o encoding_helpers.o
+	$(CXX) $^ $(LDFLAGS) -o $@
 
-encoding_helpers.o: encoding_helpers.cpp encoding_helpers.hpp processor.o
-	$(CXX) $(LDFLAGS) -c encoding_helpers.cpp 
-
-processor.o: processor.cpp processor.hpp rsa.o
-	$(CXX) $(LDFLAGS) -c processor.cpp 
-
-rsa.o: rsa.cpp rsa.hpp
-	$(CXX) $(LDFLAGS) -c rsa.cpp
+encoding_helpers.o: encoding_helpers.cpp encoding_helpers.hpp
+	$(CXX) $^ $(LDFLAGS) $(CXXFLAGS) -c encoding_helpers.cpp encoding_helpers.hpp
 
 .PRECIOUS: %.grpc.pb.cc
 %.grpc.pb.cc: %.proto
@@ -79,8 +67,7 @@ rsa.o: rsa.cpp rsa.hpp
 	$(PROTOC) -I $(PROTOS_PATH) --cpp_out=. $<
 
 clean:
-	rm -f *.o *.pb.cc *.pb.h server
-	$(RM) *.o *.gch runpeer
+	rm -f *.o *.pb.cc *.pb.h client server
 
 
 # The following is to test your system and ensure a smoother experience.
