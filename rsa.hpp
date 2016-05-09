@@ -1,11 +1,28 @@
 #include <openssl/pem.h>
 
 
-// Use this if the keys are loaded.
+/* 
+ createRSA
+
+ Creates an RSA object from a public key. Use this if the key is loaded into a variable.
+
+ \param key: This the public or private key that is being used to make the RSA object
+ \param is_public_key: This should be 1 if this is a public key, or 0 otherwise.
+
+ \return RSA*: A pointer to an RSA object. 
+ */
 RSA* createRSA(unsigned char* key, int is_public_key);
 
-// Use this if the keys are stored in a file.
-RSA* createRSAWithFilename(char * filename,int is_public_key);
+/* 
+ createRSAWithFilename
+
+ Creates an RSA object from a public key in a file. Use this if the key is in a file.
+
+ \param filename: This filename of the file containing the public or private key that is being used to make the RSA object
+ \param is_public_key: This should be 1 if this is a public key, or 0 otherwise.
+
+ \return RSA*: A pointer to an RSA object. 
+ */RSA* createRSAWithFilename(char * filename,int is_public_key);
 
 /////////////////////////////////////////
 // Used to send an encrypted message to the person who's public key you use.
