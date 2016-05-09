@@ -49,18 +49,9 @@ std::list<std::string*>* Client::getPeersList() {
 
 void Client::addNewPeer(std::string addr) {
   // validate number of peers or address is not own
-  if ((peer_clients_.size() >= MAX_PEERS) || addr == my_address_) {
+  if ((peer_clients_.size() >= MAX_PEERS) || addr == my_address_ || addr == NOT_AN_IP_TOKEN) {
     return;    
   }
-
-  std::cout << addr;
-
-  // ensure validity of address as IP_ADDRESS:PORT
-  std::regex ip_and_port ("[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}:[0-9]{1,5}");
-  if (!std::regex_match(addr, ip_and_port)) {
-    return;    
-  }
-
 
   // make sure the peer has not already been added
   for (const auto& peer_client: peer_clients_) {
