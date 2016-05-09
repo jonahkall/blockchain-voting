@@ -11,13 +11,15 @@ using namespace std;
 struct comm_thread_args {
 	synchronized_queue<transaction*>* tq;
 	synchronized_queue<block*>* bq;
-	synchronized_queue<std::string>* peerq;
+	synchronized_queue<std::string*>* peerq;
+	blockchain* bc;
 };
 
 struct processing_thread_args {
 	synchronized_queue<transaction*>* tq;
 	synchronized_queue<block*>* bq;
-	synchronized_queue<std::string>* peerq;
+	synchronized_queue<std::string*>* peerq;
+	blockchain* bc;
 };
 
 static int leading_zeros(unsigned char* buf, size_t n) {
@@ -47,8 +49,10 @@ void* processing_thread(void* arg) {
 	processing_thread_args* ptap = (processing_thread_args *) arg;
 	cout << "Hello from processing thread\n";
 
-	blockchain bc(ptap->tq);
-	bc.chain_length = 0;
+	blockchain* bc = ptap->bc;
+	std::list<std::string*> peer_list;
+	//blockchain bc(ptap->tq);
+	bc->chain_length = 0;
 
 	// When this variable is true, we have a full set of
 	// transactions to try to make a block with, otherwise we do not, so we are waiting
@@ -75,6 +79,14 @@ void* processing_thread(void* arg) {
 	bool docontinue = false;
 
 	while(true) {
+		
+
+		std::string* peer_val = ptap->peerq->pop_nonblocking();
+		while (peer_val) {
+			peer_list.push_front(peer_val);
+			peer_val = ptap->peerq->pop_nonblocking();
+		} 
+
 		docontinue = false;
 
 		// Call pop_nonblocking. If not null, add the block to the blockchain, clear progress
@@ -82,23 +94,22 @@ void* processing_thread(void* arg) {
 		block* b = ptap->bq->pop_nonblocking();
 		if (b) {
 			// TODO: clear progress somehow
-			switch(bc.check_block_validity(b)) {
+			switch(bc->check_block_validity(b)) {
 				case OK:
-					bc.add_block(b);
+					bc->add_block(b);
 					break;
 				case PREV_BLOCK_NONMATCH:
 					// Check if this block number is higher than ours, in which
 					// case we need to accept that chain instead of ours
-					if (b->block_number > bc.get_head_block()->block_number) {
+					if (b->block_number > bc->get_head_block()->block_number) {
 						// Do important shit here
 						// send requests for missing blocks, and align them to current
-						// blockchain
+						// bloc kchain
 						// O(n^2) algorithm for alignment
 						// maybe this should set maxind to 0
-						bc.repair_blockchain(b);
+						bc->repair_blockchain(b);
 						quotafull = false;
 						new_block->max_ind = 0;
-						// TODO: merkle tree
 						for (int i = 0; i < new_block->max_ind; ++i) {
 							ptap->tq->push(new_block->transaction_array[i]);
 						}
@@ -125,7 +136,7 @@ void* processing_thread(void* arg) {
 		
 		// Check if already in the block chain (via the unordered set). If so, throw it out.
 		if (quotafull == false &&
-				bc.voted.find(new_trans->sender_public_key) != bc.voted.end()) {
+				bc->voted.find(new_trans->sender_public_key) != bc->voted.end()) {
 			continue;
 		}
 
@@ -149,7 +160,7 @@ void* processing_thread(void* arg) {
 				if (leading_zeros((unsigned char *)new_block->finhash, 20) >= NUM_LEADING_ZEROS) {
 					quotafull = false;
 					new_block->max_ind = 0;
-					bc.add_block(new_block);
+					bc->add_block(new_block);
 					new_block = new block;
 					break;
 				}
@@ -191,18 +202,40 @@ int main () {
 	synchronized_queue<block*> bq = synchronized_queue<block*>();
 	bq.init();
 
-	synchronized_queue<std::string> peerq = synchronized_queue<std::string>();
+	transaction test_transaction;
+
+	test_transaction.size = 20;
+	test_transaction.sender_public_key = "abcdefghijklmnopqwer";
+	test_transaction.vote = "qbcdefghijklmnopqwer";
+	test_transaction.timestamp = 0;
+
+	block* b = new block;
+	for (int i = 0; i < NUM_TRANSACTIONS_PER_BLOCK; ++i) {
+		b->transaction_array[i] = &test_transaction;
+	}
+
+	unsigned char* output = b->calculate_merkle_root();
+
+	for (int i = 0; i < 20; ++i)
+		printf("%02X", output[i]);
+	printf("\n");
+
+	synchronized_queue<std::string*> peerq = synchronized_queue<std::string*>();
 	peerq.init();
+
+	blockchain bc(&tq);
 
 	comm_thread_args cta;
 	cta.tq = &tq;
 	cta.bq = &bq;
 	cta.peerq = &peerq;
+	cta.bc = &bc;
 
 	processing_thread_args pta;
 	pta.tq = &tq;
 	pta.bq = &bq;
 	pta.peerq = &peerq;
+	pta.bc = &bc;
 
 	pthread_create(&comm_t, NULL, comm_thread, &cta);
 	pthread_create(&processing_t, NULL, processing_thread, &pta);
@@ -212,7 +245,4 @@ int main () {
 
 	return 0;
 }
-
-
-
 

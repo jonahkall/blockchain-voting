@@ -7,6 +7,7 @@
 #include <grpc++/grpc++.h>
 
 #include "node.grpc.pb.h"
+#include "peer.cpp"
 
 #include "processor.hpp"
 
@@ -23,6 +24,7 @@ using onevote::AddrResponse;
 using onevote::TransactionRequest;
 using onevote::BlockRequest;
 
+<<<<<<< HEAD
 std::queue<std::string> peers;
 
 std::queue<block> blocks;
@@ -90,28 +92,48 @@ BlockMsg* encode_block(block* block) {
 
 // Logic and data behind the server's behavior.
 class MinerServiceImpl final : public Miner::Service {
+  private comm_thread_args* ctap_;
+  private Client* client_;
+
+  MinerServiceImpl(comm_thread_args* ctap, Client* client) : Miner::Service {
+    ctap_ = ctap;
+    client_ = client;
+  }
+
 	Status BroadcastBlock(ServerContext* context, const BlockMsg* block_msg, Empty* empty) override {
-		// turn blockmsg into block
-		blocks.push_back(block_msg);
+    ctap->bq->push(decode_block(block_msg));
 		return Status::OK;
 	}
 
 	Status BroadcastTransaction(ServerContext* context, const TransactionMsg* transaction_msg, Empty* empty) override {
-		// turn transactionmsg into transaction
-		transactions.push_back(transaction_msg);
+    ctap->tq->push(decode_transaction(transaction_msg));
 		return Status::OK;
 	}
 
 	Status GetAddr(ServerContext* context, const AddrRequest* addr_req, AddrResponse* addr_resp) override {
-
+    for (const auto& peer: client_->getPeersList()) {
+      addr_resp->add_peer(*peer);
+    }
+    return Status::OK;
 	}
 
 	Status GetTransaction(ServerContext* context, const TransactionRequest* trans_req, TransactionMsg* transaction_msg) override {
-
+    // TODO not going to implement this one
+    return Status::CANCELLED;
 	}
 
 	Status GetBlock(ServerContext* context, const BlockRequest* block_req, BlockMsg* block_msg) override {
+    if (block_req->block_number === NULL) {
+      *block_msg = *encode_block(ctap->bc->get_head_block());
+    } else {
+      Block* block = ctap->bc->get_block(block_req->block_number);
+      if (block == NULL) {
+        return Status::CANCELLED;
+      }
+      *block_msg = *encode_block(block);
+    }
 
+    return Status::OK;
 	}
 
 	Status GetHeartbeat(ServerContext* context, const Empty* empty, Empty* empty) override {
@@ -119,9 +141,9 @@ class MinerServiceImpl final : public Miner::Service {
 	}
 };
 
-void RunServer() {
+void RunServer(comm_thread_args* ctap, Client* client) {
   std::string server_address("0.0.0.0:50051");
-  GreeterServiceImpl service;
+  MinerServiceImpl service(ctap, client);
 
   ServerBuilder builder;
   // Listen on the given address without any authentication mechanism.
