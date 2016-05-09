@@ -28,8 +28,8 @@ Status MinerServiceImpl::GetAddr(ServerContext* context, const AddrRequest* addr
     addr_resp->add_peer(*peer);
   }
 
-  auto it = context->client_metadata().find('address');
-  client_->addNewPeer(it->second);
+  auto it = context->client_metadata().find("address");
+  client_->addNewPeer(it->second.data());
 
   return Status::OK;
 }

@@ -2,7 +2,6 @@
 #define __PEER_H__
 #include <openssl/sha.h>
 #include "processor.hpp"
-#include "communication.hpp"
 #include "rsa.hpp"
 #include "client.hpp"
 #include "server.hpp"

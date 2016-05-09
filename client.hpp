@@ -42,7 +42,7 @@ class SinglePeerClient {
 
 class Client {
   public:
-    Client(std::string first_peer);
+    Client(std::string own_address, std::string first_peer);
     void BroadcastBlock(block* block);
     void BroadcastTransaction(transaction* transaction);
     int checkHeartbeats();
