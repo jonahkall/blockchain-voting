@@ -15,7 +15,7 @@ Status MinerServiceImpl::BroadcastBlock(ServerContext* context, const BlockMsg* 
 Status MinerServiceImpl::BroadcastTransaction(ServerContext* context, const TransactionMsg* transaction_msg, Empty* empty) {
   transaction* transaction = decode_transaction(transaction_msg);
   ctap_->tq->push(transaction);
-  serverLog("Received transaction broadcast: " + std::to_string(transaction->timestamp));
+  serverLog("Received transaction broadcast: " + transaction->vote);
 	return Status::OK;
 }
 
