@@ -27,7 +27,7 @@ static int leading_zeros(unsigned char* buf, size_t n) {
 */
 void* comm_thread (void* arg) {
 	comm_thread_args* ctap = (comm_thread_args *) arg;
-	RunServer(ctap, )
+	RunServer(ctap);
 	// cout << "Hello from comm thread\n";
 	return NULL;
 }
