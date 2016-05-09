@@ -34,6 +34,13 @@
 
 #define PUBLIC_KEY_SIZE 20
 
+
+/**
+   transaction
+
+   A class for encapsulating all of the informatio needed for a single transaction, or vote. 
+   Many of these transactions will make up a vote.
+ */
 struct transaction {
   size_t size;
   std::string sender_public_key;
@@ -41,28 +48,72 @@ struct transaction {
   double timestamp;
 };
 
+/**
+  This enum will contain the possible values for a block's validity.
+ */
 enum block_validity_code {
 	OK,
 	PREV_BLOCK_NONMATCH,
 	TRANSACTION_INVALID
 };
 
-// Block (SHA: Block Number, Pointer to previous block, Magic String, Merkel Root,
-// List of transactions, Identity of verifying organization (public key?)
+
+/**
+  Block
+
+  This a class for blocks of transactions. This class contains all of the important information for a 
+  discovered or working block. In particular, it contains an array of transaction objects. Furthermore,
+  it contains information about the individual that discovered the block, and block metadata, such as the has
+  and magic string.
+ */
 class block {
   public:
+    // The block number. This indicates where in the chain this block is.
     unsigned block_number;
+
+    // This is the SHA1 hash of the previous block. It allows for the implicit linking
+    // of blocks to form a blockchain
     char* prev_block_SHA1;
+
+    // This is the magic string that is appended to the merkle root prior to getting a SHA1 hash for the whole
+    // block.
     unsigned long long magic;
+
+    // The merkle root is a hash of the transactions. 
     char* merkle_root;
+
+    // An array of transactions in this block.
     transaction* transaction_array[NUM_TRANSACTIONS_PER_BLOCK];
+
+    // This is used to determine the number of transactions in the block.
     int max_ind;
+
+    // This is the public key of the individual that found this block.
     char* verifier_public_key;
+
+    // This is the SHA1 hash of the block after combining the merkle root with the magic key.
     char* finhash;
 
+    // A constructor for the blocl. 
+    /*
+      This instantiates the block and initializes the various attributes
+    */
     block();
+    
+    /*
+      Calculates the overall SHA1 hash for the block by appending the merkle root to he
+      magic string and taking the SHA1 hash of the result.
+    */
     unsigned char* calculate_finhash();
+
+    /*
+      Calculate the merkle root of the transactions. This requires hashing pairs of transactions in a binary tree-style format. 
+    */
     unsigned char* calculate_merkle_root();
+
+    /*
+     This is uninplemented.
+     */
     char* verify_block_number();
   
 };
@@ -76,7 +127,7 @@ class synchronized_queue {
   
   public:
   	void init();
-  	void push(T t);
+  	void push(T t);A 
   	T pop();
   	T pop_nonblocking();
   	bool empty();
@@ -101,7 +152,7 @@ class blockchain {
     blockchain(synchronized_queue<transaction*>* q); // Constructor
     block* get_block(int n);
     block* get_block(char* hash);
-    
+
   private:
   	BlockList blocks_;
   	synchronized_queue<transaction*>* q_ptr_;
