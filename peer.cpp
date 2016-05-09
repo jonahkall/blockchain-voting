@@ -95,13 +95,12 @@ void* processing_thread(void* arg) {
 					if (b->block_number > bc->get_head_block()->block_number) {
 						// Do important shit here
 						// send requests for missing blocks, and align them to current
-						// blockchain
+						// bloc kchain
 						// O(n^2) algorithm for alignment
 						// maybe this should set maxind to 0
 						bc->repair_blockchain(b);
 						quotafull = false;
 						new_block->max_ind = 0;
-						// TODO: merkle tree
 						for (int i = 0; i < new_block->max_ind; ++i) {
 							ptap->tq->push(new_block->transaction_array[i]);
 						}
@@ -194,6 +193,24 @@ int main () {
 	synchronized_queue<block*> bq = synchronized_queue<block*>();
 	bq.init();
 
+	transaction test_transaction;
+
+	test_transaction.size = 20;
+	test_transaction.sender_public_key = "abcdefghijklmnopqwer";
+	test_transaction.vote = "qbcdefghijklmnopqwer";
+	test_transaction.timestamp = 0;
+
+	block* b = new block;
+	for (int i = 0; i < NUM_TRANSACTIONS_PER_BLOCK; ++i) {
+		b->transaction_array[i] = &test_transaction;
+	}
+
+	unsigned char* output = b->calculate_merkle_root();
+
+	for (int i = 0; i < 20; ++i)
+		printf("%02X", output[i]);
+	printf("\n");
+
 	synchronized_queue<std::string> peerq = synchronized_queue<std::string>();
 	peerq.init();
 
@@ -219,7 +236,4 @@ int main () {
 
 	return 0;
 }
-
-
-
 
