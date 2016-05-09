@@ -16,7 +16,7 @@ Status MinerServiceImpl::BroadcastTransaction(ServerContext* context, const Tran
 }
 
 Status MinerServiceImpl::GetAddr(ServerContext* context, const AddrRequest* addr_req, AddrResponse* addr_resp)  {
-  for (const auto& peer: client_->getPeersList()) {
+  for (const auto& peer: *client_->getPeersList()) {
     addr_resp->add_peer(*peer);
   }
   return Status::OK;
