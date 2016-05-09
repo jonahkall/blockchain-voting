@@ -58,7 +58,7 @@ processor.o: processor.cpp processor.hpp
 communication.o: communication.cpp communication.hpp
 	$(CXX) $(LDFLAGS) -c communication.cpp 
 
-server.o: node.pb.o node.grpc.pb.o server.o client.o encoding_helpers.o
+server.o: node.pb.o node.grpc.pb.o client.o encoding_helpers.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 
 client.o: client.cpp client.hpp encoding_helpers.o
