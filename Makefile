@@ -31,7 +31,7 @@
 
 CXX = g++
 CPPFLAGS += -I/usr/local/include -pthread
-CXXFLAGS += -std=c++11 -O3 -lssl -lcrypto -funroll-loops
+CXXFLAGS += -std=c++11 -O3 -funroll-loops
 LDFLAGS += -Wno-deprecated-declarations -std=c++11  -L/usr/local/lib `pkg-config --libs grpc++` -lprotobuf -lpthread -ldl -lssl -lcrypto
 PROTOC = protoc
 GRPC_CPP_PLUGIN = grpc_cpp_plugin
