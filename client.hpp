@@ -20,6 +20,7 @@ using onevote::AddrRequest;
 using onevote::AddrResponse;
 using onevote::TransactionRequest;
 using onevote::BlockRequest;
+using onevote::Miner;
 
 class SinglePeerClient {
   public:
@@ -36,8 +37,8 @@ class SinglePeerClient {
 class Client {
   public:
     Client(std::string firstAddr);
-    void BroadcastBlock(Block* block);
-    void BroadcastTransaction(Transaction* transaction);
+    void BroadcastBlock(block* block);
+    void BroadcastTransaction(transaction* transaction);
     int checkHeartbeats();
     std::list<std::string*> getPeerList();
 

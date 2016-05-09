@@ -31,8 +31,8 @@ using onevote::Miner;
 class MinerServiceImpl final : public Miner::Service {
 public:
   MinerServiceImpl(comm_thread_args* ctap, Client* client) : Miner::Service {
-    ctap_ = ctap;
     client_ = client;
+    ctap_ = ctap;
   }
 
 	Status BroadcastBlock(ServerContext* context, const BlockMsg* block_msg, Empty* empty) override {
