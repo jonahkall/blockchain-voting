@@ -43,9 +43,16 @@ vpath %.proto $(PROTOS_PATH)
 
 default: all
 
-all: node.pb.o node.grpc.pb.o server.cpp server.hpp processor.cpp processor.hpp encoding_helpers.cpp encoding_helpers.hpp peer.cpp peer.hpp client.cpp client.hpp
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c server.cpp server.hpp processor.cpp processor.hpp encoding_helpers.cpp encoding_helpers.hpp peer.cpp peer.hpp client.cpp client.hpp
+deps: node.pb.o node.grpc.pb.o server.cpp server.hpp processor.cpp processor.hpp encoding_helpers.cpp encoding_helpers.hpp client.cpp client.hpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c server.cpp server.hpp processor.cpp processor.hpp encoding_helpers.cpp encoding_helpers.hpp client.cpp client.hpp
+
+all: deps peer.cpp peer.hpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c peer.cpp peer.hpp
 	$(CXX) -o runpeer2 $(LDFLAGS) peer.o client.o server.o processor.o encoding_helpers.o node.pb.o node.grpc.pb.o -lprotobuf
+
+# all: node.pb.o node.grpc.pb.o server.cpp server.hpp processor.cpp processor.hpp encoding_helpers.cpp encoding_helpers.hpp peer.cpp peer.hpp client.cpp client.hpp
+# 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c server.cpp server.hpp processor.cpp processor.hpp encoding_helpers.cpp encoding_helpers.hpp peer.cpp peer.hpp client.cpp client.hpp
+# 	$(CXX) -o runpeer2 $(LDFLAGS) peer.o client.o server.o processor.o encoding_helpers.o node.pb.o node.grpc.pb.o -lprotobuf
 #dummy: server client dummy.cpp
 #	$(CXX) -c dummy.cpp
 #	$(CXX) $(LDFLAGS) $(CXXFLAGS) -o dummy dummy.o server.o client.o
