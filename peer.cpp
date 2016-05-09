@@ -27,7 +27,8 @@ static int leading_zeros(unsigned char* buf, size_t n) {
 */
 void* comm_thread (void* arg) {
 	comm_thread_args* ctap = (comm_thread_args *) arg;
-	cout << "Hello from comm thread\n";
+	RunServer(ctap, )
+	// cout << "Hello from comm thread\n";
 	return NULL;
 }
 
@@ -43,9 +44,6 @@ void* processing_thread(void* arg) {
 
 	blockchain* bc = ptap->bc;
 	bc->chain_length = 0;
-
-	// Client* client = new Client;
-
 
 	// When this variable is true, we have a full set of
 	// transactions to try to make a block with, otherwise we do not, so we are waiting
@@ -72,13 +70,13 @@ void* processing_thread(void* arg) {
 	bool docontinue = false;
 
 	while(true) {
-		
 
-		// std::string* peer_val = ptap->peerq->pop_nonblocking();
-		// while (peer_val) {
-		// 	peer_list.push_front(peer_val);
-		// 	peer_val = ptap->peerq->pop_nonblocking();
-		// } 
+		// this will check for any peers on the queue and add them to the
+		// broadcast network for the client
+		std::string* peer;
+		while (peer = ptap->peerq->pop_nonblocking()) {
+			ptap->client->addNewPeer(*peer);			
+		}
 
 		docontinue = false;
 
@@ -169,11 +167,11 @@ void* processing_thread(void* arg) {
 int main () {
 
 	const char str[] = "Original String";
-  unsigned char hash[SHA_DIGEST_LENGTH]; // == 20
+  	unsigned char hash[SHA_DIGEST_LENGTH]; // == 20
 
-  SHA1((const unsigned char*)str, sizeof(str) - 1, hash);
+	SHA1((const unsigned char*)str, sizeof(str) - 1, hash);
 
-  for (int i = 0; i < 20; ++i)
+	for (int i = 0; i < 20; ++i)
 		printf("%02X", hash[i]);
 	printf("\n");
 
@@ -218,17 +216,23 @@ int main () {
 
 	blockchain bc(&tq);
 
+	// TODO update this addr to be from commandline
+	Client client("0.0.0.0:50051");
+	client.bootstrapPeers();
+
 	comm_thread_args cta;
 	cta.tq = &tq;
 	cta.bq = &bq;
 	cta.peerq = &peerq;
 	cta.bc = &bc;
+	cta.client = &client;
 
 	processing_thread_args pta;
 	pta.tq = &tq;
 	pta.bq = &bq;
 	pta.peerq = &peerq;
 	pta.bc = &bc;
+	pta.client = &client;
 
 	pthread_create(&comm_t, NULL, comm_thread, &cta);
 	pthread_create(&processing_t, NULL, processing_thread, &pta);

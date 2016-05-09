@@ -23,6 +23,7 @@ typedef struct comm_thread_args {
 	synchronized_queue<block*>* bq;
 	synchronized_queue<std::string*>* peerq;
 	blockchain* bc;
+	Client* client;
 } comm_thread_args;
 
 /* 
@@ -34,6 +35,7 @@ typedef struct processing_thread_args {
 	synchronized_queue<block*>* bq;
 	synchronized_queue<std::string*>* peerq;
 	blockchain* bc;
+	Client* client;
 } processing_thread_args;
 
 #endif

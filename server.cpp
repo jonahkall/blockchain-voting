@@ -32,7 +32,7 @@ Status MinerServiceImpl::GetBlock(ServerContext* context, const BlockRequest* bl
     *block_msg = *encode_block(ctap_->bc->get_head_block());
   } else {
     block* block = ctap_->bc->get_block(block_req->block_number());
-    if (block == NULL) {
+    if (!block) {
       return Status::CANCELLED;
     }
     *block_msg = *encode_block(block);
@@ -45,10 +45,9 @@ Status MinerServiceImpl::GetHeartbeat(ServerContext* context, const Empty* empty
 	return Status::OK;
 }
 
-
-void RunServer(comm_thread_args* ctap, Client* client) {
+void RunServer(comm_thread_args* ctap) {
   std::string server_address("0.0.0.0:50051");
-  MinerServiceImpl service(ctap, client);
+  MinerServiceImpl service(ctap, ctap->client);
 
   ServerBuilder builder;
   // Listen on the given address without any authentication mechanism.

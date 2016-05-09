@@ -31,6 +31,7 @@ class SinglePeerClient {
     Status BroadcastBlock(block* block);
     Status BroadcastTransaction(transaction* transaction);
     std::string* peerAddr();
+    AddrResponse GetAddr();
     bool GetHeartbeat();
 
   private:
@@ -44,6 +45,7 @@ class Client {
     void BroadcastBlock(block* block);
     void BroadcastTransaction(transaction* transaction);
     int checkHeartbeats();
+    int bootstrapPeers();
     std::list<std::string*>* getPeersList();
 
   private:
