@@ -11,6 +11,8 @@
 
 #include "node.grpc.pb.h"
 #include "processor.hpp"
+struct transaction;
+class block;
 
 using onevote::Empty;
 using onevote::BlockMsg;

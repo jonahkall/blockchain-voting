@@ -106,7 +106,7 @@ void* processing_thread(void* arg) {
 						// bloc kchain
 						// O(n^2) algorithm for alignment
 						// maybe this should set maxind to 0
-						bc->repair_blockchain(b);
+						bc->repair_blockchain(b, ptap->client);
 						quotafull = false;
 						new_block->max_ind = 0;
 						for (int i = 0; i < new_block->max_ind; ++i) {
