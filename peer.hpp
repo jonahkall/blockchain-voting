@@ -20,24 +20,24 @@ unsigned char* SHA1(const unsigned char* s, size_t size, unsigned char* md);
 	will receieve from the master thread
 */
 
-typedef struct comm_thread_args {
+struct comm_thread_args {
 	synchronized_queue<transaction*>* tq;
 	synchronized_queue<block*>* bq;
 	synchronized_queue<std::string*>* peerq;
 	blockchain* bc;
 	Client* client;
-} comm_thread_args;
+};
 
 /* 
 	This struct defines the arguments that processor thread will receive
 	from the master thread
 */
-typedef struct processing_thread_args {
+struct processing_thread_args {
 	synchronized_queue<transaction*>* tq;
 	synchronized_queue<block*>* bq;
 	synchronized_queue<std::string*>* peerq;
 	blockchain* bc;
 	Client* client;
-} processing_thread_args;
+};
 
 #endif
