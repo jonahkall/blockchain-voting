@@ -30,9 +30,10 @@ void* processing_thread(void* arg) {
 	cout << "Hello from processing thread\n";
 
 	blockchain* bc = ptap->bc;
-	std::list<std::string*> peer_list;
-	//blockchain bc(ptap->tq);
 	bc->chain_length = 0;
+
+	// Client* client = new Client;
+
 
 	// When this variable is true, we have a full set of
 	// transactions to try to make a block with, otherwise we do not, so we are waiting
