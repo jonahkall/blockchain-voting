@@ -21,9 +21,16 @@ Status MinerServiceImpl::BroadcastTransaction(ServerContext* context, const Tran
 
 Status MinerServiceImpl::GetAddr(ServerContext* context, const AddrRequest* addr_req, AddrResponse* addr_resp)  {
   serverLog("GetAddr requested");
+  if (!client_) {
+    return Status::CANCELLED;
+  }
   for (const auto& peer: *client_->getPeersList()) {
     addr_resp->add_peer(*peer);
   }
+
+  auto it = context->client_metadata().find('address');
+  client_->addNewPeer(it->second);
+
   return Status::OK;
 }
 
