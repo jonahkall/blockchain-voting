@@ -23,6 +23,7 @@ using onevote::AddrRequest;
 using onevote::AddrResponse;
 using onevote::TransactionRequest;
 using onevote::BlockRequest;
+using onevote::Miner;
 
 transaction* decode_transaction(const TransactionMsg* transaction_msg) {
   transaction* decoded_transaction = new transaction;
@@ -117,10 +118,10 @@ class MinerServiceImpl final : public Miner::Service {
 	}
 
 	Status GetBlock(ServerContext* context, const BlockRequest* block_req, BlockMsg* block_msg) override {
-    if (block_req->block_number === NULL) {
+    if (block_req->get_block_number() == NULL) {
       *block_msg = *encode_block(ctap->bc->get_head_block());
     } else {
-      Block* block = ctap->bc->get_block(block_req->block_number);
+      Block* block = ctap->bc->get_block(block_req->get_block_number());
       if (block == NULL) {
         return Status::CANCELLED;
       }
