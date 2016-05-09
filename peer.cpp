@@ -48,7 +48,6 @@ void* processing_thread(void* arg) {
 	std::chrono::seconds t(CLIENT_TIMEOUT);
 	std::this_thread::sleep_for(t);
 
-	*ptap->client = new Client(*ptap->own_address, *ptap->first_peer);
 	ptap->client->bootstrapPeers();
 
 	blockchain* bc = ptap->bc;
@@ -232,7 +231,7 @@ int main (int argc, char** argv) {
 	std::string own_address(argv[1]);
 	std::string first_peer(argv[2]);
 
-	Client* client;
+	Client* client = new Client(own_address, first_peer);
 
 	comm_thread_args cta;
 	cta.tq = &tq;
@@ -247,8 +246,6 @@ int main (int argc, char** argv) {
 	pta.peerq = &peerq;
 	pta.bc = &bc;
 	pta.client = client;
-	pta.own_address = &own_address;
-	pta.first_peer = &first_peer;
 
 	pthread_create(&comm_t, NULL, comm_thread, &cta);
 	pthread_create(&processing_t, NULL, processing_thread, &pta);

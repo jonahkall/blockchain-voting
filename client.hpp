@@ -51,6 +51,7 @@ class Client {
     void addNewPeer(std::string addr);
 
   private:
+    std::string first_peer_;
     std::string my_address_;
     std::list<SinglePeerClient*> peer_clients_;
     bool successHearbeat(const SinglePeerClient*& peer_client);
