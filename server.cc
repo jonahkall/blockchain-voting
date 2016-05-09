@@ -24,12 +24,6 @@ using onevote::AddrResponse;
 using onevote::TransactionRequest;
 using onevote::BlockRequest;
 
-<<<<<<< HEAD
-std::queue<std::string> peers;
-
-std::queue<block> blocks;
-std::queue<transaction> transactions;
-
 transaction* decode_transaction(const TransactionMsg* transaction_msg) {
   transaction* decoded_transaction = new transaction;
 
