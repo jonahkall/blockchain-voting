@@ -95,7 +95,7 @@ int Client::bootstrapPeers() {
 };
 
 void Client::clientLog(std::string message) {
-  std::cout << "Client log: " << message << std::endl;
+  std::cout << "Client " << my_address_ << " log: " << message << std::endl;
 }
 
 SinglePeerClient::SinglePeerClient(std::shared_ptr<Channel> channel, std::string my_addr, std::string addr)
