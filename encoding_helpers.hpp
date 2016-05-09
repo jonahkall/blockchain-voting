@@ -7,6 +7,7 @@
 #include <grpc++/grpc++.h>
 
 #include "node.grpc.pb.h"
+#include "processor.hpp"
 
 using onevote::Empty;
 using onevote::BlockMsg;
