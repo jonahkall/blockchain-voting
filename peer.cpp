@@ -41,12 +41,15 @@ void* comm_thread (void* arg) {
 	communcations thread, along with transactions, and using that to create and broadcast blocks
 */
 void* processing_thread(void* arg) {
-	std::cout << "Processing thread timeout " << CLIENT_TIMEOUT << std::endl;
+	processing_thread_args* ptap = (processing_thread_args *) arg;
+	cout << "Hello from processing thread\n";
+
+	std::cout << "Processing thread sleep " << CLIENT_TIMEOUT << std::endl;
 	std::chrono::seconds t(CLIENT_TIMEOUT);
 	std::this_thread::sleep_for(t);
 
-	processing_thread_args* ptap = (processing_thread_args *) arg;
-	cout << "Hello from processing thread\n";
+	*client = new Client(*ptap->own_address, *ptap->first_peer);
+	client->bootstrapPeers();
 
 	blockchain* bc = ptap->bc;
 	bc->chain_length = 0;
@@ -171,8 +174,8 @@ void* processing_thread(void* arg) {
 }
 
 int main (int argc, char** argv) {
-	if (argc != 2) {
-		std::cout << "Usage: ./runpeer2 ip-address:port";
+	if (argc != 3) {
+		std::cout << "Usage: ./runpeer2 your-ip-address:port first-peer-address:port";
 		return 1;
 	}
 
@@ -226,22 +229,26 @@ int main (int argc, char** argv) {
 
 	blockchain bc(&tq);
 
-	Client client(argv[1]);
-	client.bootstrapPeers();
+	std::string own_address(argv[1]);
+	std::string first_peer(argv[2]);
+
+	Client* client;
 
 	comm_thread_args cta;
 	cta.tq = &tq;
 	cta.bq = &bq;
 	cta.peerq = &peerq;
 	cta.bc = &bc;
-	cta.client = &client;
+	cta.client = client;
 
 	processing_thread_args pta;
 	pta.tq = &tq;
 	pta.bq = &bq;
 	pta.peerq = &peerq;
 	pta.bc = &bc;
-	pta.client = &client;
+	pta.client = client;
+	pta.own_address = &own_address;
+	pta.first_peer = &first_peer;
 
 	pthread_create(&comm_t, NULL, comm_thread, &cta);
 	pthread_create(&processing_t, NULL, processing_thread, &pta);

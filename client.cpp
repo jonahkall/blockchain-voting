@@ -3,8 +3,9 @@
 #define MAX_PEERS 10
 #define MAX_SECOND_DEGREE_FROM_PEER 2
 
-Client::Client(std::string firstAddr) {
-  addNewPeer(firstAddr);
+Client::Client(std::string my_address, std::string first_peer) {
+  my_address_ = my_address;
+  addNewPeer(first_peer);
 }
 
 void Client::BroadcastBlock(block* block) {
@@ -36,8 +37,11 @@ std::list<std::string*>* Client::getPeersList() {
 void Client::addNewPeer(std::string addr) {
   if (peer_clients_.size() >= MAX_PEERS) {
     return;
+  } else if (addr == my_address_) {
+    return;
   }
 
+  clientLog("Adding peer: " + addr);
   SinglePeerClient* peer_client = new SinglePeerClient(
     grpc::CreateChannel(addr, grpc::InsecureChannelCredentials()), 
     addr);
@@ -62,7 +66,6 @@ int Client::bootstrapPeers() {
       break;
     }
     addNewPeer(new_peer);
-    clientLog("Adding new peer " + new_peer);
   }
   clientLog("Number of peers: " + std::to_string(peer_clients_.size()));
   return peer_clients_.size();
@@ -115,6 +118,7 @@ std::string* SinglePeerClient::peerAddr() {
 
 AddrResponse SinglePeerClient::GetAddr() {
   ClientContext context;
+  context.AddMetadata("address", my_address_);
   AddrRequest req;
   req.set_num_requested(MAX_SECOND_DEGREE_FROM_PEER);
   AddrResponse resp;

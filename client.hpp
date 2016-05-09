@@ -41,7 +41,7 @@ class SinglePeerClient {
 
 class Client {
   public:
-    Client(std::string firstAddr);
+    Client(std::string first_peer);
     void BroadcastBlock(block* block);
     void BroadcastTransaction(transaction* transaction);
     int checkHeartbeats();
@@ -50,6 +50,7 @@ class Client {
     void addNewPeer(std::string addr);
 
   private:
+    std::string my_address_;
     std::list<SinglePeerClient*> peer_clients_;
     bool successHearbeat(const SinglePeerClient*& peer_client);
     void clientLog(std::string message);
