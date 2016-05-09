@@ -1,6 +1,6 @@
 #include "peer.hpp"
 
-#define CLIENT_TIMEOUT 5s
+#define CLIENT_TIMEOUT 5
 
 using namespace std;
 
@@ -42,7 +42,8 @@ void* comm_thread (void* arg) {
 */
 void* processing_thread(void* arg) {
 	std::cout << "Processing thread timeout " << CLIENT_TIMEOUT << std::endl;
-	std::this_thread::sleep_for(CLIENT_TIMEOUT);
+	std::chrono::seconds t(CLIENT_TIMEOUT);
+	std::this_thread::sleep_for(t);
 
 	processing_thread_args* ptap = (processing_thread_args *) arg;
 	cout << "Hello from processing thread\n";
