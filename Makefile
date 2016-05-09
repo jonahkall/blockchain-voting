@@ -41,9 +41,9 @@ PROTOS_PATH = protos
 
 vpath %.proto $(PROTOS_PATH)
 
-default: all
+default: miner voting-booth
 
-all: miner
+all: miner voting-booth
 
 deps: node.pb.o node.grpc.pb.o server.cpp server.hpp processor.cpp processor.hpp encoding_helpers.cpp encoding_helpers.hpp client.cpp client.hpp
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c server.cpp server.hpp processor.cpp processor.hpp encoding_helpers.cpp encoding_helpers.hpp client.cpp client.hpp
