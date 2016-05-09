@@ -77,8 +77,13 @@ void* processing_thread(void* arg) {
 	
 	bool docontinue = false;
 
+	int loop_counter = 0;
 	while(true) {
-
+		++loop_counter;
+		if (loop_counter % BOOTSTRAP_RETRY == 0) {
+			ptap->client->bootstrapPeers();
+			loop_counter = 0;
+		}
 		// this will check for any peers on the queue and add them to the
 		// broadcast network for the client
 		std::string* peer;
