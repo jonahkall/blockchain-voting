@@ -50,7 +50,7 @@ run: peer
 
 peer:  peer.cpp peer.hpp rsa.cpp rsa.hpp client.cpp client.hpp processor.hpp processor.cpp encoding_helpers.cpp encoding_helpers.hpp server.cpp server.hpp
 	$(CXX) $(LDFLAGS) -c peer.hpp peer.cpp rsa.cpp rsa.hpp  client.cpp client.hpp processor.hpp processor.cpp encoding_helpers.cpp encoding_helpers.hpp server.cpp server.hpp
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o runpeer processor.o communication.o peer.o rsa.o encoding_helpers.o client.o server.o
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o runpeer processor.o rsa.o encoding_helpers.o client.o server.o peer.o
 
 processor.o: processor.cpp processor.hpp
 	$(CXX) $(LDFLAGS) -c processor.cpp
