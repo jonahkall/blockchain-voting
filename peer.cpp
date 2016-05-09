@@ -62,11 +62,11 @@ void* processing_thread(void* arg) {
 	while(true) {
 		
 
-		std::string* peer_val = ptap->peerq->pop_nonblocking();
-		while (peer_val) {
-			peer_list.push_front(peer_val);
-			peer_val = ptap->peerq->pop_nonblocking();
-		} 
+		// std::string* peer_val = ptap->peerq->pop_nonblocking();
+		// while (peer_val) {
+		// 	peer_list.push_front(peer_val);
+		// 	peer_val = ptap->peerq->pop_nonblocking();
+		// } 
 
 		docontinue = false;
 
