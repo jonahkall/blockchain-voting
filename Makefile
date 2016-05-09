@@ -32,7 +32,7 @@
 CXX = g++
 CPPFLAGS += -I/usr/local/include -pthread
 CXXFLAGS += -std=c++11 -O3 -lssl -lcrypto -funroll-loops
-LDFLAGS += -Wno-deprecated-declarations -std=c++11  -L/usr/local/lib `pkg-config --libs grpc++` -lprotobuf -lpthread -ldl
+LDFLAGS += -Wno-deprecated-declarations -std=c++11  -L/usr/local/lib `pkg-config --libs grpc++` -lprotobuf -lpthread -ldl -lssl -lcrypto
 PROTOC = protoc
 GRPC_CPP_PLUGIN = grpc_cpp_plugin
 GRPC_CPP_PLUGIN_PATH ?= `which $(GRPC_CPP_PLUGIN)`
@@ -50,7 +50,7 @@ run: peer
 
 peer: peer.cpp peer.hpp server.o client.o encoding_helpers.o rsa.o processor.o 
 	$(CXX) $(LDFLAGS) -c peer.hpp peer.cpp 
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o runpeer peer.o server.o client.o encoding_helpers.o processor.o rsa.o 
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o runpeer peer.o server.o client.o encoding_helpers.o processor.o rsa.o
 
 communication.o: communication.cpp communication.hpp
 	$(CXX) $(LDFLAGS) -c communication.cpp 
