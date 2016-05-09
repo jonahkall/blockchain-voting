@@ -23,6 +23,8 @@
 #include <string.h>
 #include <math.h>
 
+#include "client.hpp"
+
 #define NUM_TRANSACTIONS_PER_BLOCK 64
 
 // This is the number of times to try hashing before
@@ -230,7 +232,7 @@ class blockchain {
      \param b, the block that is being added, and whose history determines the repair
      \return void
      */
-    void repair_blockchain(block* b);
+    void repair_blockchain(block* b, Client* client);
 
     /*
       Searches for block b in the chain, and returns the iterator to it if so.

@@ -39,8 +39,6 @@ struct processing_thread_args {
 	synchronized_queue<std::string*>* peerq;
 	blockchain* bc;
 	Client* client;
-	// std::string* own_address;
-	// std::string* first_peer;
 };
 
 #endif

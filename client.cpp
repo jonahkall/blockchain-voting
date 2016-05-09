@@ -20,6 +20,19 @@ void Client::BroadcastTransaction(transaction* transaction) {
   }
 }
 
+block* Client::getBlock(unsigned block_num) {
+  for (const auto& peer_client: peer_clients_) {
+    clientLog("Asking for block " + std::to_string(block_num) + " from " + *peer_client->peerAddr());
+    block* block = peer_client->GetBlock(block_num);
+    if (block) {
+      clientLog("Found!");
+      return block;
+    }
+  }
+  clientLog("Failed to find block " + std::to_string(block_num));
+  return NULL;
+}
+
 int Client::checkHeartbeats() {
   // peer_clients_.remove_if(successHearbeat);
   // return peer_clients_.size();
@@ -140,6 +153,19 @@ AddrResponse SinglePeerClient::GetAddr() {
   AddrResponse resp;
   Status status = stub_->GetAddr(&context, req, &resp);
   return resp;
+}
+
+block* SinglePeerClient::GetBlock(unsigned block_num) {
+  ClientContext context;
+  BlockRequest req;
+  BlockMsg blockmsg;
+  req.set_block_number(block_num);
+  Status status = stub_->GetBlock(&context, req, &blockmsg);
+  if (!status.ok()) {
+    return NULL;
+  }
+
+  return decode_block(&blockmsg);
 }
 
 bool SinglePeerClient::GetHeartbeat() {
