@@ -30,10 +30,10 @@ class Client;
 
 // This is the number of times to try hashing before
 // checking for a new block or a new transaction
-#define NUM_MAGIC_TO_TRY 2048
+#define NUM_MAGIC_TO_TRY 1024
 
 // This is the number of leading zeros in hex 
-#define NUM_LEADING_ZEROS 4
+#define NUM_LEADING_ZEROS 3
 
 #define PUBLIC_KEY_SIZE 20
 
