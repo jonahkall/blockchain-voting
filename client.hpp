@@ -47,10 +47,10 @@ class Client {
     int checkHeartbeats();
     int bootstrapPeers();
     std::list<std::string*>* getPeersList();
+    void addNewPeer(std::string addr);
 
   private:
     std::list<SinglePeerClient*> peer_clients_;
-    void addNewPeer(std::string addr);
     bool successHearbeat(const SinglePeerClient*& peer_client);
 };
 

@@ -5,6 +5,7 @@
 #include "communication.hpp"
 #include "rsa.hpp"
 #include "client.hpp"
+#include "server.hpp"
 #include <iostream>
 #include <memory>
 #include <string>
