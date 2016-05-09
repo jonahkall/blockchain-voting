@@ -24,8 +24,8 @@ using onevote::BlockRequest;
 class Client {
 public:
   Client(std::string firstAddr);
-  void BroadcastBlock(Block* block);
-  void BroadcastTransaction(Transaction* transaction);
+  void BroadcastBlock(block* block);
+  void BroadcastTransaction(transaction* transaction);
   int checkHeartbeats();
   std::list<std::string*> getPeerList();
 
@@ -38,8 +38,8 @@ private:
 class SinglePeerClient {
   public:
     SinglePeerClient(std::shared_ptr<Channel> channel, std::string addr);
-    Status BroadcastBlock(Block* block);
-    Status BroadcastTransaction(Transaction* transaction);
+    Status BroadcastBlock(block* block);
+    Status BroadcastTransaction(transaction* transaction);
     bool GetHeartbeat();
 
  private:

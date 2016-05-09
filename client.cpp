@@ -4,13 +4,13 @@ Client::Client(std::string firstAddr) {
   addNewPeer(firstAddr);
 }
 
-void Client::BroadcastBlock(Block* block) {
+void Client::BroadcastBlock(block* block) {
   for (const auto& peer_client: peer_clients_) {
     peer_client->BroadcastBlock(block);
   }
 }
 
-void Client::BroadcastTransaction(Transaction* transaction) {
+void Client::BroadcastTransaction(transaction* transaction) {
   for (const auto& peer_client: peer_clients_) {
     peer_client->BroadcastTransaction(block);
   }
@@ -45,7 +45,7 @@ SinglePeerClient::SinglePeerClient(std::shared_ptr<Channel> channel, std::string
       addr_ = addr;
 }
 
-Status SinglePeerClient::BroadcastBlock(Block* block) {
+Status SinglePeerClient::BroadcastBlock(block* block) {
 	BlockMsg* block_msg = encode_block(block);
   Empty empty;
   ClientContext context;
@@ -62,7 +62,7 @@ Status SinglePeerClient::BroadcastBlock(Block* block) {
   return status;
 }
 
-Status SinglePeerClient::BroadcastTransaction(Transaction* transaction) {
+Status SinglePeerClient::BroadcastTransaction(transaction* transaction) {
   Transactionmsg* transaction_msg = encode_transaction(transaction);
   Empty empty;
   ClientContext context;

@@ -11,6 +11,7 @@
 
 #include "processor.hpp"
 #include "encoding_helpers.hpp"
+#include "client.hpp"
 
 using grpc::Server;
 using grpc::ServerBuilder;
