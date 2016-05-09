@@ -45,5 +45,5 @@ int main (int argc, char** argv) {
 	// Uncomment these when bootstrap peers works.
 	//client->bootstrapPeers();
 	//client->BroadcastTransaction(t);
-	std::cout << "Your vote has been cast!" << endl;
+	std::cout << "Your vote has been cast!" << std::endl;
 }

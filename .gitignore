@@ -2,5 +2,5 @@
 *.gch
 runpeer*
 node.pb.*
-node.grpc.pb.h
-
+node.grpc.pb.*
+voting-booth
