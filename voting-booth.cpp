@@ -43,7 +43,7 @@ int main (int argc, char** argv) {
 
 	Client* client = new Client("VotingBoothAddress", first_peer);
 	// Uncomment these when bootstrap peers works.
-	//client->bootstrapPeers();
-	//client->BroadcastTransaction(t);
+	client->bootstrapPeers();
+	client->BroadcastTransaction(t);
 	std::cout << "Your vote has been cast!" << std::endl;
 }
