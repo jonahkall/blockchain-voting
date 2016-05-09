@@ -14,6 +14,8 @@
 #include <chrono>
 #include <thread>
 
+#define BOOTSTRAP_RETRY 50
+
 unsigned char* SHA1(const unsigned char* s, size_t size, unsigned char* md);
 
 /* 
