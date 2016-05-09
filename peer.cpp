@@ -19,12 +19,24 @@ static int leading_zeros(unsigned char* buf, size_t n) {
 	return lz;
 }
 
+/* 
+	This contains the code for the communcations thread 
+	See the design document for full details.
+	This thread is responsible for listening for incoing blocks and transactions, and then
+	adding them to the appropriate queues.
+*/
 void* comm_thread (void* arg) {
 	comm_thread_args* ctap = (comm_thread_args *) arg;
 	cout << "Hello from comm thread\n";
 	return NULL;
 }
 
+/* 
+	This contains the code for the processing thread. 
+	See the design document for full details.
+	This thread is responsible for processing the blocks that have been put into the queues by the
+	communcations thread, along with transactions, and using that to create and broadcast blocks
+*/
 void* processing_thread(void* arg) {
 	processing_thread_args* ptap = (processing_thread_args *) arg;
 	cout << "Hello from processing thread\n";
