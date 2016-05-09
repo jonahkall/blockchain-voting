@@ -9,6 +9,7 @@
 #include "node.grpc.pb.h"
 #include "peer.cpp"
 #include "server.cc"
+#include "encoding_helpers.cpp"
 
 using grpc::Channel;
 using grpc::ClientContext;
