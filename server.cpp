@@ -40,10 +40,10 @@ Status MinerServiceImpl::GetTransaction(ServerContext* context, const Transactio
 }
 
 Status MinerServiceImpl::GetBlock(ServerContext* context, const BlockRequest* block_req, BlockMsg* block_msg)  {
-  if (!block_req->block_number()) {
+  if (!block_req->block_hash()) {
     *block_msg = *encode_block(ctap_->bc->get_head_block());
   } else {
-    block* block = ctap_->bc->get_block(block_req->block_number());
+    block* block = ctap_->bc->get_block(block_req->block_hash());
     if (!block) {
       return Status::CANCELLED;
     }
