@@ -93,7 +93,7 @@ void block::calculate_finhash() {
 ///// blockchain implementation /////
 /////////////////////////////////////
 
-bool same_hash(char* a, char* b) {
+bool same_hash(const char* a, const char* b) {
 	for(int i = 0; i < PUBLIC_KEY_SIZE; ++i) {
 		if (a[i] != b[i]) {
 			return false;
