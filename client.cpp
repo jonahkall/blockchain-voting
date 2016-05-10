@@ -22,14 +22,14 @@ void Client::BroadcastTransaction(transaction* transaction) {
 
 block* Client::getBlock(char* block_hash) {
   for (const auto& peer_client: peer_clients_) {
-    clientLog("Asking for block " + std::to_string(block_hash) + " from " + *peer_client->peerAddr());
+    clientLog("Asking for block " + std::string(block_hash) + " from " + *peer_client->peerAddr());
     block* block = peer_client->GetBlock(block_hash);
     if (block) {
       clientLog("Found!");
       return block;
     }
   }
-  clientLog("Failed to find block " + std::to_string(block_hash));
+  clientLog("Failed to find block " + std::string(block_hash));
   return NULL;
 }
 
