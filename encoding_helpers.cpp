@@ -15,6 +15,7 @@
 // information parsed from the TransactionMsg obtained
 // from the protocol buffer. Returns a pointer to the
 // transaction.
+
 transaction* decode_transaction(const TransactionMsg* transaction_msg) {
   transaction* decoded_transaction = new transaction;
 

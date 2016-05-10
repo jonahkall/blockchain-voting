@@ -33,7 +33,7 @@ unsigned char* block::calculate_merkle_root() {
 	for (int i = 0; i < NUM_TRANSACTIONS_PER_BLOCK; ++i) {
 		unsigned char* hash1 = new unsigned char[SHA_DIGEST_LENGTH];
 		unsigned char* data_to_hash =
-				(unsigned char*) transaction_array[0]->sender_public_key.c_str();
+				(unsigned char*) transaction_array[0]->sender_public_key;
 		SHA1(data_to_hash, PUBLIC_KEY_SIZE, hash1);
 		old_hashes.push_back(hash1);
 	}

@@ -14,6 +14,9 @@
 #include <chrono>
 #include <thread>
 
+// This number defines how many iterations to try to find a new block
+// before recalling bootsrap_peers(), which we should do to ensure
+// we have a group of live peers.
 #define BOOTSTRAP_RETRY 50
 
 unsigned char* SHA1(const unsigned char* s, size_t size, unsigned char* md);
@@ -22,7 +25,6 @@ unsigned char* SHA1(const unsigned char* s, size_t size, unsigned char* md);
 	This struct defines the arguments that the communcations thread
 	will receieve from the master thread
 */
-
 struct comm_thread_args {
 	synchronized_queue<transaction*>* tq;
 	synchronized_queue<block*>* bq;

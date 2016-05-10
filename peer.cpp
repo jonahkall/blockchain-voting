@@ -4,6 +4,9 @@
 
 using namespace std;
 
+// This utility function simply computes the number of leading
+// hex zeros in the hex representation of the number represented
+// by buf, assuming that it is n bytes long.
 static int leading_zeros(unsigned char* buf, size_t n) {
 	int lz = 0;
 	for (int i = 0; i < n; i++) {
