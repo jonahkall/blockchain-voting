@@ -210,7 +210,7 @@ void* processing_thread(void* arg) {
 					new_block->max_ind = 0;
 					new_block->prev_block_SHA1 = bc->get_head_block()->finhash;
 					bc->add_block(new_block);
-					std::cout << "Made and sent block with number " << new_block->block_number << std::endl;
+					std::cout << "Made and sent block with hash " << new_block->prev_block_SHA1 << std::endl;
 					if (new_block->block_number > 5) {
 						assert(false);
 					}
