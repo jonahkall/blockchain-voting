@@ -93,6 +93,15 @@ void block::calculate_finhash() {
 ///// blockchain implementation /////
 /////////////////////////////////////
 
+bool same_hash(char* a, char* b) {
+	for(int i = 0; i < PUBLIC_KEY_SIZE; ++i) {
+		if (a[i] != b[i]) {
+			return false;
+		}
+	}
+	return true;
+}
+
 /* 
   A constructor. 
   \param q, takes a pointer to the thread-safe queue of transactions. This is needed so that in the case
@@ -161,7 +170,7 @@ block* blockchain::get_block(int n) {
 block* blockchain::get_block(const char* hash) {
 	std::cout << "About to look for block with hash " << hash << std::endl;
 	for (auto it = blocks_.begin(); it != blocks_.end(); ++it) {
-		if (strcmp((*it)->finhash, hash) == 0) {
+		if (same_hash((*it)->finhash, hash)) {
 			std::cout << "Found block with hash " << hash << std::endl;
 			return *it;
 		}
@@ -183,7 +192,7 @@ block* blockchain::get_block(const char* hash) {
 BlockList::iterator blockchain::check_if_block_in_chain(block* b) {
 	// Iterate over the blocks, and check if any have a matching final hash.
 	for (auto it = blocks_.begin(); it != blocks_.end(); ++it) {
-		if (strcmp((*it)->finhash, b->finhash) == 0) {
+		if (same_hash((*it)->finhash, b->finhash)) {
 			return it;
 		}
 	}
@@ -313,7 +322,7 @@ block_validity_code blockchain::check_block_validity(block* b) {
 
   // Make sure the new block has the correct prev block.
   block* head_block = get_head_block();
-  if (strcmp(b->prev_block_SHA1, head_block->finhash) != 0)
+  if (!same_hash(b->prev_block_SHA1, head_block->finhash))
     return PREV_BLOCK_NONMATCH;
 
   bool transaction_verification = verify_transactions(b);
