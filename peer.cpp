@@ -102,6 +102,7 @@ void* processing_thread(void* arg) {
 			switch(bc->check_block_validity(b)) {
 				case OK:
 					bc->add_block(b);
+					std::cout << "CASE OK: About to send over block " << b->block_number << std::endl;
 					ptap->client->BroadcastBlock(b);
 					quotafull = false;
 					for (int i = 0; i < new_block->max_ind; ++i) {
@@ -119,6 +120,7 @@ void* processing_thread(void* arg) {
 						// bloc kchain
 						// O(n^2) algorithm for alignment
 						// maybe this should set maxind to 0
+						std::cout << "CASE NONEMATCH: About to send over block " << b->block_number << std::endl;
 						ptap->client->BroadcastBlock(b);
 						bc->repair_blockchain(b, ptap->client);
 						quotafull = false;
