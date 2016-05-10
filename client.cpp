@@ -9,22 +9,23 @@ Client::Client(std::string my_address, std::string first_peer) {
   first_peer_ = first_peer;
 }
 
+// Sends a block to all of the peers in its network
 void Client::BroadcastBlock(block* block) {
   for (const auto& peer_client: peer_clients_) {
     peer_client->BroadcastBlock(block);
   }
 }
 
+// Sends a transaction to all of the peers in its network
 void Client::BroadcastTransaction(transaction* transaction) {
   for (const auto& peer_client: peer_clients_) {
     peer_client->BroadcastTransaction(transaction);
   }
 }
 
+// Asks for a block with a specific hash from each of its peers
+// if none is found, returns NULL
 block* Client::getBlock(char* block_hash) {
-  assert(block_hash);
-  assert(block_hash[0] != 0);
-  //clientLog("Looking for " + std::string(block_hash));
   for (const auto& peer_client: peer_clients_) {
     clientLog("Asking for block from " + *peer_client->peerAddr());
     block* block = peer_client->GetBlock(block_hash);
@@ -33,16 +34,20 @@ block* Client::getBlock(char* block_hash) {
       return block;
     }
   }
-  //clientLog("Failed to find block " + std::string(block_hash));
   return NULL;
 }
 
+/*
+  Not implemented
+*/
 int Client::checkHeartbeats() {
-  // peer_clients_.remove_if(successHearbeat);
-  // return peer_clients_.size();
   return 0;
 }
 
+/*
+  Gets the list of actively connected peers and returns a copy as
+  a new list of strings which are mutable.
+*/
 std::list<std::string*>* Client::getPeersList() {
   std::list<std::string*>* peer_list = new std::list<std::string*>();
   for (const auto& peer_client: peer_clients_) {
@@ -51,13 +56,20 @@ std::list<std::string*>* Client::getPeersList() {
   return peer_list;
 };
 
+/*
+  Adds a new peer to the broadcast network and ensures invariants
+  1) Only MAX_PEERS number of peers
+  2) None of the peers is itself
+  3) None of the peers are duplicated
+  4) The peers have a legitimate IP address and port.
+*/
 void Client::addNewPeer(std::string addr) {
-  // validate number of peers or address is not own
+  // validate number of peers, address is not own, and it's not a dummy address
   if ((peer_clients_.size() >= MAX_PEERS) || addr == my_address_ || addr == NOT_AN_IP_TOKEN) {
     return;    
   }
 
-  // make sure the peer has not already been added
+  // make sure the peer has not already been added. O(n) algorithm.
   for (const auto& peer_client: peer_clients_) {
     if (*peer_client->peerAddr() == addr) {
       return;
@@ -65,6 +77,7 @@ void Client::addNewPeer(std::string addr) {
   }
 
   clientLog("Adding peer: " + addr);
+  // establishes a SinglePeer Client and pushes it to the list of peer_clients.
   SinglePeerClient* peer_client = new SinglePeerClient(
     grpc::CreateChannel(addr, grpc::InsecureChannelCredentials()),
     my_address_,
@@ -72,14 +85,22 @@ void Client::addNewPeer(std::string addr) {
   peer_clients_.push_front(peer_client);
 };
 
+/*
+  Not implemented.
+*/
 bool Client::successHearbeat(const SinglePeerClient*& peer_client) { 
   return true;
-  // return peer_client->GetHeartbeat();
 };
 
+/*
+  Refills its peers queue by asking all of the current peers for their peers
+  and then adds them to the queue.
+*/
 int Client::bootstrapPeers() {
+  // checks to see if the first_peer_ is already added
   addNewPeer(first_peer_);
 
+  // gets the new_peers from all of the peers that are already connected
   std::list<std::string> new_peers;
   for (const auto& peer_client: peer_clients_) {
     AddrResponse response = peer_client->GetAddr();
@@ -87,6 +108,8 @@ int Client::bootstrapPeers() {
       new_peers.push_front(response.peer(i));
     }
   }
+
+  // adds all of the new_peers onto the peers list
   for (const auto& new_peer: new_peers) {
     if (peer_clients_.size() >= MAX_PEERS) {
       break;
@@ -107,6 +130,9 @@ SinglePeerClient::SinglePeerClient(std::shared_ptr<Channel> channel, std::string
       my_addr_ = my_addr;
 }
 
+/*
+  gRPC method: Broadcasts a block to the peer
+*/
 Status SinglePeerClient::BroadcastBlock(block* block) {
 	BlockMsg* block_msg = encode_block(block);
   Empty empty;
@@ -122,6 +148,9 @@ Status SinglePeerClient::BroadcastBlock(block* block) {
   return status;
 }
 
+/*
+  gRPC method: Broadcasts a transaction to the peer
+*/
 Status SinglePeerClient::BroadcastTransaction(transaction* transaction) {
   TransactionMsg* transaction_msg = encode_transaction(transaction);
   Empty empty;
@@ -137,29 +166,46 @@ Status SinglePeerClient::BroadcastTransaction(transaction* transaction) {
   return status;
 }
 
+/*
+  Returns the address of the peer that this SinglePeerClient is working with
+  makes a copy as a string.
+*/
 std::string* SinglePeerClient::peerAddr() {
   std::string* ret = new std::string;
   *ret = addr_;
   return ret;
 }
 
+/*
+  gRPC method: Gets all of the peers of this current peer
+  Returns it as an AddrResponse that can be called.
+*/
 AddrResponse SinglePeerClient::GetAddr() {
   ClientContext context;
+
+  // needs to send our address so that they can 
+  // add us to their peer network too
   context.AddMetadata("address", my_addr_);
   AddrRequest req;
+  
+  // Sets a limit on the number of peers that we need
   req.set_num_requested(MAX_SECOND_DEGREE_FROM_PEER);
   AddrResponse resp;
   Status status = stub_->GetAddr(&context, req, &resp);
   return resp;
 }
 
+/*
+  gRPC method: Gets a specific block from the peer.
+*/
 block* SinglePeerClient::GetBlock(char* block_hash) {
   std::cout << "Looking for block " << block_hash;
-  assert(block_hash); 
-  assert(block_hash[0] != 0); 
   ClientContext context;
   BlockRequest req;
   BlockMsg blockmsg;
+  // Must copy the block_hash over by PUBLIC_KEY_SIZE amount
+  // otherwise copying a string will fail as block_hash can have
+  // 0's.
   req.set_block_hash(block_hash, PUBLIC_KEY_SIZE);
   Status status = stub_->GetBlock(&context, req, &blockmsg);
   if (!status.ok()) {
@@ -169,6 +215,10 @@ block* SinglePeerClient::GetBlock(char* block_hash) {
   return decode_block(&blockmsg);
 }
 
+/*
+  gRPC method: Gets a heartbeat from the peer and 
+  returns true if it's still alive.
+*/
 bool SinglePeerClient::GetHeartbeat() {
   Empty empty_req;
   Empty empty_resp;

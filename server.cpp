@@ -5,69 +5,91 @@ MinerServiceImpl::MinerServiceImpl(comm_thread_args* ctap, Client* client) : Min
   ctap_ = ctap;
 }
 
+/*
+  gRPC method: Decodes a block from the message and then pushes it onto the queue. 
+*/
 Status MinerServiceImpl::BroadcastBlock(ServerContext* context, const BlockMsg* block_msg, Empty* empty) {
   block* block = decode_block(block_msg);
+
+  // the queue is synchronized
   ctap_->bq->push(block);
 
-  std::cout << "HERE'S THE BLOCK" << std::endl;
-  std::cout << block_msg->final_hash() << std::endl;
-  // assert(block->finhash);
-  // assert(block->finhash[0] != 0); 
-  // assert(block->prev_block_SHA1);
-  // assert(block->prev_block_SHA1[0] != 0);  
-  // assert(block->merkle_root);  
-  // assert(block->merkle_root[0] != 0);  
   serverLog("Received block broadcast: " + std::to_string(block->block_number));
 	return Status::OK;
 }
 
+/*
+  gRPC method: Decodes a transaction from the message and pushes it onto the queue. 
+*/
 Status MinerServiceImpl::BroadcastTransaction(ServerContext* context, const TransactionMsg* transaction_msg, Empty* empty) {
   transaction* transaction = decode_transaction(transaction_msg);
+
+  // the queue synchronized
   ctap_->tq->push(transaction);
+
   serverLog("Received transaction broadcast: " + transaction->vote);
-  std::cout << transaction->sender_public_key;
 	return Status::OK;
 }
 
+/*
+  gRPC method: Returns peers list and adds the requester to our list.
+*/
 Status MinerServiceImpl::GetAddr(ServerContext* context, const AddrRequest* addr_req, AddrResponse* addr_resp)  {
   serverLog("GetAddr requested");
+
+  // The client might not be ready yet by the time requests are sent, cancel request if that's true
   if (!client_) {
     return Status::CANCELLED;
   }
+
+  // Add all of the peers to the AddrResponse
   for (const auto& peer: *client_->getPeersList()) {
     addr_resp->add_peer(*peer);
   }
 
+  // Add the peer to our peers list, this ensures that the graph is
+  // connected. The client must add the address to its metadata.
   auto it = context->client_metadata().find("address");
   client_->addNewPeer(it->second.data());
 
   return Status::OK;
 }
 
+// TODO not implemented. Not needed for core implementation of onevote.
 Status MinerServiceImpl::GetTransaction(ServerContext* context, const TransactionRequest* trans_req, TransactionMsg* transaction_msg)  {
-  // TODO not going to implement this one
   return Status::CANCELLED;
 }
 
+/*
+  gRPC method: returns a specific block given the hash, and returns the head block if no hash is provided.
+*/
 Status MinerServiceImpl::GetBlock(ServerContext* context, const BlockRequest* block_req, BlockMsg* block_msg)  {
+  // An empty requests denotes that they want the head block
   if (block_req->block_hash().empty()) {
-    assert(false);
     *block_msg = *encode_block(ctap_->bc->get_head_block());
   } else {
     block* block = ctap_->bc->get_block(block_req->block_hash().c_str());
+    // If we don't have the block, cancel the request.
     if (!block) {
       return Status::CANCELLED;
     }
+    // otherwise send it back
     *block_msg = *encode_block(block);
   }
 
   return Status::OK;
 }
 
+/*
+  gRPC method: returns a heartbeat.
+*/
 Status MinerServiceImpl::GetHeartbeat(ServerContext* context, const Empty* empty, Empty* dummy)  {
 	return Status::OK;
 }
 
+/*
+  Appends a message to the log.
+*/
 void MinerServiceImpl::serverLog(std::string message) {
   std::cout << "Server Log: " << message << std::endl;
 }
