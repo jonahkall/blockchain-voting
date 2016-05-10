@@ -148,7 +148,7 @@ void* processing_thread(void* arg) {
 		// Check if already in the block chain (via the unordered set). If so, throw it out.
 		if (quotafull == false &&
 				bc->voted.find(new_trans->sender_public_key) != bc->voted.end()) {
-			std::cout << "Got a transaction, but already had it. Throwing it out." << std::endl;
+			std::cout << "Got a transaction, but already had it in the chain. Throwing it out." << std::endl;
 			continue;
 		}
 
@@ -156,14 +156,14 @@ void* processing_thread(void* arg) {
 			bool txn_already_in_block = false;
 			for (int i = 0; i < new_block->max_ind; ++i) {
 				if (new_trans->sender_public_key == new_block->transaction_array[i]->sender_public_key) {
-					std::cout << "Got a transaction, but already had it. Throwing it out." << std::endl;
+					std::cout << "Got a transaction, but already had it in the working block. Throwing it out." << std::endl;
 					txn_already_in_block = true;
 				}
 			}
 			if (!txn_already_in_block) {
 				std::cout << "Got a transaction, and added it to the block. Total of " << new_block->max_ind << " transactions in this block already." << std::endl;
 				new_block->transaction_array[new_block->max_ind] = new_trans;
-				std::cout << "About to Broadcast this Transactions" << std::endl;
+				std::cout << "About to broadcast this transaction." << std::endl;
 				ptap->client->BroadcastTransaction(new_trans);
 				++new_block->max_ind;
 				if (new_block->max_ind == NUM_TRANSACTIONS_PER_BLOCK) {
