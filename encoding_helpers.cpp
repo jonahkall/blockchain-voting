@@ -1,5 +1,7 @@
 #include "encoding_helpers.hpp"
 
+#define PUBLIC_KEY_SIZE 20
+
 /******************************************
  * Helper functions to translate objects  *
  * to and from the structures that can be *
@@ -69,12 +71,12 @@ BlockMsg* encode_block(const block* block) {
 
   // Populate the required elements
   encoded_block->set_block_number(block->block_number);
-  encoded_block->set_prev_block_sha1(block->prev_block_SHA1);
+  encoded_block->set_prev_block_sha1(block->prev_block_SHA1, PUBLIC_KEY_SIZE);
   encoded_block->set_magic(block->magic);
-  encoded_block->set_merkle_root(block->merkle_root);
+  encoded_block->set_merkle_root(block->merkle_root, PUBLIC_KEY_SIZE);
   encoded_block->set_num_transactions(block->max_ind);
   encoded_block->set_verifier_public_key(block->verifier_public_key);
-  encoded_block->set_final_hash(block->finhash);
+  encoded_block->set_final_hash(block->finhash, PUBLIC_KEY_SIZE);
 
   // Populate the repeated element (transactions)
   for (int i = 0; i < block->max_ind; i++) {

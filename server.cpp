@@ -11,15 +11,12 @@ Status MinerServiceImpl::BroadcastBlock(ServerContext* context, const BlockMsg* 
 
   std::cout << "HERE'S THE BLOCK" << std::endl;
   std::cout << block_msg->final_hash() << std::endl;
-  // std::cout << block->finhash << std::endl;
-  // std::cout << block->prev_block_SHA1 << std::endl;
-  // std::cout << block->merkle_root << std::endl;  
-  assert(block->finhash);
-  assert(block->finhash[0] != 0);  
-  assert(block->prev_block_SHA1);
-  assert(block->prev_block_SHA1[0] != 0);  
-  assert(block->merkle_root);  
-  assert(block->merkle_root[0] != 0);  
+  // assert(block->finhash);
+  // assert(block->finhash[0] != 0); 
+  // assert(block->prev_block_SHA1);
+  // assert(block->prev_block_SHA1[0] != 0);  
+  // assert(block->merkle_root);  
+  // assert(block->merkle_root[0] != 0);  
   serverLog("Received block broadcast: " + std::to_string(block->block_number));
 	return Status::OK;
 }

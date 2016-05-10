@@ -6,10 +6,6 @@ using namespace std;
 
 static int leading_zeros(unsigned char* buf, size_t n) {
 	int lz = 0;
-	assert(buf);
-	if (buf[0] == 0) {
-		return 0;
-	}
 	for (int i = 0; i < n; i++) {
 		if (buf[i] == 0) {
 			lz += 2;

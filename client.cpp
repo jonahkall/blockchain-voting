@@ -2,6 +2,7 @@
 
 #define MAX_PEERS 10
 #define MAX_SECOND_DEGREE_FROM_PEER 2
+#define PUBLIC_KEY_SIZE 20
 
 Client::Client(std::string my_address, std::string first_peer) {
   my_address_ = my_address;
@@ -159,7 +160,7 @@ block* SinglePeerClient::GetBlock(char* block_hash) {
   ClientContext context;
   BlockRequest req;
   BlockMsg blockmsg;
-  req.set_block_hash(block_hash);
+  req.set_block_hash(block_hash, PUBLIC_KEY_SIZE);
   Status status = stub_->GetBlock(&context, req, &blockmsg);
   if (!status.ok()) {
     return NULL;
