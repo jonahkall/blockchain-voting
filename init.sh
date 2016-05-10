@@ -8,8 +8,8 @@ cd third_party/protobuf/
 make install
 cd ../../
 make install
+cd ../blockchain-voting
 export PKG_CONFIG_PATH=/home/ec2-user/grpc/libs/opt/pkgconfig/
 export LD_LIBRARY_PATH=/usr/local/lib
-cd ../blockchain-voting
 make clean
 make all
