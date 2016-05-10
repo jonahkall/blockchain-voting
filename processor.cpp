@@ -77,6 +77,7 @@ char* block::verify_block_number() {
 void block::calculate_finhash() {
 	unsigned char* hash = new unsigned char[SHA_DIGEST_LENGTH];
 	const unsigned char* data_to_hash = this->calculate_merkle_root();
+	assert(data_to_hash[0] != 0);
 	unsigned char* buffer =
 			new unsigned char[SHA_DIGEST_LENGTH + sizeof(unsigned long long)];
 	memcpy(buffer, data_to_hash, SHA_DIGEST_LENGTH);
@@ -196,6 +197,10 @@ BlockList::iterator blockchain::check_if_block_in_chain(block* b) {
 	Makes a request to all peers to looking 
 */
 block* get_parent_block_from_neighbor(block* b, Client* client) {
+	assert(b);
+	assert(b->prev_block_SHA1[0] != 0);
+	assert(b->finhash[0] != 0);
+
 	std::cout << "About to get block " << b->prev_block_SHA1 << "from block " << b->finhash << std::endl;
 
 	block* block = client->getBlock(b->prev_block_SHA1);
