@@ -8,10 +8,12 @@ MinerServiceImpl::MinerServiceImpl(comm_thread_args* ctap, Client* client) : Min
 Status MinerServiceImpl::BroadcastBlock(ServerContext* context, const BlockMsg* block_msg, Empty* empty) {
   block* block = decode_block(block_msg);
   ctap_->bq->push(block);
+
   std::cout << "HERE'S THE BLOCK" << std::endl;
-  std::cout << block->finhash << std::endl;
-  std::cout << block->prev_block_SHA1 << std::endl;
-  std::cout << block->merkle_root << std::endl;  
+  std::cout << block_msg->final_hash() << std::endl;
+  // std::cout << block->finhash << std::endl;
+  // std::cout << block->prev_block_SHA1 << std::endl;
+  // std::cout << block->merkle_root << std::endl;  
   assert(block->finhash);
   assert(block->finhash[0] != 0);  
   assert(block->prev_block_SHA1);

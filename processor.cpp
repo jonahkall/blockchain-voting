@@ -85,10 +85,7 @@ void block::calculate_finhash() {
 	SHA1(buffer, SHA_DIGEST_LENGTH + sizeof(unsigned long long), hash);
 	if (hash == NULL)
 		assert(false);
-	std::cout << "The hash we found is " << hash << std::endl;
 	finhash = (char*)hash;
-	std::cout << "The finhash we found is " << finhash << std::endl;
-
 }
 
 
