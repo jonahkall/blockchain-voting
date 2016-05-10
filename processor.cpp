@@ -59,7 +59,7 @@ unsigned char* block::calculate_merkle_root() {
 	if (new_hashes[0] == NULL)
 		assert(false);
 
-	merkle_root = new_hashes[0]
+	merkle_root = (char*) new_hashes[0];
  	return new_hashes[0];
 }
 
