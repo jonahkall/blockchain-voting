@@ -212,13 +212,11 @@ void* processing_thread(void* arg) {
 				// else do another iteration
 				++new_block->magic;
 				new_block->calculate_finhash();
-				std::cout << "The finhash before the if is" << new_block->finhash << std::endl;
 				if (leading_zeros((unsigned char *)new_block->finhash, PUBLIC_KEY_SIZE) >= NUM_LEADING_ZEROS) {
-					std::cout << "The finhash after the if is" << new_block->finhash << std::endl;
 					std::cout << "Got enough leading zeros for a block. About to broadcast it." << std::endl;
 					quotafull = false;
 					new_block->max_ind = 0;
-					std::cout << "Finhash is " << bc->get_head_block()->finhash << std::endl;
+					// std::cout << "Finhash is " << bc->get_head_block()->finhash << std::endl;
 					new_block->prev_block_SHA1 = bc->get_head_block()->finhash;
 					bc->add_block(new_block);
 					std::cout << "Made and sent block with hash " << new_block->finhash << std::endl;
