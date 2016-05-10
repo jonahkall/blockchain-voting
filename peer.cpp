@@ -103,6 +103,9 @@ void* processing_thread(void* arg) {
 				case OK:
 					bc->add_block(b);
 					std::cout << "CASE OK: About to send over block " << b->block_number << std::endl;
+					if (b->block_number > 5) {
+						assert(false);
+					}
 					ptap->client->BroadcastBlock(b);
 					quotafull = false;
 					for (int i = 0; i < new_block->max_ind; ++i) {
@@ -121,6 +124,9 @@ void* processing_thread(void* arg) {
 						// O(n^2) algorithm for alignment
 						// maybe this should set maxind to 0
 						std::cout << "CASE NONEMATCH: About to send over block " << b->block_number << std::endl;
+						if (b->block_number > 5) {
+						assert(false);
+						}
 						ptap->client->BroadcastBlock(b);
 						bc->repair_blockchain(b, ptap->client);
 						quotafull = false;
@@ -195,6 +201,9 @@ void* processing_thread(void* arg) {
 					new_block->prev_block_SHA1 = bc->get_head_block()->finhash;
 					bc->add_block(new_block);
 					std::cout << "Made and sent block with number" << new_block->block_number << std::endl;
+					if (new_block->block_number > 5) {
+						assert(false);
+					}
 					ptap->client->BroadcastBlock(new_block);
 					new_block = new block;
 					break;
