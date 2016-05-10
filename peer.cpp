@@ -148,6 +148,7 @@ void* processing_thread(void* arg) {
 		// Check if already in the block chain (via the unordered set). If so, throw it out.
 		if (quotafull == false &&
 				bc->voted.find(new_trans->sender_public_key) != bc->voted.end()) {
+			std::cout << "Got a transaction, but already had it. Throwing it out." << std::endl;
 			continue;
 		}
 
@@ -155,11 +156,14 @@ void* processing_thread(void* arg) {
 			bool txn_already_in_block = false;
 			for (int i = 0; i < new_block->max_ind; ++i) {
 				if (new_trans->sender_public_key == new_block->transaction_array[i]->sender_public_key) {
+					std::cout << "Got a transaction, but already had it. Throwing it out." << std::endl;
 					txn_already_in_block = true;
 				}
 			}
 			if (!txn_already_in_block) {
+				std::cout << "Got a transaction, and added it to the block. Total of " << new_block->max_ind << " transactions in this block already." << std::endl;
 				new_block->transaction_array[new_block->max_ind] = new_trans;
+				std::cout << "About to Broadcast this Transactions" << std::endl;
 				ptap->client->BroadcastTransaction(new_trans);
 				++new_block->max_ind;
 				if (new_block->max_ind == NUM_TRANSACTIONS_PER_BLOCK) {
@@ -172,12 +176,17 @@ void* processing_thread(void* arg) {
 		// advantages the property that there is always useful work to do
 		// while waiting to receive a new block
 		if (quotafull) {
+			std::cout << "Got enough transactions for a block. Trying to get enough leading zeros." << std::endl;
 			for (int throwaway = 0; throwaway < NUM_MAGIC_TO_TRY; ++throwaway) {
+				if (throwaway % 50 == 0) {
+					std::cout << "Tried " << throwaway << " times to get valid hash." << std::endl;
+				}
 				// if successful, set quotafull back to false
 				// else do another iteration
 				++new_block->magic;
 				new_block->calculate_finhash();
 				if (leading_zeros((unsigned char *)new_block->finhash, PUBLIC_KEY_SIZE) >= NUM_LEADING_ZEROS) {
+					std::cout << "Got enough leading zeros for a block. About to broadcast it." << std::endl;
 					quotafull = false;
 					new_block->max_ind = 0;
 					new_block->prev_block_SHA1 = bc->get_head_block()->finhash;
