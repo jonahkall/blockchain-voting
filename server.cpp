@@ -8,6 +8,10 @@ MinerServiceImpl::MinerServiceImpl(comm_thread_args* ctap, Client* client) : Min
 Status MinerServiceImpl::BroadcastBlock(ServerContext* context, const BlockMsg* block_msg, Empty* empty) {
   block* block = decode_block(block_msg);
   ctap_->bq->push(block);
+  assert(block->prev_block_SHA1);
+  assert(block->prev_block_SHA1[0] != 0);  
+  assert(block->merkle_root);  
+  assert(block->merkle_root[0] != 0);  
   serverLog("Received block broadcast: " + std::to_string(block->block_number));
 	return Status::OK;
 }
