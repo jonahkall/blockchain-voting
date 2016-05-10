@@ -258,6 +258,8 @@ bool blockchain::repair_blockchain(block* b, Client* client) {
 		}
 	}
 
+	
+
 	// Remove all of the necessary blocks from current chain.
 	// Remove their transactions from the set, and readd them
 	// to the transactions queue.
