@@ -118,6 +118,10 @@ void* processing_thread(void* arg) {
 					new_block = new block;
 					break;
 				case PREV_BLOCK_NONMATCH:
+					std::cout << "CASE NONEMATCH" << std::endl;
+					assert(b);
+					assert(bc);
+					assert(bc->get_head_block());
 					// Check if this block number is higher than ours, in which
 					// case we need to accept that chain instead of ours
 					if (b->block_number > bc->get_head_block()->block_number) {
