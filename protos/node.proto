@@ -44,13 +44,13 @@ message Empty {
 // Block object. All parameters are required.
 message BlockMsg {
 	uint32 block_number = 8;
-	string prev_block_SHA1 = 1;
+	bytes prev_block_SHA1 = 1;
 	int64 magic = 2;
-	string merkle_root = 3;
+	bytes merkle_root = 3;
 	repeated TransactionMsg transaction_msg = 4;
 	uint32 num_transactions = 5;
 	string verifier_public_key = 6;
-	string final_hash = 7;
+	bytes final_hash = 7;
 }
 
 // Transaction object. All parameters are required.
