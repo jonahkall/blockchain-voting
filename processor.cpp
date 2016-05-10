@@ -321,6 +321,7 @@ bool blockchain::add_block(block* b) {
     add_transactions_to_set(b);
     return true;
   }
+  b->block_number = chain_length;
   return false;
 }
 
