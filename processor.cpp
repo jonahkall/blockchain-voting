@@ -165,7 +165,7 @@ block* blockchain::get_block(const char* hash) {
 			return *it;
 		}
 	}
-	std::cout << "Did not find block with hash " << hash << std::endl;
+	std::cout << "Did noneighbort find block with hash " << hash << std::endl;
 
 	return NULL;
 }
@@ -193,6 +193,8 @@ BlockList::iterator blockchain::check_if_block_in_chain(block* b) {
 	Makes a request to all peers to looking 
 */
 block* get_parent_block_from_neighbor(block* b, Client* client) {
+	std::cout << "About to get block " << b->prev_block_SHA1 << "from block " << b->finhash << std::endl;
+
 	block* block = client->getBlock(b->prev_block_SHA1);
 	if (!block) {
 		// TODO change this to just return null;
