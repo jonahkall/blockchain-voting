@@ -128,13 +128,19 @@ void* processing_thread(void* arg) {
 						assert(false);
 						}
 						ptap->client->BroadcastBlock(b);
-						bc->repair_blockchain(b, ptap->client);
-						quotafull = false;
-						for (int i = 0; i < new_block->max_ind; ++i) {
-							ptap->tq->push(new_block->transaction_array[i]);
+
+						if (bc->repair_blockchain(b, ptap->client)){
+							
+							quotafull = false;
+							for (int i = 0; i < new_block->max_ind; ++i) {
+								ptap->tq->push(new_block->transaction_array[i]);
+							}
+							delete new_block;
+							new_block = new block;
 						}
-						delete new_block;
-						new_block = new block;
+						else {
+							docontinue = true;
+						}
 					}
 					else {
 						docontinue = true;
@@ -200,7 +206,7 @@ void* processing_thread(void* arg) {
 					new_block->max_ind = 0;
 					new_block->prev_block_SHA1 = bc->get_head_block()->finhash;
 					bc->add_block(new_block);
-					std::cout << "Made and sent block with number" << new_block->block_number << std::endl;
+					std::cout << "Made and sent block with number " << new_block->block_number << std::endl;
 					if (new_block->block_number > 5) {
 						assert(false);
 					}
