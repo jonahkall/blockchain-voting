@@ -142,7 +142,7 @@ void* processing_thread(void* arg) {
 							new_block = new block;
 						}
 						else {
-							std::cout << "Failure to repair blockchain!"
+							std::cout << "Failure to repair blockchain!";
 							docontinue = true;
 						}
 					}
