@@ -156,7 +156,7 @@ block* blockchain::get_block(int n) {
   \param n, the hash
   \return block*, the block matching that hash
 */
-block* blockchain::get_block(char* hash) {
+block* blockchain::get_block(const char* hash) {
 	for (auto it = blocks_.begin(); it != blocks_.end(); ++it) {
 		if (strcmp((*it)->finhash, hash) == 0) {
 			return *it;
@@ -257,6 +257,8 @@ bool blockchain::repair_blockchain(block* b, Client* client) {
 			return false;
 		}
 	}
+
+	
 
 	// Remove all of the necessary blocks from current chain.
 	// Remove their transactions from the set, and readd them

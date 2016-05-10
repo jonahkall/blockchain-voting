@@ -290,7 +290,7 @@ class blockchain {
       \param n, the hash
       \return block*, the block matching that hash
     */
-    block* get_block(char* hash);
+    block* get_block(const char* hash);
 
   private:
     // This is the doubly linked list of blocks
