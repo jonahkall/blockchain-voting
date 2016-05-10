@@ -189,10 +189,11 @@ BlockList::iterator blockchain::check_if_block_in_chain(block* b) {
 */
 block* get_parent_block_from_neighbor(block* b, Client* client) {
 	block* block = client->getBlock(b->block_number - 1);
-	if (!block) {
-		// TODO change this to just return null;
-		assert(false);
-	}
+	// if (!block) {
+	// 	return N
+	// 	// TODO change this to just return null;
+	// 	assert(false);
+	// }
 	return block;
 }
 
@@ -237,7 +238,7 @@ void blockchain::add_transactions_to_queue(block* b) {
  \param b, the block that is being added, and whose history determines the repair
  \return void
  */
-void blockchain::repair_blockchain(block* b, Client* client) {
+bool blockchain::repair_blockchain(block* b, Client* client) {
 	// This list will contain the blocks that need to be added to blockchain.
 	std::list<block*> blocks_to_add;
 	//std::list<block*> blocks_removed;
@@ -252,6 +253,10 @@ void blockchain::repair_blockchain(block* b, Client* client) {
 			break;
 		blocks_to_add.push_back(current_block);
 		block* current_block = get_parent_block_from_neighbor(current_block, client);
+		// If you are ever not able to get a parent block, give up on the repair.
+		if (!current_block) {
+			return false;
+		}
 	}
 
 	// Remove all of the necessary blocks from current chain.
@@ -273,7 +278,7 @@ void blockchain::repair_blockchain(block* b, Client* client) {
 	// This will add the blocks_to_add to the front of blocks_.
 	blocks_.splice(blocks_.begin(), blocks_to_add);
 
-	return;
+	return true;
 
 }
 
@@ -291,7 +296,7 @@ block_validity_code blockchain::check_block_validity(block* b) {
 
   // Make sure the new block has the correct prev block.
   block* head_block = get_head_block();
-  if (b->prev_block_SHA1 != head_block->merkle_root)
+  if (b->prev_block_SHA1 != head_block->finhash)
     return PREV_BLOCK_NONMATCH;
 
   bool transaction_verification = verify_transactions(b);
@@ -311,17 +316,14 @@ block_validity_code blockchain::check_block_validity(block* b) {
   \return boolean, indicating success/failure
 */
 bool blockchain::add_block(block* b) {
-  // TODO: Is this check still needed?
-  // Call the appropriate code to make sure all of the transactions are valid.
-  int block_validity_result = check_block_validity(b);
-  if (block_validity_result == 1) {
+
     // Add block to the blockchain
     chain_length++;
     blocks_.push_front(b);
     add_transactions_to_set(b);
+    b->block_number = chain_length;
     return true;
-  }
-  return false;
+
 }
 
 /*

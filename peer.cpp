@@ -98,10 +98,15 @@ void* processing_thread(void* arg) {
 		// on new block, add everything from the block to the set
 		block* b = ptap->bq->pop_nonblocking();
 		if (b) {
+			std::cout << "Received block with number" << b->block_number << std::endl;
 			// TODO: clear progress somehow
 			switch(bc->check_block_validity(b)) {
 				case OK:
 					bc->add_block(b);
+					std::cout << "CASE OK: About to send over block " << b->block_number << std::endl;
+					if (b->block_number > 5) {
+						assert(false);
+					}
 					ptap->client->BroadcastBlock(b);
 					quotafull = false;
 					for (int i = 0; i < new_block->max_ind; ++i) {
@@ -119,14 +124,24 @@ void* processing_thread(void* arg) {
 						// bloc kchain
 						// O(n^2) algorithm for alignment
 						// maybe this should set maxind to 0
-						ptap->client->BroadcastBlock(b);
-						bc->repair_blockchain(b, ptap->client);
-						quotafull = false;
-						for (int i = 0; i < new_block->max_ind; ++i) {
-							ptap->tq->push(new_block->transaction_array[i]);
+						std::cout << "CASE NONEMATCH: About to send over block " << b->block_number << std::endl;
+						if (b->block_number > 5) {
+						assert(false);
 						}
-						delete new_block;
-						new_block = new block;
+						ptap->client->BroadcastBlock(b);
+
+						if (bc->repair_blockchain(b, ptap->client)){
+							
+							quotafull = false;
+							for (int i = 0; i < new_block->max_ind; ++i) {
+								ptap->tq->push(new_block->transaction_array[i]);
+							}
+							delete new_block;
+							new_block = new block;
+						}
+						else {
+							docontinue = true;
+						}
 					}
 					else {
 						docontinue = true;
@@ -192,6 +207,10 @@ void* processing_thread(void* arg) {
 					new_block->max_ind = 0;
 					new_block->prev_block_SHA1 = bc->get_head_block()->finhash;
 					bc->add_block(new_block);
+					std::cout << "Made and sent block with number " << new_block->block_number << std::endl;
+					if (new_block->block_number > 5) {
+						assert(false);
+					}
 					ptap->client->BroadcastBlock(new_block);
 					new_block = new block;
 					break;
