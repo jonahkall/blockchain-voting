@@ -139,6 +139,7 @@ bool blockchain::verify_transactions() {
   \return block*, the block matching that number
 */
 block* blockchain::get_block(int n) {
+
 	for (auto it = blocks_.begin(); it != blocks_.end(); ++it) {
 		if ((*it)->block_number == n) {
 			return *it;
@@ -157,11 +158,15 @@ block* blockchain::get_block(int n) {
   \return block*, the block matching that hash
 */
 block* blockchain::get_block(const char* hash) {
+	std::cout << "About to look for block with hash " << hash << std::endl;
 	for (auto it = blocks_.begin(); it != blocks_.end(); ++it) {
 		if (strcmp((*it)->finhash, hash) == 0) {
+			std::cout << "Found block with hash " << hash << std::endl;
 			return *it;
 		}
 	}
+	std::cout << "Did not find block with hash " << hash << std::endl;
+
 	return NULL;
 }
 
@@ -247,18 +252,22 @@ bool blockchain::repair_blockchain(block* b, Client* client) {
 	BlockList::iterator it;
 
 	while(true) {
+		std::cout << "About to check in chain" << std::endl;
 		it = check_if_block_in_chain(current_block);
+		std::cout << "Done checking in chain" << std::endl;
 		if (it != blocks_.end())
 			break;
 		blocks_to_add.push_back(current_block);
+		std::cout << "About to get parent block from neighbor" << std::endl;
 		block* current_block = get_parent_block_from_neighbor(current_block, client);
+		std::cout << "Got parent block from neighbor" << std::endl;
 		// If you are ever not able to get a parent block, give up on the repair.
 		if (!current_block) {
 			return false;
 		}
 	}
 
-	
+
 
 	// Remove all of the necessary blocks from current chain.
 	// Remove their transactions from the set, and readd them
