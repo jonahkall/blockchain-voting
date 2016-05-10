@@ -110,9 +110,9 @@ Status SinglePeerClient::BroadcastBlock(block* block) {
   Status status = stub_->BroadcastBlock(&context, *block_msg, &empty);
 
   if (status.ok()) {
-    std::cout << "Broadcast " << "Block " << block->block_number << " to " << addr_ << std::endl;
+    std::cout << "Broadcast block " << block->block_number << " to " << addr_ << std::endl;
   } else {
-    std::cout << "Failed to broadcast " << "Block " << block->block_number << " to " << addr_ << std::endl;
+    std::cout << "Failed to broadcast " << block->block_number << " to " << addr_ << std::endl;
   }
 
   return status;
@@ -125,9 +125,9 @@ Status SinglePeerClient::BroadcastTransaction(transaction* transaction) {
   Status status = stub_->BroadcastTransaction(&context, *transaction_msg, &empty);
 
   if (status.ok()) {
-    std::cout << "Broadcast Transaction " << transaction->timestamp << " to " << addr_ << std::endl;
+    std::cout << "Broadcast transaction " << transaction->vote << " to " << addr_ << std::endl;
   } else {
-    std::cout << "Failed to Broadcast Transaction " << transaction->timestamp << " to " << addr_ << std::endl;
+    std::cout << "Failed to Broadcast transaction " << transaction->vote << " to " << addr_ << std::endl;
   }
 
   return status;
