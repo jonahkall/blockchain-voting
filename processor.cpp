@@ -17,7 +17,7 @@ block::block() {
 	magic = 0;
 	merkle_root = NULL;
 	max_ind = 0;
-	verifier_public_key = 'a';
+	verifier_public_key = "a";
 	finhash = NULL;
 }
 
