@@ -126,12 +126,13 @@ void* processing_thread(void* arg) {
 						// bloc kchain
 						// O(n^2) algorithm for alignment
 						// maybe this should set maxind to 0
-						std::cout << "CASE NONEMATCH: About to send over block " << b->block_number << std::endl;
 						if (b->block_number > 5) {
 						assert(false);
 						}
 
 						if (bc->repair_blockchain(b, ptap->client)){
+							std::cout << "CASE NONEMATCH: About to send over block " << b->block_number << std::endl;
+
 							ptap->client->BroadcastBlock(b);
 							quotafull = false;
 							for (int i = 0; i < new_block->max_ind; ++i) {
@@ -141,6 +142,7 @@ void* processing_thread(void* arg) {
 							new_block = new block;
 						}
 						else {
+							std::cout << "Failure to repair blockchain!";
 							docontinue = true;
 						}
 					}
