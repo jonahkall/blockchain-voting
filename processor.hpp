@@ -233,7 +233,7 @@ class blockchain {
      \param b, the block that is being added, and whose history determines the repair
      \return void
      */
-    void repair_blockchain(block* b, Client* client);
+    bool repair_blockchain(block* b, Client* client);
 
     /*
       Searches for block b in the chain, and returns the iterator to it if so.
