@@ -30,7 +30,6 @@ static int leading_zeros(unsigned char* buf, size_t n) {
 void* comm_thread (void* arg) {
 	comm_thread_args* ctap = (comm_thread_args *) arg;
 	RunServer(ctap);
-	// cout << "Hello from comm thread\n";
 	return NULL;
 }
 
@@ -44,13 +43,15 @@ void* processing_thread(void* arg) {
 	processing_thread_args* ptap = (processing_thread_args *) arg;
 	cout << "Hello from processing thread\n";
 
-	std::cout << "Processing thread sleep " << CLIENT_TIMEOUT << std::endl;
-	std::chrono::seconds t(CLIENT_TIMEOUT);
-	std::this_thread::sleep_for(t);
+	for (int i = 0; i < 2; ++i) {
+		std::cout << "Processing thread sleep " << CLIENT_TIMEOUT << std::endl;
+		std::chrono::seconds t(CLIENT_TIMEOUT);
+		std::this_thread::sleep_for(t);
 
-	ptap->client->bootstrapPeers();
+		ptap->client->bootstrapPeers();
+	}
+	blockchain* bc = ptap->bc;		
 
-	blockchain* bc = ptap->bc;
 	//bc->chain_length = 0;
 
 	// When this variable is true, we have a full set of
