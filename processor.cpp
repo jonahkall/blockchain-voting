@@ -17,7 +17,7 @@ block::block() {
 	magic = 0;
 	merkle_root = NULL;
 	max_ind = 0;
-	verifier_public_key = NULL;
+	verifier_public_key = 'a';
 	finhash = NULL;
 }
 
@@ -58,6 +58,8 @@ unsigned char* block::calculate_merkle_root() {
 	}
 	if (new_hashes[0] == NULL)
 		assert(false);
+
+	merkle_root = new_hashes[0]
  	return new_hashes[0];
 }
 
