@@ -16,6 +16,7 @@ Status MinerServiceImpl::BroadcastTransaction(ServerContext* context, const Tran
   transaction* transaction = decode_transaction(transaction_msg);
   ctap_->tq->push(transaction);
   serverLog("Received transaction broadcast: " + transaction->vote);
+  std::cout << transaction->sender_public_key;
 	return Status::OK;
 }
 
