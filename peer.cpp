@@ -97,6 +97,7 @@ void* processing_thread(void* arg) {
 		// on new block, add everything from the block to the set
 		block* b = ptap->bq->pop_nonblocking();
 		if (b) {
+			std::cout << "Received block with number" << b->block_number << std::endl;
 			// TODO: clear progress somehow
 			switch(bc->check_block_validity(b)) {
 				case OK:
@@ -191,6 +192,7 @@ void* processing_thread(void* arg) {
 					new_block->max_ind = 0;
 					new_block->prev_block_SHA1 = bc->get_head_block()->finhash;
 					bc->add_block(new_block);
+					std::cout << "Made and sent block with number" << new_block->block_number << std::endl;
 					ptap->client->BroadcastBlock(new_block);
 					new_block = new block;
 					break;
