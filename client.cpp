@@ -22,6 +22,7 @@ void Client::BroadcastTransaction(transaction* transaction) {
 
 block* Client::getBlock(char* block_hash) {
   assert(block_hash);
+  assert(block_hash[0] != 0);
   //clientLog("Looking for " + std::string(block_hash));
   for (const auto& peer_client: peer_clients_) {
     clientLog("Asking for block from " + *peer_client->peerAddr());
@@ -154,6 +155,7 @@ AddrResponse SinglePeerClient::GetAddr() {
 block* SinglePeerClient::GetBlock(char* block_hash) {
   std::cout << "Looking for block " << block_hash;
   assert(block_hash); 
+  assert(block_hash[0] != 0); 
   ClientContext context;
   BlockRequest req;
   BlockMsg blockmsg;
