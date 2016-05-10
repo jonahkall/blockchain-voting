@@ -36,7 +36,7 @@ class SinglePeerClient {
     SinglePeerClient(std::shared_ptr<Channel> channel, std::string my_addr, std::string addr);
     Status BroadcastBlock(block* block);
     Status BroadcastTransaction(transaction* transaction);
-    block* GetBlock(char* block_hash);
+    block* GetBlock(unsigned int block_num);
     std::string* peerAddr();
     AddrResponse GetAddr();
     bool GetHeartbeat();
@@ -56,7 +56,7 @@ class Client {
     int bootstrapPeers();
     std::list<std::string*>* getPeersList();
     void addNewPeer(std::string addr);
-    block* getBlock(char* block_hash);
+    block* getBlock(unsigned int block_num);
 
   private:
     std::string first_peer_;

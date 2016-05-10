@@ -188,11 +188,12 @@ BlockList::iterator blockchain::check_if_block_in_chain(block* b) {
 	Makes a request to all peers to looking 
 */
 block* get_parent_block_from_neighbor(block* b, Client* client) {
-	block* block = client->getBlock(b->prev_block_SHA1);
-	if (!block) {
-		// TODO change this to just return null;
-		assert(false);
-	}
+	block* block = client->getBlock(b->block_number - 1);
+	// if (!block) {
+	// 	return N
+	// 	// TODO change this to just return null;
+	// 	assert(false);
+	// }
 	return block;
 }
 
