@@ -98,7 +98,9 @@ void* processing_thread(void* arg) {
 		// on new block, add everything from the block to the set
 		block* b = ptap->bq->pop_nonblocking();
 		if (b) {
-			std::cout << "Received block with number" << b->block_number << std::endl;
+			std::cout << "Processing from queue block with number " << b->block_number 
+					  << "Current length of blockchain is " << bc->chain_length << std::endl;
+
 			// TODO: clear progress somehow
 			switch(bc->check_block_validity(b)) {
 				case OK:
@@ -128,10 +130,9 @@ void* processing_thread(void* arg) {
 						if (b->block_number > 5) {
 						assert(false);
 						}
-						ptap->client->BroadcastBlock(b);
 
 						if (bc->repair_blockchain(b, ptap->client)){
-							
+							ptap->client->BroadcastBlock(b);
 							quotafull = false;
 							for (int i = 0; i < new_block->max_ind; ++i) {
 								ptap->tq->push(new_block->transaction_array[i]);
