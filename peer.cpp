@@ -193,7 +193,6 @@ void* processing_thread(void* arg) {
 					new_block->prev_block_SHA1 = bc->get_head_block()->finhash;
 					bc->add_block(new_block);
 					std::cout << "Made and sent block with number" << new_block->block_number << std::endl;
-					assert(false);
 					ptap->client->BroadcastBlock(new_block);
 					new_block = new block;
 					break;
