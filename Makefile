@@ -50,7 +50,7 @@ deps: node.pb.o node.grpc.pb.o server.cpp server.hpp processor.cpp processor.hpp
 
 miner: deps peer.cpp peer.hpp
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c peer.cpp peer.hpp
-	$(CXX) -o runpeer2 $(LDFLAGS) peer.o client.o server.o processor.o encoding_helpers.o node.pb.o node.grpc.pb.o -lprotobuf
+	$(CXX) -o runpeer $(LDFLAGS) peer.o client.o server.o processor.o encoding_helpers.o node.pb.o node.grpc.pb.o -lprotobuf
 
 voting-booth: deps voting-booth.cpp voting-booth.hpp
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c voting-booth.cpp voting-booth.hpp
