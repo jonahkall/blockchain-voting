@@ -20,16 +20,16 @@ void Client::BroadcastTransaction(transaction* transaction) {
   }
 }
 
-block* Client::getBlock(unsigned block_num) {
+block* Client::getBlock(char* block_hash) {
   for (const auto& peer_client: peer_clients_) {
-    clientLog("Asking for block " + std::to_string(block_num) + " from " + *peer_client->peerAddr());
-    block* block = peer_client->GetBlock(block_num);
+    clientLog("Asking for block " + block_hash + " from " + *peer_client->peerAddr());
+    block* block = peer_client->GetBlock(block_hash);
     if (block) {
       clientLog("Found!");
       return block;
     }
   }
-  clientLog("Failed to find block " + std::to_string(block_num));
+  clientLog("Failed to find block " + block_hash);
   return NULL;
 }
 
@@ -149,11 +149,11 @@ AddrResponse SinglePeerClient::GetAddr() {
   return resp;
 }
 
-block* SinglePeerClient::GetBlock(unsigned block_num) {
+block* SinglePeerClient::GetBlock(char* block_hash) {
   ClientContext context;
   BlockRequest req;
   BlockMsg blockmsg;
-  req.set_block_number(block_num);
+  req.set_block_hash(block_hash);
   Status status = stub_->GetBlock(&context, req, &blockmsg);
   if (!status.ok()) {
     return NULL;

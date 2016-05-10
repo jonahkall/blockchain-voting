@@ -49,7 +49,7 @@ message BlockMsg {
 	bytes merkle_root = 3;
 	repeated TransactionMsg transaction_msg = 4;
 	uint32 num_transactions = 5;
-	string verifier_public_key = 6;
+	bytes verifier_public_key = 6;
 	bytes final_hash = 7;
 }
 
@@ -82,5 +82,6 @@ message TransactionRequest {
 // number is unspecified, the latest block is returned.
 message BlockRequest {
 	uint32 block_number = 1;
+	bytes block_hash = 2;
 }
 
