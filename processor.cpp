@@ -306,7 +306,7 @@ block_validity_code blockchain::check_block_validity(block* b) {
 
   // Make sure the new block has the correct prev block.
   block* head_block = get_head_block();
-  if (b->prev_block_SHA1 != head_block->finhash)
+  if (strcmp(b->prev_block_SHA1, head_block->finhash) != 0)
     return PREV_BLOCK_NONMATCH;
 
   bool transaction_verification = verify_transactions(b);
