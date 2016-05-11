@@ -10,6 +10,8 @@ Client::Client(std::string my_address, std::string first_peer) {
 }
 
 // Sends a block to all of the peers in its network
+// \param block is a block that is either created or needs to be rebroadcast, it
+// should only do this if the block is deemed valid by the server
 void Client::BroadcastBlock(block* block) {
   for (const auto& peer_client: peer_clients_) {
     peer_client->BroadcastBlock(block);
@@ -17,6 +19,7 @@ void Client::BroadcastBlock(block* block) {
 }
 
 // Sends a transaction to all of the peers in its network
+// \param transaction is a transaction that is created or needs to be rebroadcast
 void Client::BroadcastTransaction(transaction* transaction) {
   for (const auto& peer_client: peer_clients_) {
     peer_client->BroadcastTransaction(transaction);
@@ -25,6 +28,9 @@ void Client::BroadcastTransaction(transaction* transaction) {
 
 // Asks for a block with a specific hash from each of its peers
 // if none is found, returns NULL
+// \param block_hash is a hash of the block we're looking for, it is of length
+// PUBLIC_KEY_SIZE
+// \return a reference to a block or NULL if nothing was found
 block* Client::getBlock(char* block_hash) {
   for (const auto& peer_client: peer_clients_) {
     clientLog("Asking for block from " + *peer_client->peerAddr());

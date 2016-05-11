@@ -6,7 +6,7 @@ MinerServiceImpl::MinerServiceImpl(comm_thread_args* ctap, Client* client) : Min
 }
 
 /*
-  gRPC method: Decodes a block from the message and then pushes it onto the queue. 
+  gRPC method: Decodes a block from the message and then pushes it onto the queue.
 */
 Status MinerServiceImpl::BroadcastBlock(ServerContext* context, const BlockMsg* block_msg, Empty* empty) {
   block* block = decode_block(block_msg);
@@ -89,11 +89,16 @@ Status MinerServiceImpl::GetHeartbeat(ServerContext* context, const Empty* empty
 
 /*
   Appends a message to the log.
+  \param message is a string that will be output
 */
 void MinerServiceImpl::serverLog(std::string message) {
   std::cout << "Server Log: " << message << std::endl;
 }
 
+/*
+  Attaches the gRPC service to port 50051 and then waits until the thread dies.
+  \param ctap is started by peer.cpp
+*/
 void RunServer(comm_thread_args* ctap) {
   std::string server_address("0.0.0.0:50051");
   MinerServiceImpl service(ctap, ctap->client);
