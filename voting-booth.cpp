@@ -29,7 +29,6 @@ int main (int argc, char** argv) {
 
 
 	transaction* t = new transaction;
-	std::cout << "\n\n\nABOUT TO PRINT SOME BULLSHIT\n\n\n";
 	std::cout << publickey << std::endl;
 	t->sender_public_key = publickey;
 	t->vote = vote;

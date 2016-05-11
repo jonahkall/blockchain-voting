@@ -24,6 +24,8 @@ block::block() {
 /*
 	Calculate the merkle root of the transactions.
 	This requires hashing pairs of transactions in a binary tree-style format. 
+
+	\return: the output hash
 */
 unsigned char* block::calculate_merkle_root() {
 
@@ -220,7 +222,7 @@ block* get_parent_block_from_neighbor(block* b, Client* client) {
 /*
  Remove all of the transactions from block b from the set of votes. 
 
- /param b, the block whose transactions are being removed.
+ \param b, the block whose transactions are being removed.
  */
 void blockchain::remove_transactions_from_set(block* b) {
 	for (int i = 0; i < NUM_TRANSACTIONS_PER_BLOCK; ++i) {
@@ -232,7 +234,7 @@ void blockchain::remove_transactions_from_set(block* b) {
 /*
  Add all of the transactions from block b to the set of votes. 
 
- /param b, the block whose transactions are being added.
+ \param b, the block whose transactions are being added.
  */
 void blockchain::add_transactions_to_set(block* b) {
 	for (int i = 0; i < NUM_TRANSACTIONS_PER_BLOCK; ++i) {
@@ -244,7 +246,7 @@ void blockchain::add_transactions_to_set(block* b) {
 /*
  Add all of the transactions from block b from the queue of transactinos to process. 
 
- /param b, the block whose transactions are being added.
+ \param b, the block whose transactions are being added.
  */
 void blockchain::add_transactions_to_queue(block* b) {
 	for (int i = 0; i < b->max_ind; ++i) {
@@ -282,8 +284,6 @@ bool blockchain::repair_blockchain(block* b, Client* client) {
 			return false;
 		}
 	}
-
-
 
 	// Remove all of the necessary blocks from current chain.
 	// Remove their transactions from the set, and readd them

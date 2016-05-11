@@ -3,10 +3,18 @@
 #define CLIENT_TIMEOUT 5
 
 using namespace std;
+/*
+	leading_zeros
 
-// This utility function simply computes the number of leading
-// hex zeros in the hex representation of the number represented
-// by buf, assuming that it is n bytes long.
+	This utility function simply computes the number of leading
+	hex zeros in the hex representation of the number represented
+	by buf, assuming that it is n bytes long.
+
+	\param buf: the buffer containing whatever hex number we wish to check.
+	\param n: the number of bytes in the buffer.
+
+	\return the number of leading zeros in buf.
+*/
 static int leading_zeros(unsigned char* buf, size_t n) {
 	int lz = 0;
 	for (int i = 0; i < n; i++) {
@@ -268,6 +276,7 @@ int main (int argc, char** argv) {
 	synchronized_queue<block*> bq = synchronized_queue<block*>();
 	bq.init();
 
+	// Sample transaction and hashing.
 	transaction test_transaction;
 
 	test_transaction.size = 20;
@@ -296,6 +305,8 @@ int main (int argc, char** argv) {
 
 	Client* client = new Client(own_address, first_peer);
 
+	// Prepare the argumetns to be passed to the communications
+	// and processing threads.
 	comm_thread_args cta;
 	cta.tq = &tq;
 	cta.bq = &bq;
